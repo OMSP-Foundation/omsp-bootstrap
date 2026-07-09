@@ -49,6 +49,15 @@ Downstream artifacts may cite this Mission when explaining why a Work Package, a
 
 Mission alignment should be visible in issue objectives, PR summaries, decision records, and baseline notes when material.
 
-## 6. Maintenance
+## 6. Related Canon Artifacts
+
+- [Vision](./VISION.md) defines the long-term direction that this Mission serves.
+- [Philosophy](./PHILOSOPHY.md) defines the interpretive stance for mission execution.
+- [Principles](./PRINCIPLES.md) define the operating rules used to execute the Mission.
+- [Terminology](./TERMINOLOGY.md) defines the shared language used by Mission-aligned artifacts.
+- [Ontology Overview](./ONTOLOGY_OVERVIEW.md) introduces the concept families used to model mission knowledge.
+- [Canon Index](./CANON_INDEX.md) provides the recommended reading order for downstream references.
+
+## 7. Maintenance
 
 This Mission is maintained through issue-backed Work Packages and reviewed pull requests. Material changes require governance review and version metadata update.

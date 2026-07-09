@@ -90,12 +90,12 @@ Canon artifacts provide the language layer for ontology work:
 
 | Canon Artifact | Ontology Role |
 | --- | --- |
-| Vision | Defines long-term intent. |
-| Mission | Defines operational purpose. |
-| Philosophy | Defines interpretive stance. |
-| Principles | Defines normative constraints. |
-| Terminology | Defines canonical terms. |
-| Ontology Overview | Defines initial concept and relation families. |
+| [Vision](./VISION.md) | Defines long-term intent. |
+| [Mission](./MISSION.md) | Defines operational purpose. |
+| [Philosophy](./PHILOSOPHY.md) | Defines interpretive stance. |
+| [Principles](./PRINCIPLES.md) | Defines normative constraints. |
+| [Terminology](./TERMINOLOGY.md) | Defines canonical terms. |
+| [Ontology Overview](./ONTOLOGY_OVERVIEW.md) | Defines initial concept and relation families. |
 
 ## 6. Governance and Traceability
 
@@ -119,7 +119,16 @@ Downstream repositories may use this overview to:
 - identify missing concepts or relations;
 - prepare future formal ontology work.
 
-## 8. Boundaries
+## 8. Related Canon Artifacts
+
+- [Vision](./VISION.md) defines the long-term intent that ontology work supports.
+- [Mission](./MISSION.md) defines the program purpose for ontology-driven knowledge work.
+- [Philosophy](./PHILOSOPHY.md) explains why `Models Before Code` matters.
+- [Principles](./PRINCIPLES.md) define operating rules for model-based engineering.
+- [Terminology](./TERMINOLOGY.md) defines the canonical terms used by ontology concepts.
+- [Canon Index](./CANON_INDEX.md) provides the recommended reading order for downstream references.
+
+## 9. Boundaries
 
 This overview does not yet define:
 
@@ -131,6 +140,6 @@ This overview does not yet define:
 
 Those should be introduced through future Work Packages when needed.
 
-## 9. Maintenance
+## 10. Maintenance
 
 This Ontology Overview is maintained through issue-backed Work Packages and reviewed pull requests. Material changes require governance review and version metadata update.

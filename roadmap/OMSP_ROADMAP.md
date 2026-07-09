@@ -11,7 +11,7 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint | Status | Goal |
 | --- | --- | --- |
 | Sprint-0 | Completed | Bootstrap repository and governance skeleton |
-| Sprint-1 | Active | Production-quality Foundation Repository |
+| Sprint-1 | Completed | Production-quality Foundation Repository |
 | Sprint-2 | Planned | Engineering models and structured artifact system |
 | Sprint-3 | Planned | Knowledge platform foundations |
 | Sprint-4 | Planned | Digital twin foundation |
@@ -39,9 +39,15 @@ Main outcomes:
 
 ## Sprint-1: Foundation Repository
 
-Sprint-1 converts the bootstrap baseline into production-quality foundation documentation.
+Sprint-1 converted the bootstrap baseline into production-quality foundation documentation.
 
-Main goals:
+Baseline/release candidate:
+
+```text
+v0.1.0-foundation-sprint-1
+```
+
+Main outcomes:
 
 - modern repository landing page;
 - onboarding and navigation documentation;
@@ -53,7 +59,14 @@ Main goals:
 - Platform Architecture v1.0;
 - Validation Framework v1.0;
 - GitHub Quality Gates;
-- Sprint-1 baseline and release package.
+- Sprint-1 baseline and release package;
+- Sprint-1 closure reconciliation.
+
+Closure status:
+
+- Sprint-1 Work Packages were merged into `develop`.
+- Sprint-1 baseline approval was recorded through accountable human instruction.
+- Future-scope issues are non-blocking for Sprint-1 closure unless later reclassified by governance.
 
 ## Sprint-2: Engineering Models
 

@@ -1,0 +1,5 @@
+id: string
+title: string
+version: string
+status: string
+owner: string

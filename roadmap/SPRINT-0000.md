@@ -1,3 +1,3 @@
 # Sprint-0000
 Status: In Progress
-Progress: 10%
+Progress: 40%

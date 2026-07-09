@@ -77,6 +77,15 @@ When trade-offs arise, OMSP should prefer:
 - traceable decisions over undocumented changes;
 - human accountability over automation convenience.
 
-## 8. Maintenance
+## 8. Related Canon Artifacts
+
+- [Vision](./VISION.md) defines the long-term direction interpreted by this Philosophy.
+- [Mission](./MISSION.md) defines the program purpose shaped by this Philosophy.
+- [Principles](./PRINCIPLES.md) convert this Philosophy into operating rules.
+- [Terminology](./TERMINOLOGY.md) defines the shared language used to express the Philosophy.
+- [Ontology Overview](./ONTOLOGY_OVERVIEW.md) introduces the model layer implied by `Models Before Code`.
+- [Canon Index](./CANON_INDEX.md) provides the recommended reading order for downstream references.
+
+## 9. Maintenance
 
 This Philosophy is maintained through issue-backed Work Packages and reviewed pull requests. Material changes require governance review and version metadata update.

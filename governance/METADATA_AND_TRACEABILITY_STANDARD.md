@@ -132,9 +132,9 @@ OMSP uses typed traceability relations so dependencies and evidence can be check
 Relation records should use this shape:
 
 ```yaml
-source: OMSP-<DOMAIN>-<TYPE>-<NUMBER> | issue:#NN | pr:#NN | commit:<sha> | branch:<name> | file:<path>
+source: OMSP-<DOMAIN>-<TYPE>-<NUMBER> | issue:#NN | pr:#NN | review:<id> | commit:<sha> | branch:<name> | file:<path> | baseline:<id> | release:<id>
 relation: satisfies | implements | updates | supersedes | depends-on | reviews | approves | validates | releases | baselines | documents | traces-to
-target: OMSP-<DOMAIN>-<TYPE>-<NUMBER> | issue:#NN | pr:#NN | commit:<sha> | branch:<name> | file:<path> | baseline:<id> | release:<id>
+target: OMSP-<DOMAIN>-<TYPE>-<NUMBER> | issue:#NN | pr:#NN | review:<id> | commit:<sha> | branch:<name> | file:<path> | baseline:<id> | release:<id>
 evidence: URL, path, PR number, review ID, or commit SHA
 status: proposed | active | superseded | deprecated
 ```
@@ -164,6 +164,7 @@ Machine-checkable relation references should use these prefixes:
 | --- | --- |
 | `issue:` | `issue:#37` |
 | `pr:` | `pr:#46` |
+| `review:` | `review:#4666302188` |
 | `commit:` | `commit:2ad9cc5` |
 | `branch:` | `branch:feature/wp-0015-metadata-traceability-v1` |
 | `file:` | `file:governance/METADATA_AND_TRACEABILITY_STANDARD.md` |

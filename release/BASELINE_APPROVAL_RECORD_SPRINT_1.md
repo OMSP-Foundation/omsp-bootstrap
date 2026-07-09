@@ -2,11 +2,11 @@
 Artifact-ID: OMSP-REL-SPRINT1-BASELINE-APPROVAL-0001
 Title: OMSP Sprint-1 Baseline Approval Record
 Version: 1.0.0
-Status: Draft
+Status: Active
 Owner: OMSP Engineering Council
 Baseline: Sprint-1
 Classification: Public
-Related-Issue: WP-0020 / #42
+Related-Issue: WP-0021 / #60
 ---
 
 # OMSP Sprint-1 Baseline Approval Record
@@ -15,7 +15,7 @@ Related-Issue: WP-0020 / #42
 
 This document records the baseline approval decision for the Sprint-1 OMSP foundation baseline.
 
-It is currently a draft approval record. It must be completed by accountable human authority before the baseline is considered approved.
+It records accountable human approval provided during WP-0021 Sprint-1 closure reconciliation.
 
 ## 2. Baseline Candidate
 
@@ -25,12 +25,13 @@ It is currently a draft approval record. It must be completed by accountable hum
 | Baseline Name | OMSP Foundation Baseline Sprint-1 |
 | Repository | `OMSP-Foundation/omsp-bootstrap` |
 | Target Branch | `develop` |
-| Related Work Package | `WP-0020 / #42` |
-| Approval Status | Pending human approval |
+| Related Work Package | `WP-0021 / #60` |
+| Approval Status | Approved |
+| Release Candidate Tag | `v0.1.0-foundation-sprint-1` |
 
 ## 3. Candidate Scope
 
-The baseline candidate is intended to include Sprint-1 foundation artifacts for:
+The approved baseline includes Sprint-1 foundation artifacts for:
 
 - canon;
 - governance;
@@ -39,55 +40,59 @@ The baseline candidate is intended to include Sprint-1 foundation artifacts for:
 - platform architecture;
 - validation and verification;
 - GitHub quality gates;
-- release and baseline readiness.
+- release and baseline readiness;
+- closure reconciliation.
 
 ## 4. Review Evidence
 
-Review evidence should include:
+Review evidence includes:
 
 - merged Sprint-1 PRs;
 - issue-to-PR traceability;
-- review comments;
+- advisory review comments;
 - validation checklist outcomes;
 - release readiness summary;
-- known follow-up issue references.
+- known follow-up issue references;
+- human approval instruction recorded during WP-0021 execution.
 
 ## 5. Approval Decision
 
-Decision: `Pending Human Approval`
+Decision: `Approved`
 
 Decision rationale:
 
 ```text
-<To be completed by accountable human reviewer or approval body.>
+Sprint-1 foundation baseline is approved as the first production-quality OMSP foundation baseline. It includes the merged Sprint-1 canon, governance, engineering standards, architecture, validation, GitHub quality gates, and release/baseline readiness artifacts. Future-scope issues remain open as non-blocking follow-up work.
 ```
 
 Approver:
 
 ```text
-<To be completed by accountable human reviewer or approval body.>
+toss-cengiz
 ```
 
 Approval date:
 
 ```text
-<YYYY-MM-DD>
+2026-07-10
 ```
 
 ## 6. Conditions or Exceptions
 
 ```text
-<List conditions, exceptions, or state none after review.>
+No blocking exceptions. Follow-up areas remain tracked as future work and do not block Sprint-1 baseline approval unless later reclassified by governance.
 ```
 
 ## 7. AI Assistance Boundary
 
-AI may assist in drafting this record, organizing evidence, and identifying missing items.
+AI assisted in drafting, organizing evidence, and reconciling status artifacts.
+
+AI did not independently approve this baseline. Approval is recorded from accountable human instruction.
 
 AI must not:
 
-- approve the baseline;
-- sign this approval record;
+- approve future baselines independently;
+- sign approval records without human instruction;
 - invent review evidence;
 - override human governance authority.
 

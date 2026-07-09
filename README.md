@@ -12,8 +12,8 @@ OMSP Foundation is the starting point for building an open, traceable and archit
 | Item | Status |
 | --- | --- |
 | Repository | Foundation Repository |
-| Current Release | `v0.1.0-bootstrap` |
-| Current Sprint | Sprint-1 |
+| Current Release | `v0.1.0-foundation-sprint-1` |
+| Current Sprint | Sprint-1 Completed / Sprint-2 Planned |
 | Development Branch | `develop` |
 | Work Package Flow | Issue → Branch → Commit → Draft PR → Review → Merge |
 
@@ -81,6 +81,7 @@ This repository contains the initial OMSP foundation artifacts. It defines the g
 | `canon/` | Vision, mission, principles, terminology and ontology overview |
 | `platform/` | Initial platform component definitions |
 | `validation/` | Quality gates, verification and validation foundations |
+| `release/` | Baseline, release readiness, release notes and approval records |
 | `reference/` | Reference examples and future domain-specific material |
 | `tooling/` | Scripts, validators and generators |
 | `docs/` | Repository-level documentation and navigation |
@@ -101,6 +102,8 @@ Start here:
 | `PROJECT_STRUCTURE.md` | Directory-by-directory repository structure |
 | `roadmap/OMSP_ROADMAP.md` | OMSP roadmap and sprint evolution |
 | `governance/ENGINEERING_PLAYBOOK.md` | Official engineering workflow and lifecycle |
+| `release/RELEASE_NOTES_SPRINT_1.md` | Sprint-1 foundation release notes |
+| `release/SPRINT_1_BASELINE_MANIFEST.md` | Sprint-1 baseline manifest |
 
 ---
 
@@ -184,7 +187,7 @@ chore(release): prepare v0.2.0-foundation
 | Sprint | Status | Goal |
 | --- | --- | --- |
 | Sprint-0 | Completed | Bootstrap foundation and repository skeleton |
-| Sprint-1 | Active | Production-quality Foundation Repository |
+| Sprint-1 | Completed | Production-quality Foundation Repository |
 | Sprint-2 | Planned | Engineering models and structured artifacts |
 | Sprint-3 | Planned | Knowledge platform foundations |
 | Sprint-4 | Planned | Digital twin foundation |
@@ -248,15 +251,15 @@ See `.github/CONTRIBUTING.md` and `governance/ENGINEERING_PLAYBOOK.md` for the f
 
 ## Releases
 
-Current release:
+Current release candidate baseline:
 
 ```text
-v0.1.0-bootstrap
+v0.1.0-foundation-sprint-1
 ```
 
-This release closes Sprint-0 and captures the first bootstrap baseline.
+This release closes Sprint-1 and captures the first production-quality OMSP foundation baseline.
 
-Sprint-1 will prepare the next foundation baseline.
+Sprint-2 is planned to introduce engineering models and structured artifact systems.
 
 ---
 

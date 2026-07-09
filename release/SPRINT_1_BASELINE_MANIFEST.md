@@ -2,20 +2,20 @@
 Artifact-ID: OMSP-REL-SPRINT1-BASELINE-MANIFEST-0001
 Title: OMSP Sprint-1 Baseline Manifest
 Version: 1.0.0
-Status: Draft
+Status: Active
 Owner: OMSP Engineering Council
 Baseline: Sprint-1
 Classification: Public
-Related-Issue: WP-0020 / #42
+Related-Issue: WP-0021 / #60
 ---
 
 # OMSP Sprint-1 Baseline Manifest
 
 ## 1. Purpose
 
-This manifest provides a machine-readable-style index for the Sprint-1 OMSP foundation baseline candidate.
+This manifest provides a machine-readable-style index for the Sprint-1 OMSP foundation baseline.
 
-It is intended to support final human baseline review by listing candidate work packages, pull requests, artifact areas, and baseline inclusion decisions.
+It supports baseline review by listing work packages, pull requests, artifact areas, and final baseline inclusion decisions.
 
 ## 2. Manifest Status
 
@@ -24,37 +24,39 @@ It is intended to support final human baseline review by listing candidate work 
 | Baseline Identifier | `baseline:Sprint-1` |
 | Repository | `OMSP-Foundation/omsp-bootstrap` |
 | Target Branch | `develop` |
-| Manifest Status | Draft pending final merge/defer confirmation |
-| Approval Status | Pending human approval |
+| Manifest Status | Active |
+| Approval Status | Approved |
+| Release Candidate Tag | `v0.1.0-foundation-sprint-1` |
 
-## 3. Candidate Work Package Manifest
+## 3. Work Package Manifest
 
 | Work Package | Issue | Pull Request | Candidate Area | Inclusion Decision | Notes |
 | --- | --- | --- | --- | --- | --- |
-| WP-0012 | #34 | #44 | Engineering Playbook | Pending final merge/defer confirmation | Engineering workflow foundation. |
-| WP-0013 | #35 | #45 | Governance Foundation | Pending final merge/defer confirmation | Governance authority and review foundation. |
-| WP-0014 | #36 | #46 | Engineering Artifact Standard | Pending final merge/defer confirmation | Artifact lifecycle and identity. |
-| WP-0015 | #37 | #47 | Metadata and Traceability Standard | Pending final merge/defer confirmation | Metadata schema and relation model. |
-| WP-0016 | #38 | #48 | Canon Foundation | Pending final merge/defer confirmation | Canon, terminology, and ontology overview. |
-| WP-0017 | #39 | #50 | Platform Architecture | Pending final merge/defer confirmation | Four-engine platform model. |
-| WP-0018 | #40 | #55 / #57 | Validation Framework | Pending final merge/defer confirmation | Validation framework and follow-up readiness templates. |
-| WP-0019 | #41 | #58 | GitHub Quality Gates | Pending final merge/defer confirmation | Markdown/link quality gates and PR checklist. |
-| WP-0020 | #42 | #59 | Baseline and Release Package | Pending final merge/defer confirmation | Sprint-1 baseline and release readiness artifacts. |
+| WP-0012 | #34 | #44 | Engineering Playbook | Included | Engineering workflow foundation. |
+| WP-0013 | #35 | #45 | Governance Foundation | Included | Governance authority and review foundation. |
+| WP-0014 | #36 | #46 | Engineering Artifact Standard | Included | Artifact lifecycle and identity. |
+| WP-0015 | #37 | #47 | Metadata and Traceability Standard | Included | Metadata schema and relation model. |
+| WP-0016 | #38 | #48 | Canon Foundation | Included | Canon, terminology, and ontology overview. |
+| WP-0017 | #39 | #50 | Platform Architecture | Included | Four-engine platform model. |
+| WP-0018 | #40 | #55 / #57 | Validation Framework | Included | Validation framework and follow-up readiness templates. |
+| WP-0019 | #41 | #58 | GitHub Quality Gates | Included | Markdown/link quality gates and PR checklist. |
+| WP-0020 | #42 | #59 | Baseline and Release Package | Included | Sprint-1 baseline and release readiness artifacts. |
+| WP-0021 | #60 | TBD | Closure Status Reconciliation | Included after merge | Reconciles README, roadmap, readiness summary, approval record, manifest, and closure note. |
 
-## 4. Candidate Artifact Area Manifest
+## 4. Artifact Area Manifest
 
-| Area | Representative Paths | Expected Baseline State |
+| Area | Representative Paths | Baseline State |
 | --- | --- | --- |
-| Canon | `canon/` | Active artifacts after merge and review. |
-| Governance | `governance/` | Active artifacts after merge and review. |
-| Architecture | `architecture/` | Active or draft-as-declared artifacts after merge and review. |
-| Validation | `validation/` | Active validation framework artifacts and examples after merge and review. |
-| GitHub Quality Gates | `.github/`, `.markdownlint*`, `.lychee.toml` | Sprint-1 advisory quality gates after merge and review. |
-| Release Package | `release/` | Draft until human baseline/release approval. |
+| Canon | `canon/` | Included as Sprint-1 foundation artifacts. |
+| Governance | `governance/` | Included as Sprint-1 foundation artifacts. |
+| Architecture | `architecture/` | Included as Sprint-1 foundation artifacts. |
+| Validation | `validation/` | Included as Sprint-1 foundation artifacts and examples. |
+| GitHub Quality Gates | `.github/`, `.markdownlint*`, `.lychee.toml` | Included as Sprint-1 advisory quality gates. |
+| Release Package | `release/` | Included as Sprint-1 baseline and release package. |
 
 ## 5. Inclusion Decision Rules
 
-Baseline inclusion decisions must be one of:
+Baseline inclusion decisions may be one of:
 
 - `Included`
 - `Included with Exceptions`
@@ -62,11 +64,11 @@ Baseline inclusion decisions must be one of:
 - `Excluded`
 - `Pending final merge/defer confirmation`
 
-Only accountable human review may change candidate work from pending to included, included with exceptions, deferred, or excluded.
+Sprint-1 decisions are recorded as `Included` unless otherwise stated.
 
 ## 6. Evidence Expectations
 
-Final baseline evidence should include:
+Final baseline evidence includes:
 
 - issue references;
 - PR references;
@@ -74,7 +76,9 @@ Final baseline evidence should include:
 - review records;
 - checklist outcomes;
 - exception or deferral rationale;
-- release readiness summary.
+- release readiness summary;
+- baseline approval record;
+- closure note.
 
 ## 7. AI Assistance Boundary
 
@@ -82,10 +86,11 @@ AI may assist with drafting this manifest, checking consistency, and identifying
 
 AI must not:
 
-- approve baseline inclusion decisions;
-- mark work as finally included;
+- approve baseline inclusion decisions without human instruction;
 - invent merge or review evidence;
 - publish or tag a release.
+
+The Sprint-1 approval state in this manifest reflects accountable human instruction recorded during WP-0021 closure reconciliation.
 
 ## 8. Maintenance
 

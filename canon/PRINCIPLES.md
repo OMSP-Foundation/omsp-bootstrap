@@ -82,6 +82,15 @@ When principles appear to conflict, use the following preference order:
 4. preserve downstream usability;
 5. optimize implementation convenience.
 
-## 5. Maintenance
+## 5. Related Canon Artifacts
+
+- [Vision](./VISION.md) defines the long-term direction supported by these Principles.
+- [Mission](./MISSION.md) defines the purpose these Principles help execute.
+- [Philosophy](./PHILOSOPHY.md) provides the interpretive basis for these Principles.
+- [Terminology](./TERMINOLOGY.md) defines the terms used by these Principles.
+- [Ontology Overview](./ONTOLOGY_OVERVIEW.md) introduces the concept families these Principles guide.
+- [Canon Index](./CANON_INDEX.md) provides the recommended reading order for downstream references.
+
+## 6. Maintenance
 
 These Principles are maintained through issue-backed Work Packages and reviewed pull requests. Material changes require governance review and version metadata update.

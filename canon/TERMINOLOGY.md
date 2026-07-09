@@ -107,6 +107,15 @@ Downstream artifacts should reference this terminology when defining:
 - baseline or release language;
 - domain ontology concepts.
 
-## 6. Maintenance
+## 6. Related Canon Artifacts
+
+- [Vision](./VISION.md) defines the long-term intent behind canonical terms.
+- [Mission](./MISSION.md) defines the program purpose that terminology supports.
+- [Philosophy](./PHILOSOPHY.md) explains why stable language matters to OMSP.
+- [Principles](./PRINCIPLES.md) define rules that depend on consistent terminology.
+- [Ontology Overview](./ONTOLOGY_OVERVIEW.md) turns terminology into concept and relation families.
+- [Canon Index](./CANON_INDEX.md) provides the recommended reading order for downstream references.
+
+## 7. Maintenance
 
 This Terminology is maintained through issue-backed Work Packages and reviewed pull requests. Material changes require governance review and version metadata update.

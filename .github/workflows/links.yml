@@ -1,0 +1,2 @@
+name: Link Check
+on: [pull_request]

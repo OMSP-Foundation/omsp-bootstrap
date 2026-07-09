@@ -1,0 +1,35 @@
+name: Link Check
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - '**/*.md'
+      - '.github/workflows/link-check.yml'
+      - '.lychee.toml'
+  push:
+    branches:
+      - develop
+    paths:
+      - '**/*.md'
+      - '.github/workflows/link-check.yml'
+      - '.lychee.toml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: Markdown links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config .lychee.toml "**/*.md"
+          fail: true

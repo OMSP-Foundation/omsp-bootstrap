@@ -1,0 +1,16 @@
+# OMSP link check configuration.
+# Keep this file conservative during Sprint-1 while documentation structure is still evolving.
+
+exclude_loopback = true
+exclude_mail = true
+max_redirects = 10
+retry_wait_time = 2
+
+# Ignore GitHub issue/PR placeholder links and local template placeholders if introduced later.
+exclude = [
+  "https://github.com/OMSP-Foundation/omsp-bootstrap/issues/<.*>",
+  "https://github.com/OMSP-Foundation/omsp-bootstrap/pull/<.*>"
+]
+
+# Treat these schemes as unsupported for now.
+exclude_all_private = false

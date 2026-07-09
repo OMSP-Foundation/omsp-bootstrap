@@ -1,2 +1,76 @@
-name: Markdown
-on: [push]
+name: Markdown Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - '**/*.md'
+      - '.markdownlint.json'
+      - '.markdownlint-cli2.jsonc'
+      - '.github/workflows/markdown.yml'
+  push:
+    branches:
+      - develop
+    paths:
+      - '**/*.md'
+      - '.markdownlint.json'
+      - '.markdownlint-cli2.jsonc'
+      - '.github/workflows/markdown.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        continue-on-error: true
+        with:
+          globs: '**/*.md'
+
+      - name: Report Sprint-1 advisory mode
+        shell: bash
+        run: |
+          echo "Markdown lint is advisory during Sprint-1 while documentation style rules stabilize."
+          echo "Findings should be reviewed, but they do not block this PR."
+
+  front-matter-smoke-check:
+    name: Governed artifact front matter smoke check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check governed artifact metadata markers
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          paths=(canon governance architecture validation)
+          missing=0
+
+          for dir in "${paths[@]}"; do
+            if [ ! -d "$dir" ]; then
+              continue
+            fi
+
+            while IFS= read -r file; do
+              first_line="$(head -n 1 "$file")"
+              if [ "$first_line" != "---" ]; then
+                echo "::warning file=$file::Governed artifact does not start with YAML front matter."
+                missing=1
+              fi
+            done < <(find "$dir" -type f -name '*.md' | sort)
+          done
+
+          if [ "$missing" -ne 0 ]; then
+            echo "One or more governed Markdown artifacts are missing YAML front matter markers."
+            echo "Sprint-1 mode: reporting as warning-only; full metadata enforcement will move to a future Traceability Engine automation gate."
+          fi

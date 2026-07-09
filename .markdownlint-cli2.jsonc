@@ -1,0 +1,14 @@
+{
+  // Sprint-1 conservative markdownlint-cli2 configuration.
+  // Governance, canon, architecture, and validation artifacts are long-form Markdown.
+  // Keep this useful but non-noisy until the documentation style guide stabilizes.
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD033": false,
+    "MD041": false
+  },
+  "globs": [
+    "**/*.md"
+  ]
+}

@@ -50,6 +50,15 @@ Downstream artifacts may cite this Vision when they need to justify:
 - traceable governance and engineering practices;
 - human-accountable AI assistance.
 
-## 6. Maintenance
+## 6. Related Canon Artifacts
+
+- [Mission](./MISSION.md) translates the Vision into program purpose and mission outcomes.
+- [Philosophy](./PHILOSOPHY.md) defines the interpretive stance behind the Vision.
+- [Principles](./PRINCIPLES.md) define operating rules that support the Vision.
+- [Terminology](./TERMINOLOGY.md) defines the canonical language used by the Vision.
+- [Ontology Overview](./ONTOLOGY_OVERVIEW.md) introduces the concept families that make the Vision modelable.
+- [Canon Index](./CANON_INDEX.md) provides the recommended reading order for downstream references.
+
+## 7. Maintenance
 
 This Vision is maintained through issue-backed Work Packages and reviewed pull requests. Material changes require governance review and version metadata update.

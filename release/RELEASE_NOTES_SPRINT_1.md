@@ -42,7 +42,25 @@ The Sprint-1 release candidate includes these foundation areas when their corres
 - GitHub Quality Gates;
 - Baseline and Release readiness artifacts.
 
-## 4. Governance and Review Notes
+## 4. Candidate PR Traceability
+
+Final release notes should be updated after human review with exact final inclusion decisions.
+
+Current candidate PR traceability:
+
+| Work Package | Issue | Pull Request | Area | Candidate Status |
+| --- | --- | --- | --- | --- |
+| WP-0012 | #34 | #44 | Engineering Playbook | Pending final merge/defer confirmation |
+| WP-0013 | #35 | #45 | Governance Foundation | Pending final merge/defer confirmation |
+| WP-0014 | #36 | #46 | Engineering Artifact Standard | Pending final merge/defer confirmation |
+| WP-0015 | #37 | #47 | Metadata and Traceability Standard | Pending final merge/defer confirmation |
+| WP-0016 | #38 | #48 | Canon Foundation | Pending final merge/defer confirmation |
+| WP-0017 | #39 | #50 | Platform Architecture | Pending final merge/defer confirmation |
+| WP-0018 | #40 | #55 / #57 | Validation Framework | Pending final merge/defer confirmation |
+| WP-0019 | #41 | #58 | GitHub Quality Gates | Pending final merge/defer confirmation |
+| WP-0020 | #42 | #59 | Baseline and Release Package | Pending final merge/defer confirmation |
+
+## 5. Governance and Review Notes
 
 This release candidate preserves OMSP governance boundaries:
 
@@ -51,7 +69,22 @@ This release candidate preserves OMSP governance boundaries:
 - Human accountable review is required before declaring the baseline or release approved.
 - Draft artifacts must not be interpreted as approved release authority.
 
-## 5. Known Follow-Up Work
+## 6. Not Included in Sprint-1
+
+The following areas are intentionally not included as approved Sprint-1 deliverables unless a later human review explicitly changes their status:
+
+- formal ontology implementation artifact;
+- platform engine-specific architecture artifacts;
+- platform context diagrams;
+- traceability automation implementation;
+- publication workflow implementation;
+- validation checklist linting automation;
+- strict metadata schema validation automation;
+- strict blocking Markdown and external link quality gates.
+
+These areas are tracked or expected as follow-up work and should not block the Sprint-1 foundation baseline unless human reviewers decide otherwise.
+
+## 7. Known Follow-Up Work
 
 Known follow-up work includes:
 
@@ -64,19 +97,19 @@ Known follow-up work includes:
 - stricter Markdown and link quality gates;
 - stricter metadata schema validation.
 
-## 6. Compatibility and Downstream Use
+## 8. Compatibility and Downstream Use
 
 Sprint-1 artifacts are intended to be referenced by future OMSP repositories and Work Packages as foundation guidance.
 
 Downstream users should verify artifact status and baseline approval state before treating Sprint-1 outputs as authoritative.
 
-## 7. Release Readiness Status
+## 9. Release Readiness Status
 
 Release readiness status: `Pending Human Review`
 
 This release note is a draft release package artifact. It does not approve the release.
 
-## 8. Maintenance
+## 10. Maintenance
 
 Release notes are maintained by the OMSP Engineering Council.
 

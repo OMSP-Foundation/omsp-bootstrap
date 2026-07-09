@@ -12,6 +12,7 @@ Start with:
 2. `docs/REPOSITORY_OVERVIEW.md`
 3. `governance/ENGINEERING_PLAYBOOK.md`
 4. `docs/NAVIGATION.md`
+5. `PROJECT_STRUCTURE.md`
 
 ## 2. Understand the Repository Model
 

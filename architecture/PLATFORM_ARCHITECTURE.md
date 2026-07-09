@@ -288,7 +288,13 @@ AI must not:
 - override Engineering Council or governance decisions;
 - publish unreviewed artifacts as authoritative.
 
-## 13. Future Architecture Work
+## 13. Related Architecture Artifacts
+
+- [Architecture Index](./ARCHITECTURE_INDEX.md) provides architecture navigation and downstream reference guidance.
+- `PLATFORM_ARCHITECTURE.md` is the current top-level platform architecture artifact.
+- Future engine-specific artifacts may refine each engine without changing this v1.0 boundary model.
+
+## 14. Future Architecture Work
 
 Future Work Packages may define:
 
@@ -297,9 +303,10 @@ Future Work Packages may define:
 - formal ontology implementation for the Knowledge Engine;
 - architecture decision records for platform component boundaries;
 - component-specific validation checklists;
-- cross-repository platform architecture patterns.
+- cross-repository platform architecture patterns;
+- C4-style context and container diagrams.
 
-## 14. Maintenance
+## 15. Maintenance
 
 This architecture is maintained by the OMSP Engineering Council.
 

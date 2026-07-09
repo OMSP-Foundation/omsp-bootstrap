@@ -1,2 +1,3 @@
 # Repository Manifest
-Initial artifact registry.
+
+Initial registry of artifacts.

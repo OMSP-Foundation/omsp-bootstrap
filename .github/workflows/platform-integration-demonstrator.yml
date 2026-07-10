@@ -1,0 +1,48 @@
+name: Platform Integration Demonstrator
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  demonstrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run demonstrator tests
+        run: python -m unittest tests/test_omsp_demonstrator.py
+      - name: Execute end-to-end demonstrator
+        run: python tooling/omsp_demonstrate.py --source-commit "${{ github.sha }}"
+      - name: Publish demonstrator summary
+        if: always()
+        run: |
+          echo '## OMSP End-to-End Demonstrator' >> "$GITHUB_STEP_SUMMARY"
+          if test -f build/demonstrator/demonstrator-manifest.json; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('build/demonstrator/demonstrator-manifest.json').read_text())
+          print(f"- Decision: **{manifest['decision']}**")
+          print(f"- Steps: {len(manifest['steps'])}")
+          print('- Human approval remains required.')
+          PY
+          else
+            echo '- Manifest missing; inspect logs.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload demonstrator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: platform-integration-demonstrator
+          path: build/demonstrator/
+          if-no-files-found: warn
+          retention-days: 30

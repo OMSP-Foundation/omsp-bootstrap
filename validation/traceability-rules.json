@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "OMSP-VAL-TRACEABILITY-RULES-0001",
+  "rules": [
+    {"id": "TRACE-META-001", "category": "metadata", "severity": "error", "description": "Required governed-artifact metadata is present."},
+    {"id": "TRACE-META-002", "category": "metadata", "severity": "error", "description": "Lifecycle status is an allowed governed value."},
+    {"id": "TRACE-ID-001", "category": "identity", "severity": "error", "description": "Artifact ID matches the canonical identifier convention."},
+    {"id": "TRACE-ID-002", "category": "identity", "severity": "error", "description": "Active Artifact IDs are unique."},
+    {"id": "TRACE-REL-001", "category": "relation", "severity": "error", "description": "Relation type is registered."},
+    {"id": "TRACE-REL-002", "category": "relation", "severity": "error", "description": "Relation source and target resolve."},
+    {"id": "TRACE-PR-001", "category": "pull-request", "severity": "warning", "description": "Material PR declares a related Work Package or issue."},
+    {"id": "TRACE-PR-002", "category": "pull-request", "severity": "warning", "description": "Material PR records validation evidence and acceptance status."},
+    {"id": "TRACE-BASE-001", "category": "baseline", "severity": "error", "description": "Baseline report references an accountable human approval record."},
+    {"id": "TRACE-RELSE-001", "category": "release", "severity": "error", "description": "Release report references baseline evidence and human release approval."}
+  ]
+}

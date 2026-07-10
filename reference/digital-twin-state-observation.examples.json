@@ -1,0 +1,183 @@
+{
+  "artifact_id": "OMSP-REFERENCE-TWIN-STATE-0001",
+  "version": "1.0.0",
+  "status": "review",
+  "scope": "illustrative Hanse 460 design-family digital-twin records",
+  "configuration_reference": "configuration:vessel-design:hanse:460:reference-0.1.0",
+  "sources": [
+    {
+      "id": "source:test-fixture:nav-feed-01",
+      "source_type": "test-fixture",
+      "authority": "simulated",
+      "description": "Illustrative navigation data feed; not live vessel telemetry"
+    },
+    {
+      "id": "source:human:watchkeeper-01",
+      "source_type": "human-report",
+      "authority": "human-reported",
+      "description": "Illustrative accountable human report"
+    }
+  ],
+  "observations": [
+    {
+      "id": "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-001",
+      "subject_id": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "position_fix_available",
+      "value": true,
+      "event_time": "2026-07-10T12:00:00Z",
+      "receipt_time": "2026-07-10T12:00:01Z",
+      "processing_time": "2026-07-10T12:00:02Z",
+      "source_id": "source:test-fixture:nav-feed-01",
+      "authority": "simulated",
+      "quality": {
+        "state": "suspect",
+        "freshness": "good",
+        "timestamp_confidence": "medium",
+        "calibration_status": "unknown",
+        "integrity_status": "unknown"
+      },
+      "provenance": {
+        "acquisition_channel": "fixture-message",
+        "transformations": []
+      },
+      "limitations": [
+        "Not live telemetry",
+        "Not evidence of installed equipment"
+      ]
+    },
+    {
+      "id": "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-002",
+      "subject_id": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "position_fix_available",
+      "value": false,
+      "event_time": "2026-07-10T12:00:00Z",
+      "receipt_time": "2026-07-10T12:00:03Z",
+      "processing_time": "2026-07-10T12:00:04Z",
+      "source_id": "source:human:watchkeeper-01",
+      "authority": "human-reported",
+      "quality": {
+        "state": "conflicting",
+        "freshness": "good",
+        "timestamp_confidence": "medium",
+        "source_trust": "accountable-human",
+        "integrity_status": "not-applicable"
+      },
+      "provenance": {
+        "acquisition_channel": "manual-entry",
+        "transformations": []
+      }
+    },
+    {
+      "id": "observation:system:vessel-design:hanse:460:water-waste-bilge:bilge-level:evt-003",
+      "subject_id": "system:vessel-design:hanse:460:water-waste-bilge",
+      "property": "bilge_level_status",
+      "value": null,
+      "no_value_reason": "source-unavailable",
+      "event_time": null,
+      "receipt_time": "2026-07-10T12:01:00Z",
+      "processing_time": "2026-07-10T12:01:01Z",
+      "source_id": "source:test-fixture:nav-feed-01",
+      "authority": "simulated",
+      "quality": {
+        "state": "missing",
+        "freshness": "unknown",
+        "timestamp_confidence": "unknown"
+      }
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "conflict:system:vessel-design:hanse:460:navigation-comms:position-fix:conf-001",
+      "subject_id": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "position_fix_available",
+      "record_ids": [
+        "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-001",
+        "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-002"
+      ],
+      "conflict_type": "value-disagreement",
+      "detection_rule": "same-subject-property-event-window",
+      "status": "unresolved",
+      "selected_record_id": null,
+      "safety_impact": "Position availability must not be assumed until accountable human resolution"
+    }
+  ],
+  "state_assertions": [
+    {
+      "id": "state:system:vessel-design:hanse:460:navigation-comms:position-fix:assert-001",
+      "subject_id": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "position_fix_status",
+      "value": "unknown-conflicting",
+      "valid_from": "2026-07-10T12:00:00Z",
+      "valid_to": null,
+      "supporting_observation_ids": [
+        "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-001",
+        "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-002"
+      ],
+      "method": {
+        "id": "method:state-selection:conflict-preserving",
+        "version": "1.0.0"
+      },
+      "authority": "derived",
+      "confidence": "low",
+      "quality_state": "conflicting",
+      "responsible_actor": "software:illustrative-state-projector"
+    }
+  ],
+  "derived_values": [
+    {
+      "id": "derived:system:vessel-design:hanse:460:navigation-comms:feed-age:drv-001",
+      "subject_id": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "latest_feed_age_seconds",
+      "value": 2,
+      "unit": "s",
+      "input_record_ids": [
+        "observation:system:vessel-design:hanse:460:navigation-comms:position-fix:evt-001"
+      ],
+      "method": {
+        "id": "method:elapsed-time",
+        "version": "1.0.0",
+        "parameters": {
+          "evaluation_time": "2026-07-10T12:00:02Z"
+        }
+      },
+      "execution_time": "2026-07-10T12:00:02Z",
+      "authority": "derived",
+      "quality": "suspect",
+      "assumptions": [
+        "Event timestamp is usable"
+      ]
+    }
+  ],
+  "current_state_view": {
+    "id": "state-view:vessel-design:hanse:460:2026-07-10T12:01:05Z",
+    "scope_id": "vessel-design:hanse:460",
+    "evaluation_time": "2026-07-10T12:01:05Z",
+    "selection_policy": {
+      "id": "policy:current-state:conflict-preserving",
+      "version": "1.0.0"
+    },
+    "included_state_ids": [
+      "state:system:vessel-design:hanse:460:navigation-comms:position-fix:assert-001"
+    ],
+    "missing_properties": [
+      "system:vessel-design:hanse:460:water-waste-bilge#bilge_level_status"
+    ],
+    "stale_properties": [],
+    "unresolved_conflict_ids": [
+      "conflict:system:vessel-design:hanse:460:navigation-comms:position-fix:conf-001"
+    ],
+    "human_reviewed": false,
+    "warnings": [
+      "Illustrative design-family data only",
+      "Not live vessel state",
+      "Not operational authority"
+    ]
+  },
+  "safety_boundary": {
+    "not_live_telemetry": true,
+    "not_configuration_evidence": true,
+    "not_operational_authority": true,
+    "not_control_input": true,
+    "human_review_required_for_safety_use": true
+  }
+}

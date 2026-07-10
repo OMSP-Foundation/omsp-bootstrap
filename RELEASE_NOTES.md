@@ -75,9 +75,9 @@ Planned Sprint-6 work is not part of the delivered `v0.5.0` baseline until imple
 ## Governed References
 
 - `release/SPRINT_5_RELEASE_NOTES.md`
-- `release/PRODUCTION_BASELINE_AND_RELEASE_READINESS.md`
-- `release/PRODUCTION_READINESS_ASSESSMENT.md`
-- `release/BASELINE_APPROVAL_RECORD.md`
+- `release/PRODUCTION_BASELINE_RELEASE_READINESS.md`
+- `release/BASELINE_APPROVAL_RECORD_0.5.0.md`
+- `release/BASELINE_APPROVAL_RECORD_0.5.0.json`
 - `operations/OPERATIONS_INCIDENT_RECOVERY_RUNBOOK.md`
 - `security/SECURITY_SUPPLY_CHAIN_BASELINE.md`
 - `demonstrator/PLATFORM_INTEGRATION_DEMONSTRATOR.md`

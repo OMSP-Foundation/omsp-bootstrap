@@ -1,0 +1,53 @@
+name: OMSP Quality Gate
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-gate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gate:
+    name: quality-gate / required
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute integrated quality gate
+        run: python tooling/omsp_quality_gate.py --output build/quality-gate-report.json
+      - name: Publish job summary
+        if: always()
+        run: |
+          echo '## OMSP Quality Gate' >> "$GITHUB_STEP_SUMMARY"
+          if test -f build/quality-gate-report.json; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          report = json.loads(Path('build/quality-gate-report.json').read_text())
+          print(f"- Decision: **{report['decision']}**")
+          print(f"- Passed: {report['summary']['passed']}/{report['summary']['checks']}")
+          if report['blocking_failures']:
+              print('- Blocking failures: ' + ', '.join(report['blocking_failures']))
+          print('- Human approval remains required.')
+          PY
+          else
+            echo '- Report was not produced; inspect workflow logs.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload quality-gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-gate-evidence
+          path: build/
+          if-no-files-found: warn
+          retention-days: 30

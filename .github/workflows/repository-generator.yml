@@ -24,8 +24,8 @@ jobs:
         run: python tooling/omsp_validate.py build/generated --output build/generated-validation-report.json
       - name: Verify reproducibility
         run: |
-          python tooling/omsp_generate_repo.py tests/generator/repository-profile.json build/generated --report build/generator-second-report.json
-          test "$(git status --porcelain build/generated | wc -l)" -eq 0
+          python tooling/omsp_generate_repo.py tests/generator/repository-profile.json build/generated-copy --report build/generator-second-report.json
+          diff -ru build/generated build/generated-copy
       - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@v4

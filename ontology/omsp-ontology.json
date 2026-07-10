@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "OMSP-ONTOLOGY-REGISTRY-0001",
+  "ontology": "OMSP-ONTOLOGY-CORE-0001",
+  "status": "Active",
+  "concepts": [
+    {"id":"OMSP-CONCEPT-ENTITY","label":"Entity"},
+    {"id":"OMSP-CONCEPT-ACTOR","label":"Actor","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-OPERATION","label":"Operation","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-CAPABILITY","label":"Capability","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-SYSTEM","label":"System","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-ARTIFACT","label":"Artifact","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-DECISION","label":"Decision","parent":"OMSP-CONCEPT-ARTIFACT"},
+    {"id":"OMSP-CONCEPT-EVIDENCE","label":"Evidence","parent":"OMSP-CONCEPT-ARTIFACT"},
+    {"id":"OMSP-CONCEPT-CONSTRAINT","label":"Constraint","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-REQUIREMENT","label":"Requirement","parent":"OMSP-CONCEPT-CONSTRAINT"},
+    {"id":"OMSP-CONCEPT-MODEL","label":"Model","parent":"OMSP-CONCEPT-ARTIFACT"},
+    {"id":"OMSP-CONCEPT-BASELINE","label":"Baseline","parent":"OMSP-CONCEPT-ARTIFACT"},
+    {"id":"OMSP-CONCEPT-RELEASE","label":"Release","parent":"OMSP-CONCEPT-ARTIFACT"},
+    {"id":"OMSP-CONCEPT-WORK-PACKAGE","label":"Work Package","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-CLAIM","label":"Claim","parent":"OMSP-CONCEPT-ENTITY"}
+  ],
+  "relations": [
+    {"id":"OMSP-RELATION-DEFINES","label":"defines","domain":"OMSP-CONCEPT-ARTIFACT","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-GOVERNS","label":"governs","domain":"OMSP-CONCEPT-ARTIFACT","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-IMPLEMENTS","label":"implements","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-DEPENDS-ON","label":"depends-on","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-TRACES-TO","label":"traces-to","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-VALIDATES","label":"validates","domain":"OMSP-CONCEPT-EVIDENCE","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-VERIFIES","label":"verifies","domain":"OMSP-CONCEPT-EVIDENCE","range":"OMSP-CONCEPT-REQUIREMENT"},
+    {"id":"OMSP-RELATION-CONSTRAINS","label":"constrains","domain":"OMSP-CONCEPT-CONSTRAINT","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-BELONGS-TO","label":"belongs-to","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-USES","label":"uses","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-PRODUCES","label":"produces","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-RELATION-SUPERSEDES","label":"supersedes","domain":"OMSP-CONCEPT-ARTIFACT","range":"OMSP-CONCEPT-ARTIFACT"},
+    {"id":"OMSP-RELATION-SUPPORTS","label":"supports","domain":"OMSP-CONCEPT-EVIDENCE","range":"OMSP-CONCEPT-CLAIM"},
+    {"id":"OMSP-RELATION-APPROVES","label":"approves","domain":"OMSP-CONCEPT-ACTOR","range":"OMSP-CONCEPT-ARTIFACT","human_authority_required":true}
+  ]
+}

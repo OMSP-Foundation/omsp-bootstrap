@@ -1,0 +1,75 @@
+{
+  "registry_version": "1.0.0",
+  "status": "illustrative",
+  "generated_at": "2026-07-10T12:00:00Z",
+  "records": [
+    {
+      "artifact_id": "OMSP-KNOWLEDGE-GRAPH-0001",
+      "title": "OMSP Knowledge Graph Conceptual Model",
+      "version": "1.0.0",
+      "status": "Active",
+      "owner": "OMSP Engineering Council",
+      "classification": "Public",
+      "baseline": "Sprint-3",
+      "repository": "OMSP-Foundation/omsp-bootstrap",
+      "path": "knowledge/KNOWLEDGE_GRAPH_CONCEPTUAL_MODEL.md",
+      "source_ref": "commit:<sha>",
+      "related_issue": "WP-0031 / #65",
+      "artifact_type": "OMSP-CONCEPT-MODEL",
+      "updated_at": "2026-07-10",
+      "indexed_at": "2026-07-10T12:00:00Z",
+      "content_digest": "sha256:<digest>",
+      "depends_on": [
+        "OMSP-ONTOLOGY-CORE-0001",
+        "OMSP-STD-METADATA-TRACEABILITY-0001"
+      ],
+      "related_artifacts": [
+        "OMSP-KNOWLEDGE-RELATIONSHIP-0001"
+      ],
+      "provenance": [
+        {
+          "source": "file:knowledge/KNOWLEDGE_GRAPH_CONCEPTUAL_MODEL.md",
+          "relation": "documents",
+          "target": "issue:#65"
+        },
+        {
+          "source": "pr:#<number>",
+          "relation": "satisfies",
+          "target": "issue:#65"
+        }
+      ],
+      "approval_evidence": [
+        "review:#<human-review-id>"
+      ]
+    },
+    {
+      "artifact_id": "OMSP-KNOWLEDGE-RELATIONSHIP-0001",
+      "title": "OMSP Semantic Relationship Catalog",
+      "version": "1.0.0",
+      "status": "Review",
+      "owner": "OMSP Engineering Council",
+      "classification": "Public",
+      "baseline": "Sprint-3",
+      "repository": "OMSP-Foundation/omsp-bootstrap",
+      "path": "knowledge/SEMANTIC_RELATIONSHIP_CATALOG.md",
+      "source_ref": "branch:feature/wp-0032-semantic-relationship-catalog",
+      "related_issue": "WP-0032 / #66",
+      "artifact_type": "OMSP-CONCEPT-ARTIFACT",
+      "updated_at": "2026-07-10",
+      "indexed_at": "2026-07-10T12:00:00Z",
+      "content_digest": "sha256:<digest>",
+      "depends_on": [
+        "OMSP-ONTOLOGY-CORE-0001",
+        "OMSP-KNOWLEDGE-GRAPH-0001"
+      ],
+      "provenance": [
+        {
+          "source": "file:knowledge/SEMANTIC_RELATIONSHIP_CATALOG.md",
+          "relation": "documents",
+          "target": "issue:#66"
+        }
+      ],
+      "approval_evidence": []
+    }
+  ]
+}

@@ -11,6 +11,11 @@ import sys
 from pathlib import Path
 
 GATE_VERSION = "0.1.0"
+GOVERNED_PATHS = (
+    "governance", "planning", "roadmap", "architecture", "knowledge",
+    "reference", "release", "schemas", "validation", "generator",
+    "publication", "security", "ci",
+)
 
 
 def sha256(path: Path) -> str:
@@ -52,7 +57,7 @@ def execute(root: Path, output: Path, work: Path) -> dict:
     validator_report = work / "validator-report.json"
     checks.append(run_check(
         "governed-artifact-validation",
-        [python, "tooling/omsp_validate.py", ".", "--output", str(validator_report.relative_to(root))],
+        [python, "tooling/omsp_validate.py", *GOVERNED_PATHS, "--output", str(validator_report.relative_to(root))],
         root,
         [validator_report],
     ))

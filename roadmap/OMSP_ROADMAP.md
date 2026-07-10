@@ -12,8 +12,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | --- | --- | --- |
 | Sprint-0 | Completed | Bootstrap repository and governance skeleton |
 | Sprint-1 | Completed | Production-quality Foundation Repository |
-| Sprint-2 | Active | Formal engineering foundation and automation-ready designs |
-| Sprint-3 | Planned | Knowledge platform foundations |
+| Sprint-2 | Completed | Formal engineering foundation and automation-ready designs |
+| Sprint-3 | Active | Knowledge platform foundations |
 | Sprint-4 | Planned | Digital twin foundation |
 | Sprint-5 | Planned | Production platform readiness |
 
@@ -70,7 +70,7 @@ Closure status:
 
 ## Sprint-2: Formal Engineering Foundation
 
-Sprint-2 is active and converts selected Sprint-1 follow-ups into formal, traceable and automation-ready artifacts.
+Sprint-2 converted selected Sprint-1 follow-ups into formal, traceable and automation-ready artifacts.
 
 Execution plan:
 
@@ -89,25 +89,41 @@ Ordered Work Packages:
 8. WP-0028 — validation checklist linting design;
 9. WP-0029 — baseline and release readiness.
 
-Proposed release candidate:
+Release candidate:
 
 ```text
 v0.2.0-foundation-sprint-2
 ```
 
-The tag remains provisional until the Sprint-2 baseline is complete and an accountable human approves release.
+Release and baseline authority remain subject to accountable human approval records.
 
-## Sprint-3: Knowledge Platform
+## Sprint-3: Knowledge Platform Foundations
 
-Sprint-3 will focus on knowledge platform foundations.
+Sprint-3 is active and establishes the governed conceptual and processing foundations for an OMSP knowledge platform.
 
-Expected focus:
+Execution plan:
 
-- ontology development;
-- knowledge graph concepts;
-- semantic relationships;
-- publication model;
-- AI-readable artifact processing.
+- `planning/SPRINT_3_EXECUTION_PLAN.md`
+- WP-0030 / issue #64
+
+Ordered Work Packages:
+
+1. WP-0030 — Sprint scope and execution plan;
+2. WP-0031 — knowledge graph conceptual model;
+3. WP-0032 — semantic relationship catalog;
+4. WP-0033 — artifact registry and knowledge index;
+5. WP-0034 — AI-readable artifact processing contract;
+6. WP-0035 — knowledge publication package;
+7. WP-0036 — knowledge platform validation scenarios;
+8. WP-0037 — baseline and release readiness.
+
+Proposed release candidate:
+
+```text
+v0.3.0-foundation-sprint-3
+```
+
+The tag remains provisional until the Sprint-3 baseline is complete and an accountable human approves release.
 
 ## Sprint-4: Digital Twin Foundation
 

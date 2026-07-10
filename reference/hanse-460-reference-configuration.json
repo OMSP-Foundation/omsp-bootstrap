@@ -1,0 +1,142 @@
+{
+  "artifact_id": "OMSP-REFERENCE-CONFIG-0001",
+  "version": "0.1.0",
+  "status": "review",
+  "configuration": {
+    "id": "configuration:vessel-design:hanse:460:reference-0.1.0",
+    "class": "reference",
+    "vessel_design_id": "vessel-design:hanse:460",
+    "vessel_type_id": "vessel-type:sailing-yacht",
+    "vessel_instance_id": null,
+    "applicability": "Hanse 460 design family only",
+    "verification_state": "not-verified",
+    "predecessor": null
+  },
+  "authority_classes": [
+    "reference",
+    "sourced-secondary",
+    "sourced-manufacturer",
+    "verified-design",
+    "verified-as-built",
+    "unknown"
+  ],
+  "sources": [
+    {
+      "id": "source:secondary:wikipedia:hanse-brand:2026-07-10",
+      "title": "Hanse (yacht brand)",
+      "owner": "Wikipedia contributors",
+      "source_class": "secondary",
+      "url": "https://en.wikipedia.org/wiki/Hanse_(yacht_brand)",
+      "retrieved": "2026-07-10",
+      "applicability": "design-family summary",
+      "limitations": "Not manufacturer-controlled; values require primary-source confirmation before promotion."
+    }
+  ],
+  "claims": [
+    {
+      "property": "model_designation",
+      "value": "Hanse 460",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "model_introduction_year",
+      "value": 2021,
+      "unit": "year",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "length_overall",
+      "value": 14.6,
+      "unit": "m",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "beam",
+      "value": 4.79,
+      "unit": "m",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "standard_displacement",
+      "value": 12.6,
+      "unit": "t",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "draft",
+      "values": [
+        {"value": 2.25, "unit": "m", "variant": "standard"},
+        {"value": 1.75, "unit": "m", "variant": "alternative-unverified-option-identity"}
+      ],
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "air_draft",
+      "value": 21.9,
+      "unit": "m",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    },
+    {
+      "property": "standard_sail_area",
+      "value": 106.0,
+      "unit": "m2",
+      "authority": "sourced-secondary",
+      "confidence": "medium",
+      "source_id": "source:secondary:wikipedia:hanse-brand:2026-07-10"
+    }
+  ],
+  "systems": [
+    "system:vessel-design:hanse:460:hull-structure",
+    "system:vessel-design:hanse:460:deck-rig-sails",
+    "system:vessel-design:hanse:460:propulsion-maneuvering",
+    "system:vessel-design:hanse:460:steering-control",
+    "system:vessel-design:hanse:460:electrical",
+    "system:vessel-design:hanse:460:navigation-comms",
+    "system:vessel-design:hanse:460:machinery-fuel-exhaust",
+    "system:vessel-design:hanse:460:water-waste-bilge",
+    "system:vessel-design:hanse:460:environmental-control",
+    "system:vessel-design:hanse:460:accommodation-domestic",
+    "system:vessel-design:hanse:460:fire-safety",
+    "system:vessel-design:hanse:460:lifesaving-emergency-security",
+    "system:vessel-design:hanse:460:anchoring-mooring",
+    "system:vessel-design:hanse:460:monitoring-networks",
+    "system:vessel-design:hanse:460:documentation-maintenance"
+  ],
+  "unknowns": [
+    "manufacturer-controlled specification evidence",
+    "naval architecture attribution",
+    "certification category",
+    "hull construction details",
+    "layout variant",
+    "propulsion package",
+    "steering components",
+    "electrical architecture",
+    "tank capacities",
+    "navigation and communications inventory",
+    "network protocols and topology",
+    "fire and lifesaving equipment",
+    "individual vessel applicability"
+  ],
+  "safety_boundary": {
+    "not_a_vessel_instance": true,
+    "not_operational_authority": true,
+    "not_certification_evidence": true,
+    "not_verified_as_designed": true,
+    "not_verified_as_built": true,
+    "human_review_required_for_promotion": true
+  }
+}

@@ -2,16 +2,19 @@
 Artifact-ID: OMSP-RELEASE-BASELINE-0001
 Title: Production Baseline and Release Readiness
 Version: 0.1.0
-Status: Review
+Status: Approved-with-Conditions
 Owner: OMSP Engineering Council
 Approvers:
-  - Accountable Maintainer
+  - toss-cengiz
 Created: 2026-07-10
 Last-Updated: 2026-07-10
 Sprint: Sprint-5
 Work-Package: WP-0056
 Traceability:
   - ISSUE-90
+  - PR-141
+  - COMMIT-3970f7596c5b061fecd6c745c09352f1c3f8d8d4
+  - OMSP-BASELINE-APPROVAL-050-0001
 ---
 
 # Production Baseline and Release Readiness
@@ -22,7 +25,7 @@ This record closes the Sprint-5 implementation horizon with an evidence-backed p
 
 ## Proposed Version
 
-The proposed baseline version is `0.5.0`. This version represents a complete Sprint-5 toolchain baseline, not a declaration that OMSP is approved for unrestricted production deployment.
+The baseline version is `0.5.0`. This version represents a complete Sprint-5 toolchain baseline approved for controlled pre-production and pilot evaluation. It is not a declaration that OMSP is approved for unrestricted production deployment.
 
 ## Delivered Evidence
 
@@ -33,7 +36,7 @@ The release-readiness workflow reproduces and retains:
 - the operations recovery-drill record;
 - generator, validator, publication, security and observability evidence nested within those packages;
 - SHA-256 digests for the top-level readiness evidence;
-- an explicit pending baseline-approval record.
+- the accountable human approval record for controlled evaluation.
 
 ## Completion Checklist
 
@@ -46,12 +49,18 @@ The release-readiness workflow reproduces and retains:
 - [x] End-to-end platform demonstrator is reproducible.
 - [x] Incident and recovery drill is exercised.
 - [x] Residual risks and production gaps are recorded.
-- [ ] Accountable human baseline approval is recorded.
-- [ ] Production deployment environment and release authorization are approved.
+- [x] Accountable human baseline approval is recorded for controlled pre-production and pilot evaluation.
+- [ ] Production deployment environment and production release authorization are approved.
+
+## Approval Decision
+
+OMSP 0.5.0, production deployment yetkisi vermeyen, kontrollü pre-production ve pilot değerlendirme amacıyla Production Baseline Candidate olarak onaylanmıştır. RR-001–RR-005 riskleri sonraki roadmap horizon’una ertelenmiş olup gerçek production release öncesinde yeniden değerlendirilmelidir.
+
+The accountable approval is recorded in `release/BASELINE_APPROVAL_RECORD_0.5.0.md` and `release/BASELINE_APPROVAL_RECORD_0.5.0.json`.
 
 ## Automated Recommendation
 
-Automation may return `candidate-for-human-approval` only when the quality gate, demonstrator and recovery drill succeed and required evidence is present. This recommendation does not authorize release or deployment.
+Automation may return `candidate-for-human-approval` only when the quality gate, demonstrator and recovery drill succeed and required evidence is present. It cannot convert the accountable approval into production release or deployment authorization.
 
 ## Residual-Risk Register
 
@@ -63,15 +72,11 @@ Automation may return `candidate-for-human-approval` only when the quality gate,
 | RR-004 | Medium | No vulnerability-database or repository-history secret scan | Deferred to next horizon |
 | RR-005 | High | No load, availability or external disaster-recovery validation | Deferred to next horizon |
 
-These risks require accountable disposition before any production release decision. A green workflow does not accept them.
-
-## Approval Record
-
-The generated `baseline-approval-record.json` remains `pending-accountable-human-approval`. A valid approval must identify the approver, immutable source commit, decision timestamp, accepted/deferred risks and release scope. Automation must not fill those decision fields.
+These risks are explicitly deferred, not accepted for production use. They must be reassessed before any production release decision.
 
 ## Release Notes Summary
 
-Sprint-5 introduces a dependency-free validation toolchain, deterministic repository generator, preview publication pipeline, security baseline, unified quality gate, structured operational audit model, end-to-end demonstrator and exercised recovery runbook. The proposed baseline is suitable for governed review and controlled pre-production evaluation.
+Sprint-5 introduces a dependency-free validation toolchain, deterministic repository generator, preview publication pipeline, security baseline, unified quality gate, structured operational audit model, end-to-end demonstrator and exercised recovery runbook. The baseline is approved for governed, controlled pre-production and pilot evaluation.
 
 ## Next Horizon Recommendations
 
@@ -83,8 +88,8 @@ Sprint-5 introduces a dependency-free validation toolchain, deterministic reposi
 
 ## Roadmap Closure
 
-Sprint-5 implementation objectives are complete when this change is merged. The current roadmap horizon closes at a reviewable production-baseline candidate; actual production authorization remains outside automation and requires explicit accountable approval.
+Sprint-5 implementation objectives are complete. The current roadmap horizon closes at an approved-with-conditions Production Baseline Candidate. Actual production authorization remains a separate future decision.
 
 ## Authority Boundary
 
-Automation may reproduce evidence, calculate readiness and propose a version. It cannot approve the baseline, accept residual risk, create an authoritative release, publish externally, authorize deployment or declare OMSP production-safe.
+The approval authorizes controlled pre-production and pilot evaluation only. Neither automation nor this baseline record authorizes production deployment, unrestricted external publication, production release, residual-risk acceptance or a declaration that OMSP is production-safe.

@@ -1,0 +1,32 @@
+{
+  "record_id": "OMSP-BASELINE-APPROVAL-050-0001",
+  "baseline_version": "0.5.0",
+  "decision": "approved-with-conditions",
+  "status": "approved-for-pre-production-and-pilot",
+  "approver": {
+    "github_login": "toss-cengiz",
+    "role": "Accountable Maintainer"
+  },
+  "decision_date": "2026-07-10",
+  "approved_source_commit": "3970f7596c5b061fecd6c745c09352f1c3f8d8d4",
+  "scope": [
+    "controlled pre-production evaluation",
+    "pilot evaluation"
+  ],
+  "excluded_authority": [
+    "production deployment",
+    "unrestricted external publication",
+    "production release authorization",
+    "automatic residual-risk acceptance"
+  ],
+  "residual_risks": {
+    "RR-001": "deferred-next-roadmap-horizon",
+    "RR-002": "deferred-next-roadmap-horizon",
+    "RR-003": "deferred-next-roadmap-horizon",
+    "RR-004": "deferred-next-roadmap-horizon",
+    "RR-005": "deferred-next-roadmap-horizon"
+  },
+  "review_requirement": "RR-001 through RR-005 must be reassessed before any production release decision.",
+  "decision_text": "OMSP 0.5.0, production deployment yetkisi vermeyen, kontrollü pre-production ve pilot değerlendirme amacıyla Production Baseline Candidate olarak onaylanmıştır. RR-001–RR-005 riskleri sonraki roadmap horizon’una ertelenmiş olup gerçek production release öncesinde yeniden değerlendirilmelidir.",
+  "production_release_authorized": false
+}

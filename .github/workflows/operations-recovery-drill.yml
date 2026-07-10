@@ -1,0 +1,49 @@
+name: Operations Incident Recovery Drill
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recovery-drill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run recovery drill tests
+        run: python -m unittest tests/test_omsp_recovery_drill.py
+      - name: Exercise demonstrator recovery
+        run: python tooling/omsp_recovery_drill.py --source-commit "${{ github.sha }}"
+      - name: Publish recovery summary
+        if: always()
+        run: |
+          echo '## OMSP Recovery Drill' >> "$GITHUB_STEP_SUMMARY"
+          if test -f build/recovery-drill/recovery-drill-record.json; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          record = json.loads(Path('build/recovery-drill/recovery-drill-record.json').read_text())
+          print(f"- Decision: **{record['decision']}**")
+          print(f"- Preserved evidence: {len(record['evidence'])}")
+          print(f"- Missing evidence: {len(record['missing_evidence'])}")
+          print('- Human incident closure and production resumption approval remain required.')
+          PY
+          else
+            echo '- Recovery record missing; inspect logs.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: operations-recovery-drill
+          path: build/recovery-drill/
+          if-no-files-found: warn
+          retention-days: 30

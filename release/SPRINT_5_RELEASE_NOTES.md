@@ -12,7 +12,7 @@ Sprint: Sprint-5
 Work-Package: WP-0056
 Traceability:
   - ISSUE-90
-  - OMSP-BASELINE-APPROVAL-0.5.0-0001
+  - OMSP-BASELINE-APPROVAL-050-0001
 ---
 
 # Sprint-5 Release Notes

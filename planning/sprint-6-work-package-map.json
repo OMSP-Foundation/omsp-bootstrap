@@ -1,0 +1,26 @@
+{
+  "artifact_id": "OMSP-PLANNING-SPRINT6-MAP-0001",
+  "version": "0.1.0",
+  "status": "draft",
+  "sprint": "Sprint-6",
+  "goal": "Controlled pilot readiness without production authorization",
+  "authority": {
+    "owner": "OMSP Engineering Council",
+    "automation_may_approve": false
+  },
+  "work_packages": [
+    {"id":"WP-0058","issue":143,"status":"completed","outcome":"v0.5.0 root documentation alignment","risks":[]},
+    {"id":"WP-0059","issue":144,"status":"completed","outcome":"persistent risk reassessment plan","risks":["RR-001","RR-002","RR-003","RR-004","RR-005"]},
+    {"id":"WP-0060","issue":145,"status":"in-progress","outcome":"Sprint-6 execution and authority plan","risks":["RR-001","RR-002","RR-003","RR-004","RR-005"]},
+    {"id":"WP-0061","status":"planned","outcome":"controlled pilot environment and access-control baseline","risks":["RR-001"]},
+    {"id":"WP-0062","status":"planned","outcome":"signed provenance and immutable audit evidence","risks":["RR-002"]},
+    {"id":"WP-0063","status":"planned","outcome":"remote telemetry, alerting and evidence retention","risks":["RR-003"]},
+    {"id":"WP-0064","status":"planned","outcome":"vulnerability intelligence and repository-history secret scanning","risks":["RR-004"]},
+    {"id":"WP-0065","status":"planned","outcome":"performance, availability and capacity qualification","risks":["RR-005"]},
+    {"id":"WP-0066","status":"planned","outcome":"external backup and disaster-recovery validation","risks":["RR-005"]},
+    {"id":"WP-0067","status":"planned","outcome":"controlled pilot integration demonstrator","risks":["RR-001","RR-002","RR-003","RR-004","RR-005"]},
+    {"id":"WP-0068","status":"planned","outcome":"pilot-readiness assessment and accountable approval record","risks":["RR-001","RR-002","RR-003","RR-004","RR-005"]}
+  ],
+  "mandatory_entry_blockers": ["RR-001", "RR-002"],
+  "production_authorization": false
+}

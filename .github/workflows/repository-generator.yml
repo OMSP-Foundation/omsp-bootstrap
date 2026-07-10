@@ -1,0 +1,34 @@
+name: Repository Generator
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  generator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run generator tests
+        run: python -m unittest tests/test_omsp_generate_repo.py
+      - name: Generate example repository
+        run: python tooling/omsp_generate_repo.py tests/generator/repository-profile.json build/generated --report build/generator-report.json
+      - name: Validate generated repository
+        run: python tooling/omsp_validate.py build/generated --output build/generated-validation-report.json
+      - name: Verify reproducibility
+        run: |
+          python tooling/omsp_generate_repo.py tests/generator/repository-profile.json build/generated --report build/generator-second-report.json
+          test "$(git status --porcelain build/generated | wc -l)" -eq 0
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-generator-evidence
+          path: build/*.json

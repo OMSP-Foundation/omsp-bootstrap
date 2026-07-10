@@ -1,5 +1,6 @@
 ---
 Artifact-ID: OMSP-GOV-AUTHORITY-MAP-0001
+Title: Canonical Authority Map
 Version: 1.0.0
 Status: Active
 Owner: OMSP Engineering Council

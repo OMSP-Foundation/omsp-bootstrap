@@ -1,0 +1,77 @@
+name: Operational Observability and Audit
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run observability tests
+        run: python -m unittest tests/test_omsp_observability.py
+      - name: Produce integrated quality-gate evidence
+        id: gate
+        continue-on-error: true
+        run: python tooling/omsp_quality_gate.py --output build/quality-gate-report.json
+      - name: Generate structured audit and health records
+        if: always()
+        env:
+          OMSP_REPOSITORY: ${{ github.repository }}
+          OMSP_COMMIT: ${{ github.sha }}
+          OMSP_RUN: ${{ github.run_id }}.${{ github.run_attempt }}
+          OMSP_ACTOR: ${{ github.actor }}
+        run: |
+          OBSERVED_AT="$(git show -s --format=%cI HEAD)"
+          python tooling/omsp_observability.py build/quality-gate-report.json \
+            --events build/observability/audit-events.jsonl \
+            --health build/observability/health.json \
+            --observed-at "$OBSERVED_AT" \
+            --correlation-id "github-${OMSP_RUN}" \
+            --repository "$OMSP_REPOSITORY" \
+            --source-commit "$OMSP_COMMIT" \
+            --workflow-run "$OMSP_RUN" \
+            --actor "$OMSP_ACTOR"
+      - name: Publish operational summary
+        if: always()
+        run: |
+          echo '## OMSP Operational Observability' >> "$GITHUB_STEP_SUMMARY"
+          if test -f build/observability/health.json; then
+            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          health = json.loads(Path('build/observability/health.json').read_text())
+          print(f"- Health: **{health['status']}**")
+          print(f"- Failed checks: {health['checks_failed']}/{health['checks_total']}")
+          print(f"- Correlation: `{health['correlation_id']}`")
+          print('- Human triage and approval remain required.')
+          PY
+          else
+            echo '- Audit evidence was not produced; inspect workflow logs.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload observability evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: observability-audit-evidence
+          path: |
+            build/quality-gate-report.json
+            build/quality-gate/
+            build/observability/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Enforce integrated gate outcome
+        if: always()
+        run: test '${{ steps.gate.outcome }}' = 'success'

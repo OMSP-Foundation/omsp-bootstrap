@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "OMSP-VAL-CHECKLIST-RULES-0001",
+  "rules": [
+    {"id": "CHK-META-001", "severity": "error", "scope": "all", "description": "Required checklist metadata must be present."},
+    {"id": "CHK-META-002", "severity": "error", "scope": "all", "description": "Checklist Artifact ID must be stable and valid."},
+    {"id": "CHK-ITEM-001", "severity": "error", "scope": "all", "description": "Checklist item IDs must be unique."},
+    {"id": "CHK-ITEM-002", "severity": "error", "scope": "all", "description": "Outcome must use the controlled vocabulary."},
+    {"id": "CHK-EVID-001", "severity": "error", "scope": "all", "description": "Evidence-bearing pass outcomes require an evidence reference."},
+    {"id": "CHK-EVID-002", "severity": "warning", "scope": "all", "description": "Evidence references must be resolvable and unambiguous."},
+    {"id": "CHK-EXC-001", "severity": "error", "scope": "all", "description": "Not-applicable outcomes require rationale."},
+    {"id": "CHK-EXC-002", "severity": "gate", "scope": "baseline-release", "description": "Deferred outcomes require an approved exception reference and review point."},
+    {"id": "CHK-PR-001", "severity": "error", "scope": "pull-request", "description": "Applicable PR checklist sections must be complete."},
+    {"id": "CHK-BASE-001", "severity": "gate", "scope": "baseline", "description": "Baseline readiness items cannot remain failed or not-evaluated."},
+    {"id": "CHK-REL-001", "severity": "gate", "scope": "release", "description": "Release readiness items cannot remain failed or not-evaluated."},
+    {"id": "CHK-AUTH-001", "severity": "error", "scope": "all", "description": "Automation output must not claim approval authority."}
+  ],
+  "allowed_outcomes": ["pass", "fail", "not-applicable", "deferred", "not-evaluated"],
+  "allowed_severities": ["info", "warning", "error", "gate"]
+}

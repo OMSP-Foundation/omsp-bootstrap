@@ -1,0 +1,18 @@
+{
+  "package_id": "OMSP-PACKAGE-SPRINT5-PREVIEW-0001",
+  "title": "Sprint-5 Preview Package",
+  "package_version": "0.1.0",
+  "channel": "preview",
+  "source_repository": "OMSP-Foundation/omsp-bootstrap",
+  "source_commit": "TEST-COMMIT",
+  "artifacts": [
+    {
+      "path": "validation/VALIDATOR_TOOLCHAIN_MVP.md",
+      "included_as": "informative"
+    },
+    {
+      "path": "generator/REPOSITORY_GENERATOR_MVP.md",
+      "included_as": "informative"
+    }
+  ]
+}

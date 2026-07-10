@@ -31,7 +31,8 @@ class SecurityBaselineTests(unittest.TestCase):
     def test_secret_material_is_blocking(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / "secret.txt").write_text("-----BEGIN PRIVATE KEY-----\n", encoding="utf-8")
+            marker = "-----BEGIN " + "PRIVATE KEY-----\n"
+            (root / "secret.txt").write_text(marker, encoding="utf-8")
             report = MODULE.scan(root)
             self.assertIn("SEC-SECRET-001", {item["rule_id"] for item in report["findings"]})
             self.assertEqual(1, report["summary"]["errors"])

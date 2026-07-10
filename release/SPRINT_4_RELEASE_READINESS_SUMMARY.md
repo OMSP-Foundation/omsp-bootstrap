@@ -1,32 +1,32 @@
 # Sprint 4 Release Readiness Summary
 
 - Artifact ID: `OMSP-REFERENCE-SPRINT4-READINESS-0001`
-- Version: `0.1.0`
-- Status: `review`
+- Version: `0.2.0`
+- Status: `approved-with-recorded-limitations`
+- Release version: `0.4.0`
+- Release tag: `v0.4.0-foundation-sprint-4`
 
 ## Readiness assessment
 
-The Sprint 4 digital-twin foundation is ready for documentation-baseline review.
+The Sprint 4 digital-twin foundation is approved for publication as a governed documentation baseline with recorded limitations.
 
-All prerequisite work packages from WP-0038 through WP-0045 are merged. Their evidence covers vessel references, Hanse 460 design-family configuration, equipment and interfaces, operational scenarios, state and observations, demonstrator traceability, and governance boundaries.
+All work packages from WP-0038 through WP-0046 are merged. Their evidence covers vessel references, Hanse 460 design-family configuration, equipment and interfaces, operational scenarios, state and observations, demonstrator traceability, governance boundaries, and release readiness.
 
 ## Satisfied gates
 
-- dependency chain is present;
+- dependency chain is present and traceable;
 - model authority boundaries are documented;
 - demonstrator evidence is reproducible at documentation level;
 - safety and AI-assistance limits are explicit;
 - completed and deferred work are visible;
-- proposed release version and classification are recorded.
+- release version, tag and classification are recorded;
+- named accountable human approval is recorded;
+- the approval decision is `approved-with-recorded-limitations`.
 
-## Open gate
+## Final disposition
 
-Named human approval remains pending.
+`approved-with-recorded-limitations`
 
-Until the approval record is completed, the package may be reviewed and merged as release-readiness evidence but must not be declared an approved release baseline.
+The documentation baseline may be tagged and published as `v0.4.0-foundation-sprint-4`.
 
-## Proposed disposition
-
-`ready-for-human-baseline-approval`
-
-This disposition is limited to the documentation baseline and carries no production, operational, certification, vessel-specific or control authority.
+This disposition carries no production, operational, certification, vessel-specific, seaworthiness, autonomous-navigation or vessel-control authority. Any such capability requires separate implementation evidence, validation and accountable human approval.

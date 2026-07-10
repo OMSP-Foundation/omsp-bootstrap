@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "OMSP-GOV-AUTHORITY-REGISTRY-0001",
+  "authorities": [
+    {
+      "domain": "engineering-artifact-standard",
+      "canonical_artifact_id": "OMSP-STD-ARTIFACT-0001",
+      "canonical_path": "governance/ENGINEERING_ARTIFACT_STANDARD.md",
+      "status": "Active",
+      "legacy_paths": ["foundation/ENGINEERING_ARTIFACT_STANDARD.md"]
+    },
+    {
+      "domain": "metadata-and-traceability-standard",
+      "canonical_artifact_id": "OMSP-STD-METADATA-TRACEABILITY-0001",
+      "canonical_path": "governance/METADATA_AND_TRACEABILITY_STANDARD.md",
+      "status": "Active",
+      "legacy_paths": ["foundation/METADATA_STANDARD.md", "foundation/TRACEABILITY_STANDARD.md"]
+    },
+    {
+      "domain": "decision-and-review-policy",
+      "canonical_artifact_id": "OMSP-GOV-DECISION-REVIEW-0001",
+      "canonical_path": "governance/DECISION_AND_REVIEW_POLICY.md",
+      "status": "Active",
+      "legacy_paths": ["governance/DECISION_POLICY.md", "governance/REVIEW_POLICY.md"]
+    }
+  ]
+}

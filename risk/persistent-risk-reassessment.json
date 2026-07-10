@@ -1,0 +1,90 @@
+{
+  "artifact_id": "OMSP-RISK-REASSESSMENT-0001",
+  "version": "0.1.0",
+  "status": "review",
+  "baseline": "0.5.0",
+  "sprint": "Sprint-6",
+  "work_package": "WP-0059",
+  "authority_boundary": {
+    "automation_may_recommend": true,
+    "automation_may_accept_risk": false,
+    "automation_may_close_risk": false,
+    "production_release_requires_human_approval": true
+  },
+  "review_cadence": {
+    "scheduled": ["Sprint-6 midpoint", "before pilot activation", "before pilot exit"],
+    "event_driven": ["escalation threshold reached", "material architecture change", "security incident", "control failure", "evidence-integrity concern"]
+  },
+  "risks": [
+    {
+      "id": "RR-001",
+      "category": "environment-and-deployment-governance",
+      "likelihood": "high",
+      "impact": "high",
+      "rating": "high",
+      "owner": "Platform Operations Owner",
+      "evidence_gap": "No governed pilot or production environment, protected deployment control or environment approval evidence.",
+      "validation": ["controlled pilot environment definition", "protected deployment approvals", "access and separation-of-duty evidence", "tested rollback"],
+      "triggers": ["before pilot activation", "deployment-target change", "privilege-model change"],
+      "escalation": ["unapproved deployment path", "privileged bypass", "environment-boundary failure"],
+      "closure": "Approved environment record, protected deployment path, tested rollback and named activation authority.",
+      "carry_forward": "Blocking when any environment or approval evidence is missing."
+    },
+    {
+      "id": "RR-002",
+      "category": "provenance-and-integrity",
+      "likelihood": "medium",
+      "impact": "critical",
+      "rating": "high",
+      "owner": "Release & Supply-Chain Owner",
+      "evidence_gap": "No signed provenance, signed release artifact or immutable signed audit evidence.",
+      "validation": ["artifact provenance generation", "release package signing", "source-commit attestation", "independent signature verification"],
+      "triggers": ["before pilot package approval", "signing-key change", "provenance-format change"],
+      "escalation": ["missing or invalid signature", "unverifiable source binding", "key compromise", "mutable approval evidence"],
+      "closure": "Independent verification succeeds for source, package and approval record, with approved key custody.",
+      "carry_forward": "Blocking when provenance cannot be independently verified."
+    },
+    {
+      "id": "RR-003",
+      "category": "observability-and-retention",
+      "likelihood": "medium",
+      "impact": "medium",
+      "rating": "medium",
+      "owner": "Operations & Observability Owner",
+      "evidence_gap": "No remote telemetry, alert delivery, paging, SLO evidence or long-term evidence store.",
+      "validation": ["remote health and audit sink", "alert-delivery exercise", "retention-objective verification", "redaction test"],
+      "triggers": ["before pilot activation", "monitoring change", "retention change", "incident-routing change"],
+      "escalation": ["missing critical signal", "alert-delivery failure", "privacy leak", "evidence loss beyond objective"],
+      "closure": "Critical signals are remotely retained, alerts are acknowledged and retention/redaction tests pass.",
+      "carry_forward": "Restricted pilot only with explicitly approved manual compensating monitoring."
+    },
+    {
+      "id": "RR-004",
+      "category": "vulnerability-and-secret-intelligence",
+      "likelihood": "medium",
+      "impact": "high",
+      "rating": "medium",
+      "owner": "Security Owner",
+      "evidence_gap": "No vulnerability-intelligence integration or repository-history secret scan.",
+      "validation": ["dependency and action vulnerability intelligence", "full repository-history secret scan", "finding and exception governance"],
+      "triggers": ["before pilot package approval", "dependency change", "action change", "new critical advisory"],
+      "escalation": ["critical exploitable finding", "exposed credential", "unowned exception", "stale vulnerability evidence"],
+      "closure": "No unresolved critical finding or exposed credential; all exceptions have owner, expiry and approval.",
+      "carry_forward": "Blocking for production; pilot exception must be explicit and time-bounded."
+    },
+    {
+      "id": "RR-005",
+      "category": "performance-availability-and-recovery",
+      "likelihood": "medium",
+      "impact": "critical",
+      "rating": "high",
+      "owner": "Reliability & Recovery Owner",
+      "evidence_gap": "No load, capacity, availability, endurance, backup-restore or external disaster-recovery qualification.",
+      "validation": ["workload profile", "load and endurance tests", "recovery-objective measurement", "external backup restore", "disaster-recovery exercise"],
+      "triggers": ["before pilot exit", "architecture change", "workload change", "recovery-topology change"],
+      "escalation": ["unsafe degradation", "unmet recovery objective", "unrecoverable evidence", "data loss"],
+      "closure": "Approved performance envelope, availability evidence, successful restore and external recovery exercise.",
+      "carry_forward": "Blocking when pilot-exit evidence or recovery objectives are unmet."
+    }
+  ]
+}

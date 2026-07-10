@@ -1,0 +1,84 @@
+{
+  "artifact_id": "OMSP-PILOT-ENV-0001",
+  "version": "0.1.0",
+  "status": "draft",
+  "sprint": "Sprint-6",
+  "work_package": "WP-0061",
+  "issue": 149,
+  "authority": {
+    "pilot_activation_requires_human_approval": true,
+    "production_deployment_authorized": false,
+    "unrestricted_external_access_authorized": false,
+    "physical_vessel_operation_authorized": false
+  },
+  "environment_classes": [
+    {"id": "development", "data": "synthetic", "deployment_authority": "contributors-via-reviewed-pr"},
+    {"id": "integration", "data": "synthetic-or-sanitized", "deployment_authority": "ci-service-identity"},
+    {"id": "controlled-pilot", "data": "approved-pilot-dataset", "deployment_authority": "pilot-release-manager-after-human-approval"},
+    {"id": "production", "data": "undefined", "deployment_authority": "not-authorized"}
+  ],
+  "trust_zones": [
+    "source-build",
+    "artifact",
+    "pilot-execution",
+    "observability",
+    "recovery",
+    "administrative"
+  ],
+  "required_roles": [
+    "contributor",
+    "ci-service",
+    "pilot-operator",
+    "pilot-release-manager",
+    "security-reviewer",
+    "incident-commander",
+    "approver",
+    "break-glass-custodian"
+  ],
+  "mandatory_controls": {
+    "unique_human_identities": true,
+    "mfa_for_privileged_roles": true,
+    "least_privilege": true,
+    "time_bounded_elevation": true,
+    "separation_of_duties": true,
+    "default_deny_external_access": true,
+    "privileged_action_audit": true,
+    "environment_scoped_service_identities": true,
+    "shared_human_accounts_prohibited": true
+  },
+  "activation_gate": [
+    "immutable-source-revision",
+    "passing-required-quality-gates",
+    "complete-approved-resource-inventory",
+    "validated-access-control-matrix",
+    "available-tested-rollback-package",
+    "active-telemetry-and-audit-capture",
+    "no-unresolved-critical-security-finding",
+    "explicit-RR-001-and-RR-002-pilot-disposition",
+    "accountable-human-activation-approval"
+  ],
+  "pause_or_abort_conditions": [
+    "unattributed-privileged-access",
+    "material-telemetry-or-audit-loss",
+    "unauthorized-configuration-or-revision",
+    "suspected-secret-or-signing-key-exposure",
+    "rollback-unavailable",
+    "environment-isolation-violation",
+    "risk-boundary-exceeded",
+    "human-suspension-decision"
+  ],
+  "required_drills": [
+    "rollback-to-previous-approved-package",
+    "privileged-access-revocation",
+    "credential-invalidation-or-rotation",
+    "evidence-preservation",
+    "abort-without-automatic-restart"
+  ],
+  "risk_reassessment": {
+    "risk_id": "RR-001",
+    "current_disposition": "open",
+    "closure_requires_concrete_environment": true,
+    "design_baseline_alone_closes_risk": false,
+    "production_environment_approval_in_scope": false
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "artifactId": "OMSP-REFERENCE-SPRINT4-RELEASE-MANIFEST-0001",
+  "version": "0.1.0",
+  "status": "review",
+  "proposedReleaseVersion": "0.4.0",
+  "releaseType": "foundation-documentation-baseline",
+  "scope": {
+    "productionRuntime": false,
+    "liveTelemetry": false,
+    "vesselControl": false,
+    "vesselSpecificApproval": false,
+    "certification": false
+  },
+  "workPackages": [
+    {"id": "WP-0038", "issue": 72, "status": "merged"},
+    {"id": "WP-0039", "issue": 73, "status": "merged"},
+    {"id": "WP-0040", "issue": 74, "status": "merged"},
+    {"id": "WP-0041", "issue": 75, "status": "merged"},
+    {"id": "WP-0042", "issue": 76, "status": "merged"},
+    {"id": "WP-0043", "issue": 77, "status": "merged"},
+    {"id": "WP-0044", "issue": 78, "status": "merged"},
+    {"id": "WP-0045", "issue": 79, "status": "merged"},
+    {"id": "WP-0046", "issue": 80, "status": "pending-review"}
+  ],
+  "releaseGates": {
+    "dependencyEvidenceVerified": true,
+    "governanceBoundariesReviewed": true,
+    "safetyBoundariesReviewed": true,
+    "completedDeferredWorkVisible": true,
+    "namedHumanApprovalRecorded": false
+  },
+  "approval": {
+    "status": "pending-human-approval",
+    "decision": null,
+    "approver": null,
+    "decisionTime": null
+  },
+  "releaseDecisionRule": "Release declaration is prohibited until namedHumanApprovalRecorded is true and the decision is approved or approved-with-recorded-limitations."
+}

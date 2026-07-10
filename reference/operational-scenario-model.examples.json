@@ -1,0 +1,199 @@
+{
+  "artifact_id": "OMSP-REFERENCE-SCENARIO-EXAMPLES-0001",
+  "version": "1.0.0",
+  "status": "review",
+  "applicability": {
+    "vessel_design_id": "vessel-design:hanse:460",
+    "configuration_id": "configuration:vessel-design:hanse:460:reference-0.1.0",
+    "vessel_instance_id": null,
+    "authority": "illustrative-reference"
+  },
+  "authority_boundary": {
+    "human_command_required": true,
+    "not_live_operating_instruction": true,
+    "not_vessel_specific": true,
+    "software_command_authority": false,
+    "approved_procedure_prevails": true
+  },
+  "scenarios": [
+    {
+      "id": "scenario:omsp:pre-departure-readiness-review:1.0.0",
+      "class": "normal",
+      "title": "Pre-departure readiness review",
+      "objective": "Demonstrate traceable review of configuration, people, environment and critical system readiness before a planned departure.",
+      "actors": [
+        {"role_id": "actor-role:maritime:skipper", "responsibility": "accountable"},
+        {"role_id": "actor-role:maritime:crew", "responsibility": "supporting"},
+        {"role_id": "actor-role:omsp:advisory-software", "responsibility": "informed-only"}
+      ],
+      "preconditions": [
+        "approved vessel-specific departure procedure is available",
+        "responsible human is identified",
+        "weather, route and port information source is identified",
+        "vessel-instance configuration and equipment status are verified outside this reference example"
+      ],
+      "trigger": {
+        "type": "human-initiated",
+        "description": "Responsible human begins pre-departure review.",
+        "confidence": "verified-by-human"
+      },
+      "systems": [
+        "system:vessel-design:hanse:460:propulsion-maneuvering",
+        "system:vessel-design:hanse:460:steering-control",
+        "system:vessel-design:hanse:460:electrical",
+        "system:vessel-design:hanse:460:navigation-comms",
+        "system:vessel-design:hanse:460:lifesaving-emergency-security",
+        "system:vessel-design:hanse:460:anchoring-mooring"
+      ],
+      "steps": [
+        {
+          "id": "scenario-step:scenario:omsp:pre-departure-readiness-review:1.0.0:01",
+          "actor": "actor-role:maritime:skipper",
+          "action": "Confirm scenario applicability and approved procedure identity.",
+          "human_confirmation_required": true,
+          "completion_criteria": "Applicable vessel-specific procedure is positively identified."
+        },
+        {
+          "id": "scenario-step:scenario:omsp:pre-departure-readiness-review:1.0.0:02",
+          "actor": "actor-role:maritime:crew",
+          "action": "Report readiness evidence and unresolved discrepancies for assigned systems.",
+          "human_confirmation_required": true,
+          "completion_criteria": "Evidence and unknowns are recorded without treating missing data as ready."
+        },
+        {
+          "id": "scenario-step:scenario:omsp:pre-departure-readiness-review:1.0.0:03",
+          "actor": "actor-role:maritime:skipper",
+          "action": "Decide whether to proceed, defer or abort according to approved procedure and judgement.",
+          "decision_id": "decision:scenario:omsp:pre-departure-readiness-review:1.0.0:departure-authority",
+          "human_confirmation_required": true,
+          "completion_criteria": "Human decision and rationale are recorded."
+        }
+      ],
+      "hazards": [
+        {
+          "id": "hazard:omsp:missing-readiness-evidence",
+          "description": "Unknown or missing evidence is misinterpreted as satisfactory readiness.",
+          "safeguard": "Unknown values block automatic positive conclusions and require human resolution."
+        }
+      ],
+      "outcomes": ["proceed-authorized-by-human", "departure-deferred", "departure-aborted"],
+      "stop_conditions": ["applicable procedure unavailable", "critical discrepancy unresolved", "responsible human unavailable"]
+    },
+    {
+      "id": "scenario:omsp:navigation-data-degradation:1.0.0",
+      "class": "degraded",
+      "title": "Navigation information degradation",
+      "objective": "Demonstrate escalation and evidence handling when one or more navigation data sources become unavailable, stale or conflicting.",
+      "actors": [
+        {"role_id": "actor-role:maritime:skipper", "responsibility": "accountable"},
+        {"role_id": "actor-role:maritime:helm-operator", "responsibility": "responsible"},
+        {"role_id": "actor-role:omsp:monitoring-software", "responsibility": "advisory"}
+      ],
+      "preconditions": [
+        "vessel remains under human command",
+        "approved degraded-navigation procedure is identified",
+        "available independent observations can be distinguished from inferred values"
+      ],
+      "trigger": {
+        "type": "observed-or-reported",
+        "description": "Navigation source is unavailable, stale, implausible or conflicts with another source.",
+        "confidence": "variable"
+      },
+      "systems": [
+        "system:vessel-design:hanse:460:navigation-comms",
+        "system:vessel-design:hanse:460:monitoring-networks",
+        "system:vessel-design:hanse:460:steering-control"
+      ],
+      "steps": [
+        {
+          "id": "scenario-step:scenario:omsp:navigation-data-degradation:1.0.0:01",
+          "actor": "actor-role:omsp:monitoring-software",
+          "action": "Present source identity, timestamp, quality and conflict without selecting a command action.",
+          "human_confirmation_required": false,
+          "completion_criteria": "Degraded source and uncertainty are visible."
+        },
+        {
+          "id": "scenario-step:scenario:omsp:navigation-data-degradation:1.0.0:02",
+          "actor": "actor-role:maritime:skipper",
+          "action": "Assess available evidence and choose the applicable approved degraded-mode response.",
+          "decision_id": "decision:scenario:omsp:navigation-data-degradation:1.0.0:continue-or-safe-state",
+          "human_confirmation_required": true,
+          "completion_criteria": "Human decision, evidence basis and restrictions are recorded."
+        }
+      ],
+      "hazards": [
+        {
+          "id": "hazard:omsp:trusted-stale-navigation-data",
+          "description": "Stale or conflicting data is treated as current and authoritative.",
+          "safeguard": "Freshness, source and quality remain visible; inferred data cannot overwrite observed source records."
+        }
+      ],
+      "outcomes": ["controlled-degraded-operation", "safe-state-selected", "scenario-escalated"],
+      "stop_conditions": ["position or traffic situation cannot be assessed", "human authority requests stop", "approved procedure requires escalation"]
+    },
+    {
+      "id": "scenario:omsp:water-ingress-alert-response-boundary:1.0.0",
+      "class": "emergency",
+      "title": "Water-ingress alert response boundary",
+      "objective": "Demonstrate emergency scenario structure, alert provenance and human escalation without prescribing vessel-specific actions.",
+      "actors": [
+        {"role_id": "actor-role:maritime:skipper", "responsibility": "accountable"},
+        {"role_id": "actor-role:maritime:crew", "responsibility": "responsible"},
+        {"role_id": "actor-role:omsp:monitoring-software", "responsibility": "alerting-only"}
+      ],
+      "preconditions": [
+        "approved vessel-specific emergency procedure is available",
+        "crew roles and communication method are established",
+        "alert source identity and confidence can be recorded"
+      ],
+      "trigger": {
+        "type": "alarm-observation-or-human-report",
+        "description": "Potential unintended water ingress is indicated.",
+        "confidence": "unverified-until-human-assessment"
+      },
+      "systems": [
+        "system:vessel-design:hanse:460:water-waste-bilge",
+        "system:vessel-design:hanse:460:hull-structure",
+        "system:vessel-design:hanse:460:electrical",
+        "system:vessel-design:hanse:460:lifesaving-emergency-security"
+      ],
+      "steps": [
+        {
+          "id": "scenario-step:scenario:omsp:water-ingress-alert-response-boundary:1.0.0:01",
+          "actor": "actor-role:omsp:monitoring-software",
+          "action": "Raise an advisory alert with source, time, quality and affected reference entity.",
+          "human_confirmation_required": false,
+          "completion_criteria": "Alert provenance and uncertainty are visible."
+        },
+        {
+          "id": "scenario-step:scenario:omsp:water-ingress-alert-response-boundary:1.0.0:02",
+          "actor": "actor-role:maritime:skipper",
+          "action": "Take command of response under the approved vessel-specific emergency procedure.",
+          "human_confirmation_required": true,
+          "completion_criteria": "Command authority and applicable procedure are confirmed."
+        },
+        {
+          "id": "scenario-step:scenario:omsp:water-ingress-alert-response-boundary:1.0.0:03",
+          "actor": "actor-role:maritime:crew",
+          "action": "Report observations and actions through the command structure defined by the approved procedure.",
+          "human_confirmation_required": true,
+          "completion_criteria": "Reports remain traceable to actor, time and evidence source."
+        }
+      ],
+      "hazards": [
+        {
+          "id": "hazard:omsp:false-negative-water-ingress",
+          "description": "Absence or clearance of an electronic alert is interpreted as proof that ingress is absent.",
+          "safeguard": "Electronic state is advisory; human assessment and approved procedure remain authoritative."
+        },
+        {
+          "id": "hazard:omsp:scenario-as-procedure",
+          "description": "Reference scenario is mistaken for an approved emergency procedure.",
+          "safeguard": "Scenario contains no vessel-specific action sequence and explicitly requires approved procedure."
+        }
+      ],
+      "outcomes": ["human-led-emergency-response", "false-alert-determined-by-authorized-review", "external-assistance-escalation"],
+      "stop_conditions": ["reference scenario could delay approved emergency action", "responsible human orders termination", "applicability is uncertain"]
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "artifact_id": "OMSP-REFERENCE-TWIN-DEMO-0001",
+  "version": "0.1.0",
+  "status": "review",
+  "demonstrator_run": {
+    "id": "demonstrator-run:wp-0044:nav-data-degradation:001",
+    "class": "documentation-validation",
+    "applicability": "Hanse 460 design family reference only",
+    "production_runtime": false,
+    "vessel_instance_id": null,
+    "human_command_authority": "actor:accountable-human-operator"
+  },
+  "references": {
+    "configuration_id": "configuration:vessel-design:hanse:460:reference-0.1.0",
+    "vessel_design_id": "vessel-design:hanse:460",
+    "scenario_id": "scenario:hanse-460:navigation-data-degradation:illustrative-0.1.0",
+    "systems": [
+      "system:vessel-design:hanse:460:navigation-comms",
+      "system:vessel-design:hanse:460:monitoring-networks"
+    ],
+    "artifact_paths": [
+      "reference/hanse-460-reference-configuration.json",
+      "reference/equipment-interface-model.example.json",
+      "reference/operational-scenario-model.examples.json",
+      "reference/digital-twin-state-observation.examples.json"
+    ]
+  },
+  "projection_policy": {
+    "id": "current-state-policy:wp-0044:0.1.0",
+    "as_of": "2026-07-10T12:00:10Z",
+    "rules": {
+      "exclude_stale": true,
+      "preserve_conflicts": true,
+      "preserve_missing": true,
+      "separate_human_reports": true,
+      "fabricate_defaults": false
+    }
+  },
+  "observations": [
+    {
+      "id": "observation:demo:heading:001",
+      "target": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "heading",
+      "value": 127.4,
+      "unit": "deg",
+      "event_time": "2026-07-10T12:00:04Z",
+      "receipt_time": "2026-07-10T12:00:05Z",
+      "processing_time": "2026-07-10T12:00:06Z",
+      "source": {"id": "source:simulator:heading:001", "class": "simulated"},
+      "authority": "observation",
+      "quality": {"validity": "valid", "freshness": "fresh", "confidence": "illustrative"}
+    },
+    {
+      "id": "observation:demo:position:001",
+      "target": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "position",
+      "value": {"latitude": 0.0, "longitude": 0.0},
+      "event_time": "2026-07-10T11:50:00Z",
+      "receipt_time": "2026-07-10T12:00:01Z",
+      "processing_time": "2026-07-10T12:00:02Z",
+      "source": {"id": "source:simulator:position:001", "class": "simulated"},
+      "authority": "observation",
+      "quality": {"validity": "not-assessed", "freshness": "stale", "confidence": "illustrative"}
+    },
+    {
+      "id": "observation:demo:speed:001",
+      "target": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "speed_over_ground",
+      "value": 5.1,
+      "unit": "kn",
+      "event_time": "2026-07-10T12:00:03Z",
+      "receipt_time": "2026-07-10T12:00:04Z",
+      "processing_time": "2026-07-10T12:00:05Z",
+      "source": {"id": "source:simulator:speed-a:001", "class": "simulated"},
+      "authority": "observation",
+      "quality": {"validity": "valid", "freshness": "fresh", "conflict_set": "conflict:demo:speed:001"}
+    },
+    {
+      "id": "observation:demo:speed:002",
+      "target": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "speed_over_ground",
+      "value": 8.7,
+      "unit": "kn",
+      "event_time": "2026-07-10T12:00:03Z",
+      "receipt_time": "2026-07-10T12:00:04Z",
+      "processing_time": "2026-07-10T12:00:05Z",
+      "source": {"id": "source:simulator:speed-b:001", "class": "simulated"},
+      "authority": "observation",
+      "quality": {"validity": "valid", "freshness": "fresh", "conflict_set": "conflict:demo:speed:001"}
+    },
+    {
+      "id": "observation:demo:display-report:001",
+      "target": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "display_consistency",
+      "value": "appears-inconsistent",
+      "event_time": "2026-07-10T12:00:07Z",
+      "receipt_time": "2026-07-10T12:00:08Z",
+      "processing_time": "2026-07-10T12:00:09Z",
+      "source": {"id": "actor:accountable-human-operator", "class": "human-report"},
+      "authority": "human-reported",
+      "quality": {"validity": "not-independently-verified", "freshness": "fresh"}
+    },
+    {
+      "id": "observation:demo:wind:001",
+      "target": "system:vessel-design:hanse:460:navigation-comms",
+      "property": "apparent_wind_speed",
+      "value": null,
+      "unit": "kn",
+      "event_time": "2026-07-10T12:00:02Z",
+      "receipt_time": "2026-07-10T12:00:03Z",
+      "processing_time": "2026-07-10T12:00:04Z",
+      "source": {"id": "source:simulator:wind:001", "class": "simulated"},
+      "authority": "observation",
+      "quality": {"validity": "missing", "freshness": "unknown", "missing_reason": "source-unavailable"}
+    }
+  ],
+  "expected_current_state": {
+    "heading": {"status": "current", "source_observation": "observation:demo:heading:001"},
+    "position": {"status": "stale-excluded", "source_observation": "observation:demo:position:001"},
+    "speed_over_ground": {"status": "conflicted", "conflict_set": "conflict:demo:speed:001"},
+    "display_consistency": {"status": "human-reported", "source_observation": "observation:demo:display-report:001"},
+    "apparent_wind_speed": {"status": "missing", "reason": "source-unavailable"}
+  },
+  "derived_value": {
+    "id": "derived:demo:navigation-data-readiness:001",
+    "property": "navigation_data_readiness",
+    "value": "degraded-data-review-required",
+    "authority": "derived-advisory",
+    "method": {"id": "method:navigation-data-readiness:0.1.0", "version": "0.1.0"},
+    "inputs": [
+      "observation:demo:heading:001",
+      "observation:demo:position:001",
+      "observation:demo:speed:001",
+      "observation:demo:speed:002",
+      "observation:demo:display-report:001",
+      "observation:demo:wind:001"
+    ],
+    "assumptions": ["illustrative-only", "no-installed-equipment-asserted"],
+    "executed_at": "2026-07-10T12:00:10Z",
+    "quality": "indeterminate-for-operations"
+  },
+  "expected_assertions": [
+    "observations_are_not_configuration_facts",
+    "stale_data_is_not_silently_current",
+    "conflicts_are_preserved",
+    "missing_values_are_explicit",
+    "derived_provenance_is_complete",
+    "human_authority_is_explicit",
+    "no_control_action_is_emitted"
+  ],
+  "safety_boundary": {
+    "not_live_data": true,
+    "not_vessel_specific": true,
+    "not_operational_guidance": true,
+    "not_control_authority": true,
+    "not_certification_evidence": true
+  }
+}

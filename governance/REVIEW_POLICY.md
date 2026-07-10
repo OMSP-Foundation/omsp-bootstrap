@@ -1,5 +1,6 @@
 ---
 Artifact-ID: OMSP-LEGACY-GOV-REVIEW-0001
+Title: Review Policy Compatibility Stub
 Version: 1.0.0
 Status: Superseded
 Owner: OMSP Engineering Council

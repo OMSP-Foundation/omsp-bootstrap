@@ -12,7 +12,7 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | --- | --- | --- |
 | Sprint-0 | Completed | Bootstrap repository and governance skeleton |
 | Sprint-1 | Completed | Production-quality Foundation Repository |
-| Sprint-2 | Planned | Engineering models and structured artifact system |
+| Sprint-2 | Active | Formal engineering foundation and automation-ready designs |
 | Sprint-3 | Planned | Knowledge platform foundations |
 | Sprint-4 | Planned | Digital twin foundation |
 | Sprint-5 | Planned | Production platform readiness |
@@ -68,18 +68,34 @@ Closure status:
 - Sprint-1 baseline approval was recorded through accountable human instruction.
 - Future-scope issues are non-blocking for Sprint-1 closure unless later reclassified by governance.
 
-## Sprint-2: Engineering Models
+## Sprint-2: Formal Engineering Foundation
 
-Sprint-2 will introduce structured engineering models and more formal artifact representations.
+Sprint-2 is active and converts selected Sprint-1 follow-ups into formal, traceable and automation-ready artifacts.
 
-Expected focus:
+Execution plan:
 
-- artifact registry;
-- traceability matrix;
-- model templates;
-- architecture decision records;
-- requirements model;
-- validation evidence model.
+- `planning/SPRINT_2_EXECUTION_PLAN.md`
+- WP-0022 / issue #62
+
+Ordered Work Packages:
+
+1. WP-0022 — Sprint scope and execution plan;
+2. WP-0057 — canonical standard authority and duplicate retirement;
+3. WP-0023 — formal ontology artifact;
+4. WP-0024 — platform engine architecture artifacts;
+5. WP-0025 — platform context diagram;
+6. WP-0026 — Traceability Engine automation design;
+7. WP-0027 — Publication Engine workflow;
+8. WP-0028 — validation checklist linting design;
+9. WP-0029 — baseline and release readiness.
+
+Proposed release candidate:
+
+```text
+v0.2.0-foundation-sprint-2
+```
+
+The tag remains provisional until the Sprint-2 baseline is complete and an accountable human approves release.
 
 ## Sprint-3: Knowledge Platform
 

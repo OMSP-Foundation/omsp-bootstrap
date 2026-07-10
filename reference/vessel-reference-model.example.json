@@ -1,0 +1,77 @@
+{
+  "artifact_id": "OMSP-REFERENCE-VESSEL-0001",
+  "model_version": "1.0.0",
+  "status": "illustrative",
+  "authority_class": "reference",
+  "vessel_design": {
+    "id": "vessel-design:example:generic-sailing-yacht",
+    "type": "VesselDesign",
+    "name": "Generic Sailing Yacht",
+    "vessel_type": "vessel-type:sailing-yacht",
+    "provenance": {
+      "source_type": "model-example",
+      "source_reference": "OMSP-REFERENCE-VESSEL-0001",
+      "confidence": "illustrative"
+    }
+  },
+  "configuration": {
+    "id": "configuration:vessel-design:example:generic-sailing-yacht:0.1.0",
+    "version": "0.1.0",
+    "authority_class": "reference",
+    "predecessor": null,
+    "effective_date": null,
+    "systems": [
+      {
+        "id": "system:vessel-design:example:generic-sailing-yacht:electrical",
+        "type": "System",
+        "name": "Electrical System",
+        "parent_id": "vessel-design:example:generic-sailing-yacht",
+        "lifecycle_state": "proposed",
+        "safety_relevance": "high",
+        "assumptions": [
+          "Example structure only; no vessel-specific topology is asserted."
+        ],
+        "unknowns": [
+          "Generation sources",
+          "Nominal voltages",
+          "Protection arrangement"
+        ]
+      },
+      {
+        "id": "system:vessel-design:example:generic-sailing-yacht:propulsion",
+        "type": "System",
+        "name": "Propulsion System",
+        "parent_id": "vessel-design:example:generic-sailing-yacht",
+        "lifecycle_state": "proposed",
+        "safety_relevance": "high",
+        "assumptions": [],
+        "unknowns": [
+          "Propulsion type",
+          "Rated output",
+          "Control interfaces"
+        ]
+      }
+    ],
+    "interfaces": [
+      {
+        "id": "interface:system:vessel-design:example:generic-sailing-yacht:electrical:system:vessel-design:example:generic-sailing-yacht:propulsion:functional-dependency",
+        "type": "functional-dependency",
+        "source_id": "system:vessel-design:example:generic-sailing-yacht:propulsion",
+        "target_id": "system:vessel-design:example:generic-sailing-yacht:electrical",
+        "direction": "source-to-target",
+        "authority_class": "reference",
+        "confidence": "illustrative",
+        "provenance": "OMSP-REFERENCE-VESSEL-0001",
+        "limitations": [
+          "This relation is an example and does not describe a specific vessel."
+        ]
+      }
+    ]
+  },
+  "governance": {
+    "operational_authority": false,
+    "certification_claim": false,
+    "human_approval_required_for_promotion": true,
+    "ai_generated_facts_may_be_verified_automatically": false
+  }
+}

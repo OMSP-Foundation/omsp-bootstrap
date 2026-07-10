@@ -3,7 +3,7 @@
 > **Open Maritime Systems Platform**  
 > A knowledge-first, model-driven engineering foundation for maritime operations.
 
-OMSP Foundation is the starting point for building an open, traceable and architecture-driven systems engineering platform for maritime operational knowledge.
+OMSP Foundation provides the governed standards, models, tooling and evidence needed to build traceable maritime engineering systems. This repository is the foundation baseline for the wider OMSP ecosystem.
 
 ---
 
@@ -12,173 +12,113 @@ OMSP Foundation is the starting point for building an open, traceable and archit
 | Item | Status |
 | --- | --- |
 | Repository | Foundation Repository |
-| Current Release | `v0.1.0-foundation-sprint-1` |
-| Current Sprint | Sprint-1 Completed / Sprint-2 Planned |
+| Current Governed Baseline | `v0.5.0` |
+| Baseline Classification | Production Baseline Candidate |
+| Authorized Use | Controlled pre-production and pilot evaluation |
+| Production Deployment | Not authorized |
+| Completed Sprint | Sprint-5 |
+| Current Planning Horizon | Sprint-6 — Controlled Pilot Readiness |
 | Development Branch | `develop` |
 | Work Package Flow | Issue → Branch → Commit → Draft PR → Review → Merge |
 
----
-
-## What is OMSP?
-
-OMSP, the **Open Maritime Systems Platform**, is an open, model-based and knowledge-first engineering platform for maritime operations.
-
-It is designed to connect requirements, architecture, domain knowledge, validation evidence, documentation and implementation into a coherent engineering lifecycle. OMSP is not only a software project; it is an engineering knowledge system intended to make maritime operational systems more understandable, traceable, reusable and governable.
+`v0.5.0` is an approved-with-conditions baseline candidate. It is not a production release and does not authorize production deployment, unrestricted external publication, autonomous operational authority or automatic residual-risk acceptance.
 
 ---
 
-## Why OMSP?
+## What OMSP Provides
 
-Maritime operations involve complex interactions between vessels, crews, procedures, equipment, regulations, safety constraints, maintenance activities and operational environments. These elements are often documented separately, making it difficult to reason about the whole system.
+OMSP connects governed engineering knowledge, architecture, models, validation evidence, automation and publication into one traceable lifecycle. The current baseline includes:
 
-OMSP addresses this by establishing a foundation where:
+- governance, decision, review, metadata and traceability standards;
+- formal ontology and semantic relationship foundations;
+- platform engine architecture and context models;
+- artifact registry, knowledge graph and AI-readable processing contracts;
+- vessel, equipment, operational scenario and digital-twin reference models;
+- deterministic validator and repository-generator tooling;
+- governed preview, baseline and release publication workflows;
+- integrated CI/CD quality gates and security baseline checks;
+- structured operational observability and audit evidence;
+- an end-to-end platform integration demonstrator;
+- incident, recovery and release-readiness evidence.
 
-- knowledge is treated as a first-class engineering asset;
-- models are created before implementation details;
-- decisions are captured and reviewed;
-- requirements, architecture and evidence remain traceable;
-- documentation is structured for both humans and automation;
-- AI-assisted engineering can operate on governed artifacts.
-
----
-
-## Vision
-
-To become an open, model-based, knowledge-first systems engineering platform for maritime operations.
-
-## Mission
-
-To provide an open engineering foundation that enables interoperable, traceable and reusable maritime operational knowledge.
+OMSP remains a governed engineering foundation. Physical-vessel applicability, production runtime deployment, certification, regulatory acceptance, seaworthiness and operational control require separate evidence and accountable approval.
 
 ---
 
 ## Core Engineering Principles
 
-OMSP follows a small set of stable engineering principles:
-
-1. **Knowledge First** — domain knowledge is captured, structured and maintained as an engineering asset.
-2. **Models Before Code** — implementation follows explicit models, standards and decisions.
-3. **Architecture Driven** — system structure and responsibility boundaries are made explicit.
-4. **Traceability by Design** — requirements, artifacts, decisions and validation evidence are connected.
-5. **Evidence Based Engineering** — important claims should be supported by reviewable evidence.
-6. **Automation by Default** — repeatable engineering checks should become automated quality gates.
-7. **Open Standards** — the platform should prefer open formats, clear interfaces and portable knowledge.
-8. **AI Assisted Engineering** — AI may assist with drafting, analysis and validation, but governance remains human-led.
+1. **Knowledge First** — domain knowledge is maintained as an engineering asset.
+2. **Models Before Code** — implementation follows explicit models and decisions.
+3. **Architecture Driven** — responsibilities and system boundaries are visible.
+4. **Traceability by Design** — artifacts, decisions and evidence remain linked.
+5. **Evidence-Based Engineering** — material claims require reviewable evidence.
+6. **Automation by Default** — repeatable checks become deterministic quality gates.
+7. **Open Standards** — formats and interfaces should remain portable and inspectable.
+8. **Human-Led Governance** — AI and automation may assist but cannot originate approval authority.
 
 ---
 
-## Repository Overview
-
-This repository contains the initial OMSP foundation artifacts. It defines the governance, standards, schemas, templates, canonical language, platform concepts, validation approach and reference structure required for future OMSP repositories.
+## Repository Areas
 
 | Area | Purpose |
 | --- | --- |
-| `.github/` | GitHub workflows, templates and repository automation |
-| `governance/` | Engineering governance, review, release and decision policies |
-| `foundation/` | Core engineering standards for artifacts, metadata and traceability |
-| `schemas/` | Machine-readable schema foundations |
-| `templates/` | Reusable engineering artifact templates |
+| `.github/` | Workflows, templates and repository automation |
+| `governance/` | Canonical governance, decision, review and engineering standards |
+| `foundation/` | Legacy compatibility artifacts and foundational material |
 | `canon/` | Vision, mission, principles, terminology and ontology overview |
-| `platform/` | Initial platform component definitions |
-| `validation/` | Quality gates, verification and validation foundations |
-| `release/` | Baseline, release readiness, release notes and approval records |
-| `reference/` | Reference examples and future domain-specific material |
-| `tooling/` | Scripts, validators and generators |
-| `docs/` | Repository-level documentation and navigation |
-| `roadmap/` | Sprint and program roadmap artifacts |
+| `ontology/` | Formal ontology and evolution policy |
+| `architecture/` | Platform, engine, context, traceability and publication architecture |
+| `knowledge/` | Knowledge graph, registry, AI-processing and publication contracts |
+| `reference/` | Vessel, equipment, scenario and digital-twin reference models |
+| `validation/` | Verification, validation, quality-gate and checklist foundations |
+| `schemas/` | Machine-readable schemas and contracts |
+| `templates/` | Reusable governed artifact templates |
+| `tooling/` | Validators, generators, publication and evidence tooling |
+| `security/` | Security and software supply-chain baseline |
+| `operations/` | Observability, audit, incident and recovery models |
+| `demonstrator/` | End-to-end integration demonstrator documentation |
+| `release/` | Baseline, approval, risk and release-readiness records |
+| `planning/` | Sprint execution plans |
+| `roadmap/` | Program roadmap and horizon status |
+| `docs/` | Repository guidance and navigation |
 
 ---
 
-## Documentation Center
-
-Start here:
+## Start Here
 
 | Document | Purpose |
 | --- | --- |
-| `docs/GETTING_STARTED.md` | First steps for readers, contributors and maintainers |
-| `docs/REPOSITORY_OVERVIEW.md` | Repository intent, scope and structure |
-| `docs/ARCHITECTURE_OVERVIEW.md` | Foundation architecture and main building blocks |
-| `docs/NAVIGATION.md` | Documentation map and recommended reading paths |
-| `PROJECT_STRUCTURE.md` | Directory-by-directory repository structure |
-| `roadmap/OMSP_ROADMAP.md` | OMSP roadmap and sprint evolution |
-| `governance/ENGINEERING_PLAYBOOK.md` | Official engineering workflow and lifecycle |
-| `release/RELEASE_NOTES_SPRINT_1.md` | Sprint-1 foundation release notes |
-| `release/SPRINT_1_BASELINE_MANIFEST.md` | Sprint-1 baseline manifest |
-
----
-
-## Getting Started
-
-For readers new to OMSP:
-
-1. Read this README to understand the purpose of the repository.
-2. Open `docs/GETTING_STARTED.md` for the recommended first steps.
-3. Review `governance/ENGINEERING_PLAYBOOK.md` to understand how work is managed.
-4. Review `foundation/` to understand artifact, metadata and traceability standards.
-5. Use `templates/` when creating new governed engineering artifacts.
-
-For contributors:
-
-1. Pick or create an issue.
-2. Create a feature branch using the Work Package identifier.
-3. Make focused commits.
-4. Open a Draft Pull Request against `develop`.
-5. Complete review and merge only after acceptance criteria are satisfied.
+| `docs/GETTING_STARTED.md` | First steps for readers and contributors |
+| `docs/REPOSITORY_OVERVIEW.md` | Repository purpose and structure |
+| `docs/ARCHITECTURE_OVERVIEW.md` | Architecture summary |
+| `docs/NAVIGATION.md` | Recommended reading paths |
+| `governance/ENGINEERING_PLAYBOOK.md` | Governed engineering workflow |
+| `governance/CANONICAL_AUTHORITY_MAP.md` | Canonical standard authority map |
+| `planning/SPRINT_5_EXECUTION_PLAN.md` | Sprint-5 implementation and readiness plan |
+| `release/SPRINT_5_RELEASE_NOTES.md` | Governed `v0.5.0` release notes |
+| `release/PRODUCTION_BASELINE_RELEASE_READINESS.md` | Production-readiness boundary and evidence |
+| `release/BASELINE_APPROVAL_RECORD_0.5.0.md` | Accountable approval record |
+| `roadmap/OMSP_ROADMAP.md` | Roadmap and sprint evolution |
 
 ---
 
 ## Engineering Workflow
 
-OMSP uses a governed Work Package workflow:
-
 ```text
-Backlog
-  ↓
-Issue
-  ↓
-Feature Branch
-  ↓
-Implementation
-  ↓
-Commit(s)
-  ↓
-Draft Pull Request
-  ↓
-Architecture Review
-  ↓
-Ready for Review
-  ↓
-Approval
-  ↓
-Merge → develop
-  ↓
-Issue Closed
-  ↓
-Baseline Update
+Backlog → Issue → Feature Branch → Implementation → Commit(s)
+        → Draft Pull Request → Validation → Human Review → Merge to develop
+        → Issue Closure → Baseline / Release Decision
 ```
 
-Normal work is not committed directly to `develop` or `main`.
-
----
-
-## Branch and Commit Conventions
-
-Feature branches use the Work Package identifier:
+Normal work is not committed directly to `develop` or `main`. Feature branches use Work Package identifiers, for example:
 
 ```text
-feature/wp-0011-repository-modernization
-feature/wp-0012-engineering-playbook-v1
-feature/wp-0019-github-quality-gates
+feature/wp-0058-v050-root-release-docs
+feature/wp-0059-persistent-risk-reassessment
+feature/wp-0060-sprint-6-controlled-pilot-plan
 ```
 
-Commit messages follow Conventional Commits:
-
-```text
-docs(readme): modernize repository landing page
-docs(repository): add documentation center
-ci(validation): add markdown validation workflow
-chore(release): prepare v0.2.0-foundation
-```
+Automation may validate, report and recommend. It cannot approve a pull request, accept risk, authorize publication, approve a baseline or authorize deployment.
 
 ---
 
@@ -186,89 +126,52 @@ chore(release): prepare v0.2.0-foundation
 
 | Sprint | Status | Goal |
 | --- | --- | --- |
-| Sprint-0 | Completed | Bootstrap foundation and repository skeleton |
-| Sprint-1 | Completed | Production-quality Foundation Repository |
-| Sprint-2 | Planned | Engineering models and structured artifacts |
-| Sprint-3 | Planned | Knowledge platform foundations |
-| Sprint-4 | Planned | Digital twin foundation |
-| Sprint-5 | Planned | Production platform readiness |
+| Sprint-0 | Completed | Bootstrap repository and initial foundation |
+| Sprint-1 | Completed | Governance and engineering foundation |
+| Sprint-2 | Completed | Ontology, platform architecture and automation design |
+| Sprint-3 | Completed | Knowledge platform foundations |
+| Sprint-4 | Completed | Vessel and digital-twin reference foundation |
+| Sprint-5 | Completed | Executable tooling and production-readiness candidate |
+| Sprint-6 | Planning | Controlled pilot readiness and persistent-risk reassessment |
 
 ---
 
-## OMSP Ecosystem
+## Release Status
 
-This repository is the foundation for a broader OMSP ecosystem.
-
-Planned repository families include:
+The current governed baseline is:
 
 ```text
-OMSP Foundation
-├── omsp-bootstrap
-├── omsp-core
-├── omsp-ontology
-├── omsp-models
-├── omsp-validation
-├── omsp-reference
-├── omsp-tools
-└── omsp-docs
+v0.5.0
 ```
 
-The purpose of `omsp-bootstrap` is to define the engineering baseline from which those repositories can grow.
+It is approved for controlled pre-production and pilot evaluation only. Persistent risks `RR-001` through `RR-005` and the following production gaps remain open:
 
----
+- production environment approval;
+- signed provenance and attestations;
+- remote telemetry, alerting and long-term evidence storage;
+- vulnerability intelligence and history-level secret scanning;
+- performance and capacity qualification;
+- external backup and disaster-recovery validation.
 
-## Governance
-
-OMSP governance is led by the **OMSP Engineering Council**. Governance artifacts define how decisions are made, reviewed and released.
-
-Key governance documents:
-
-- `governance/ENGINEERING_PLAYBOOK.md`
-- `governance/GOVERNANCE_MODEL.md`
-- `governance/ENGINEERING_COUNCIL.md`
-- `governance/DECISION_POLICY.md`
-- `governance/REVIEW_POLICY.md`
-- `governance/RELEASE_POLICY.md`
+See `RELEASE_NOTES.md`, `CHANGELOG.md` and the governed records under `release/` for the authoritative scope and limitations.
 
 ---
 
 ## Contributing
 
-OMSP contributions should preserve traceability, reviewability and engineering quality.
+Contributions must preserve traceability, reviewability and accountable authority:
 
-Minimum contribution expectations:
+- reference a GitHub issue and Work Package;
+- use a focused feature branch;
+- include relevant tests and validation evidence;
+- update affected documentation and traceability records;
+- open a pull request against `develop`;
+- keep human approval boundaries explicit.
 
-- create or reference an issue;
-- use a Work Package branch;
-- keep changes focused;
-- update documentation when behavior, structure or governance changes;
-- open a Pull Request against `develop`;
-- include acceptance criteria and related issue links.
-
-See `.github/CONTRIBUTING.md` and `governance/ENGINEERING_PLAYBOOK.md` for the formal workflow.
-
----
-
-## Releases
-
-Current release candidate baseline:
-
-```text
-v0.1.0-foundation-sprint-1
-```
-
-This release closes Sprint-1 and captures the first production-quality OMSP foundation baseline.
-
-Sprint-2 is planned to introduce engineering models and structured artifact systems.
+See `.github/CONTRIBUTING.md` and `governance/ENGINEERING_PLAYBOOK.md`.
 
 ---
 
 ## License
 
 This repository is licensed under the terms defined in `LICENSE`.
-
----
-
-## Acknowledgements
-
-OMSP is built as an open engineering effort for maritime operations, systems thinking, model-based engineering and knowledge-first product development.

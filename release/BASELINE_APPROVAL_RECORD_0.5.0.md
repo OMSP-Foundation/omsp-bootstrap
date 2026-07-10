@@ -1,5 +1,5 @@
 ---
-Artifact-ID: OMSP-BASELINE-APPROVAL-0.5.0-0001
+Artifact-ID: OMSP-BASELINE-APPROVAL-050-0001
 Title: OMSP 0.5.0 Baseline Approval Record
 Version: 1.0.0
 Status: Approved-with-Conditions

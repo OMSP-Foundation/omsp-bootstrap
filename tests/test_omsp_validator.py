@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import importlib.util
+import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("omsp_validate", ROOT / "tooling" / "omsp_validate.py")
-MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC and SPEC.loader
+MODULE = importlib.util.module_from_spec(SPEC)
+sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
 
 class ValidatorTests(unittest.TestCase):

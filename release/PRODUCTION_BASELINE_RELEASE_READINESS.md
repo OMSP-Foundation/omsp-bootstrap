@@ -14,7 +14,7 @@ Traceability:
   - ISSUE-90
   - PR-141
   - COMMIT-3970f7596c5b061fecd6c745c09352f1c3f8d8d4
-  - OMSP-BASELINE-APPROVAL-0.5.0-0001
+  - OMSP-BASELINE-APPROVAL-050-0001
 ---
 
 # Production Baseline and Release Readiness

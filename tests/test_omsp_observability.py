@@ -26,9 +26,11 @@ CONTEXT = {
 
 class ObservabilityTests(unittest.TestCase):
     def test_secret_values_and_keys_are_redacted(self) -> None:
+        token = "gh" + "p_" + "abcdefghijklmnopqrstuvwxyz1234567890"
+        bearer = "Bearer " + "abcdefghijklmnopqrstuvwxyz"
         value = {
-            "token": "ghp_abcdefghijklmnopqrstuvwxyz1234567890",
-            "message": "Authorization: Bearer abcdefghijklmnopqrstuvwxyz",
+            "token": token,
+            "message": "Authorization: " + bearer,
         }
         redacted = MODULE.redact(value)
         self.assertEqual("[REDACTED]", redacted["token"])

@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactId": "OMSP-REFERENCE-TWIN-GOVERNANCE-EXAMPLE-0001",
+  "version": "0.1.0",
+  "status": "review",
+  "scope": "OMSP digital-twin reference artifacts",
+  "authorityClasses": [
+    "reference",
+    "declared",
+    "observed",
+    "verified",
+    "approved",
+    "advisory",
+    "operationally-authorized"
+  ],
+  "separationRules": {
+    "observationIsConfiguration": false,
+    "stateIsInstruction": false,
+    "derivedConfidenceRaisesAuthority": false,
+    "repositoryMergeCreatesOperationalAuthorization": false
+  },
+  "humanAuthority": {
+    "required": true,
+    "accountableRole": "accountable-operator",
+    "exclusiveActions": [
+      "accept-or-reject-advisory",
+      "resolve-operational-conflict",
+      "invoke-approved-procedure",
+      "authorize-continue-pause-abort"
+    ]
+  },
+  "softwareRoles": [
+    "monitor",
+    "record",
+    "compare",
+    "project",
+    "flag",
+    "summarize",
+    "advise"
+  ],
+  "prohibitedSoftwareRoles": [
+    "approve-configuration",
+    "issue-navigation-command",
+    "issue-emergency-command",
+    "certify-seaworthiness",
+    "accept-risk",
+    "silently-resolve-safety-conflict"
+  ],
+  "stopUseConditions": [
+    "unresolved-identity",
+    "missing-provenance",
+    "material-stale-data",
+    "material-unresolved-conflict",
+    "unknown-applicable-configuration",
+    "ambiguous-command-presentation",
+    "missing-accountable-human",
+    "outside-approved-envelope"
+  ],
+  "requiredResponses": [
+    "mark-indeterminate",
+    "request-human-review",
+    "preserve-evidence",
+    "revert-to-approved-procedure",
+    "isolate-affected-function",
+    "escalate-to-accountable-authority"
+  ],
+  "aiAssistance": {
+    "permitted": [
+      "drafting",
+      "classification",
+      "mapping-suggestion",
+      "evidence-summary",
+      "anomaly-flagging",
+      "simulated-test-data-generation"
+    ],
+    "restricted": [
+      "candidate-configuration-extraction",
+      "conflict-resolution-recommendation",
+      "safety-readiness-indicator",
+      "control-adjacent-code-generation"
+    ],
+    "prohibited": [
+      "configuration-approval",
+      "evidence-fabrication",
+      "safety-critical-autonomous-resolution",
+      "vessel-command",
+      "certification-claim"
+    ]
+  },
+  "changeControl": {
+    "requiresIssue": true,
+    "requiresImpactAssessment": true,
+    "requiresVersionReview": true,
+    "requiresValidationEvidence": true,
+    "requiresRollbackOrSupersessionPath": true,
+    "independentReviewForSafetyRelevantChange": true
+  },
+  "claimsBoundary": {
+    "certification": false,
+    "seaworthiness": false,
+    "regulatoryAcceptance": false,
+    "runtimeApproval": false,
+    "vesselControlAuthorization": false
+  }
+}

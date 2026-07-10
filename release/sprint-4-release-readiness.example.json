@@ -1,9 +1,11 @@
 {
   "artifactId": "OMSP-REFERENCE-SPRINT4-RELEASE-MANIFEST-0001",
-  "version": "0.1.0",
-  "status": "review",
-  "proposedReleaseVersion": "0.4.0",
+  "version": "0.2.0",
+  "status": "approved-with-recorded-limitations",
+  "releaseVersion": "0.4.0",
+  "releaseTag": "v0.4.0-foundation-sprint-4",
   "releaseType": "foundation-documentation-baseline",
+  "baselineCommit": "4101f31dab5d569ec2afbb29891fddd629805ac0",
   "scope": {
     "productionRuntime": false,
     "liveTelemetry": false,
@@ -20,20 +22,21 @@
     {"id": "WP-0043", "issue": 77, "status": "merged"},
     {"id": "WP-0044", "issue": 78, "status": "merged"},
     {"id": "WP-0045", "issue": 79, "status": "merged"},
-    {"id": "WP-0046", "issue": 80, "status": "pending-review"}
+    {"id": "WP-0046", "issue": 80, "status": "merged"}
   ],
   "releaseGates": {
     "dependencyEvidenceVerified": true,
     "governanceBoundariesReviewed": true,
     "safetyBoundariesReviewed": true,
     "completedDeferredWorkVisible": true,
-    "namedHumanApprovalRecorded": false
+    "namedHumanApprovalRecorded": true
   },
   "approval": {
-    "status": "pending-human-approval",
-    "decision": null,
-    "approver": null,
-    "decisionTime": null
+    "status": "approved-with-recorded-limitations",
+    "decision": "approved-with-recorded-limitations",
+    "approver": "toss-cengiz",
+    "role": "OMSP Foundation Owner / Accountable Approver",
+    "decisionDate": "2026-07-10"
   },
-  "releaseDecisionRule": "Release declaration is prohibited until namedHumanApprovalRecorded is true and the decision is approved or approved-with-recorded-limitations."
+  "releaseDecisionRule": "The documentation baseline may be tagged and published only within its recorded limitations. Production, operational, vessel-specific, certification and control authority remain excluded."
 }

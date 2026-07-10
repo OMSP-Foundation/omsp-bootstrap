@@ -1,44 +1,44 @@
 # Sprint 4 Baseline Approval Record
 
 - Artifact ID: `OMSP-REFERENCE-SPRINT4-APPROVAL-0001`
-- Version: `0.1.0`
-- Status: `pending-human-approval`
-- Proposed baseline version: `0.4.0`
+- Version: `0.2.0`
+- Status: `approved-with-recorded-limitations`
+- Approved baseline version: `0.4.0`
 
 ## Approval subject
 
 Documentation-level OMSP digital-twin foundation baseline produced by WP-0038 through WP-0046.
 
-## Required approver record
+## Accountable approver record
 
-- Approver name or governed identity: `pending`
-- Role: `pending`
-- Decision: `pending`
-- Decision date and time: `pending`
-- Reviewed commit or release identifier: `pending`
-- Recorded limitations accepted: `pending`
-- Conditions or follow-up actions: `pending`
+- Approver name or governed identity: `toss-cengiz`
+- Role: `OMSP Foundation Owner / Accountable Approver`
+- Decision: `approved-with-recorded-limitations`
+- Decision date: `2026-07-10`
+- Reviewed baseline commit: `4101f31dab5d569ec2afbb29891fddd629805ac0`
+- Approved release tag: `v0.4.0-foundation-sprint-4`
 
-## Allowed decisions
+## Recorded limitations accepted
 
-- `approved`
-- `approved-with-recorded-limitations`
-- `rejected`
-- `deferred`
+The approval is limited to the governed documentation baseline. It does not approve or assert:
+
+- production deployment or runtime readiness;
+- live telemetry ingestion or sensor integration;
+- a verified physical-vessel or as-built Hanse 460 configuration;
+- approved navigation, emergency, maintenance or operating procedures;
+- vessel control, autonomous navigation or command authority;
+- cybersecurity accreditation, classification approval or certification;
+- legal compliance, seaworthiness or flag-state acceptance.
+
+## Conditions and follow-up actions
+
+- Deferred work remains governed future scope and must enter later sprints through explicit issues and acceptance criteria.
+- Any runtime, vessel-instance or safety-critical implementation requires separate validation, assurance and accountable human approval.
+- Stable identifiers, provenance, uncertainty and configuration-versus-observation boundaries must be preserved by downstream implementations.
+- Material changes to this baseline require governed review and a new approval record.
 
 ## Approval statement
 
-A final approval means only that the documentation baseline is acceptable for repository release within its declared scope.
+The named accountable approver accepts the Sprint 4 documentation baseline for repository tagging and GitHub Release publication within the declared scope and recorded limitations.
 
-It does not approve:
-
-- a production deployment;
-- a physical vessel configuration;
-- a navigation or emergency procedure;
-- live telemetry use;
-- vessel control or autonomy;
-- certification, legal compliance or seaworthiness.
-
-## Control rule
-
-This record must remain `pending-human-approval` until a named accountable human records a decision. Pull-request merge, branch protection, automated tests, checklist completion or AI output cannot replace that decision.
+This approval does not create production, operational, vessel-specific, certification or control authority.

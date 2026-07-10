@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/publication-package.schema.json",
+  "title": "OMSP Publication Package Manifest",
+  "type": "object",
+  "required": ["package_id", "version", "channel", "source_commit", "artifacts", "integrity"],
+  "properties": {
+    "package_id": {"type": "string", "pattern": "^OMSP-PKG-[A-Z0-9-]+$"},
+    "version": {"type": "string", "minLength": 1},
+    "channel": {"enum": ["preview", "baseline", "release"]},
+    "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "approval_reference": {"type": ["string", "null"]},
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "version", "status", "source_path", "disposition"],
+        "properties": {
+          "artifact_id": {"type": "string", "pattern": "^OMSP-[A-Z0-9-]+$"},
+          "version": {"type": "string"},
+          "status": {"enum": ["Proposed", "Draft", "Review", "Active", "Superseded", "Deprecated", "Retired"]},
+          "source_path": {"type": "string"},
+          "disposition": {"enum": ["included", "external-reference", "excluded"]},
+          "rationale": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "required": ["algorithm", "manifest_digest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "manifest_digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"channel": {"enum": ["baseline", "release"]}}},
+      "then": {"required": ["approval_reference"]}
+    }
+  ],
+  "additionalProperties": false
+}

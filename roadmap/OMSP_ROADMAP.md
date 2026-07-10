@@ -14,8 +14,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-1 | Completed | Production-quality Foundation Repository |
 | Sprint-2 | Completed | Formal engineering foundation and automation-ready designs |
 | Sprint-3 | Completed | Knowledge platform foundations |
-| Sprint-4 | Active | Digital twin foundation |
-| Sprint-5 | Planned | Production platform readiness |
+| Sprint-4 | Completed | Digital twin foundation |
+| Sprint-5 | Active | Production platform readiness |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -127,7 +127,7 @@ Sprint-3 Work Packages were completed and the governed baseline was prepared und
 
 ## Sprint-4: Digital Twin Foundation
 
-Sprint-4 is active and begins domain-specific maritime reference modeling on top of the governed ontology, traceability and knowledge-platform foundations.
+Sprint-4 established domain-specific maritime reference modeling on top of the governed ontology, traceability and knowledge-platform foundations.
 
 Execution plan:
 
@@ -146,26 +146,43 @@ Ordered Work Packages:
 8. WP-0045 — digital twin governance and safety boundaries;
 9. WP-0046 — baseline and release readiness.
 
-Proposed release candidate:
+Release baseline:
 
 ```text
 v0.4.0-foundation-sprint-4
 ```
 
-Sprint-4 is limited to governed reference modeling and documentation-level validation. It does not establish production control, autonomous operation, certification or operational authority.
+Sprint-4 completed its governed documentation baseline and recorded accountable human approval with explicit limitations. It did not establish production control, autonomous operation, certification or operational authority.
 
-## Sprint-5: Production Platform
+## Sprint-5: Production Platform Readiness
 
-Sprint-5 will prepare for production-grade platform capabilities.
+Sprint-5 is active and implements the first executable, testable and supportable OMSP platform toolchain while keeping production-readiness, release and deployment authority separate from automation.
 
-Expected focus:
+Execution plan:
 
-- automation tooling;
-- validators;
-- repository generation;
-- documentation publication;
-- release governance;
-- platform integration planning.
+- `planning/SPRINT_5_EXECUTION_PLAN.md`
+- WP-0047 / issue #81
+
+Ordered Work Packages:
+
+1. WP-0047 — Sprint scope and production-readiness plan;
+2. WP-0048 — validator toolchain MVP;
+3. WP-0049 — repository generator MVP;
+4. WP-0050 — documentation publication pipeline;
+5. WP-0051 — security and supply-chain baseline;
+6. WP-0052 — CI/CD quality-gate integration;
+7. WP-0053 — operational observability and audit model;
+8. WP-0054 — end-to-end platform integration demonstrator;
+9. WP-0055 — operations, incident and recovery runbook;
+10. WP-0056 — production baseline and release readiness.
+
+Proposed release candidate:
+
+```text
+v0.5.0-foundation-sprint-5
+```
+
+Sprint-5 production-readiness claims require measurable evidence, explicit residual risks and accountable human approval. Demonstrator or CI success alone does not authorize production deployment.
 
 ## Roadmap Rule
 

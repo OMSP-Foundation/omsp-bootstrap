@@ -96,7 +96,8 @@ OMSP remains a governed engineering foundation. Physical-vessel applicability, p
 | `governance/CANONICAL_AUTHORITY_MAP.md` | Canonical standard authority map |
 | `planning/SPRINT_5_EXECUTION_PLAN.md` | Sprint-5 implementation and readiness plan |
 | `release/SPRINT_5_RELEASE_NOTES.md` | Governed `v0.5.0` release notes |
-| `release/PRODUCTION_BASELINE_AND_RELEASE_READINESS.md` | Production-readiness boundary and evidence |
+| `release/PRODUCTION_BASELINE_RELEASE_READINESS.md` | Production-readiness boundary and evidence |
+| `release/BASELINE_APPROVAL_RECORD_0.5.0.md` | Accountable approval record |
 | `roadmap/OMSP_ROADMAP.md` | Roadmap and sprint evolution |
 
 ---

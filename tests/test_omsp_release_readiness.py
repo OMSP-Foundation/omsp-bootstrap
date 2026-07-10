@@ -38,10 +38,11 @@ class ReleaseReadinessTests(unittest.TestCase):
         def fake_run(command, cwd, text, capture_output, check):
             output_flag = command.index("--output") + 1
             target = ROOT / command[output_flag]
-            if "omsp_quality_gate.py" in command:
+            executable = next((part for part in command if part.endswith(".py")), "")
+            if executable.endswith("omsp_quality_gate.py"):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_text("{}\n", encoding="utf-8")
-            elif "omsp_demonstrate.py" in command:
+            elif executable.endswith("omsp_demonstrate.py"):
                 (target / "demonstrator-manifest.json").parent.mkdir(parents=True, exist_ok=True)
                 (target / "demonstrator-manifest.json").write_text("{}\n", encoding="utf-8")
             else:

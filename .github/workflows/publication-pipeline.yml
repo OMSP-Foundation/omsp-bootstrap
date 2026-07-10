@@ -1,0 +1,39 @@
+name: Publication Pipeline
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  publication:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run publication tests
+        run: python -m unittest tests/test_omsp_publish.py
+      - name: Build preview package
+        run: python tooling/omsp_publish.py tests/publication/preview-request.json build/publication-preview
+      - name: Validate packaged artifacts
+        run: python tooling/omsp_validate.py build/publication-preview/artifacts --output build/publication-validation-report.json
+      - name: Verify checksums
+        working-directory: build/publication-preview
+        run: sha256sum -c integrity/checksums.sha256
+      - name: Verify reproducibility
+        run: |
+          python tooling/omsp_publish.py tests/publication/preview-request.json build/publication-preview-copy
+          diff -ru build/publication-preview build/publication-preview-copy
+      - name: Upload publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-pipeline-evidence
+          path: |
+            build/publication-preview/
+            build/publication-validation-report.json

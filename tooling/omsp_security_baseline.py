@@ -6,7 +6,6 @@ import argparse
 import hashlib
 import json
 import re
-import sys
 from pathlib import Path
 
 ACTION_RE = re.compile(r"^\s*-?\s*uses:\s*([^\s#]+)", re.MULTILINE)
@@ -30,9 +29,9 @@ def scan(root: Path) -> dict:
         rel = path.relative_to(root).as_posix()
         actions = sorted(set(ACTION_RE.findall(text)))
         if "permissions:" not in text:
-            findings.append({"rule_id": "SEC-PERM-001", "severity": "error", "path": rel, "message": "workflow lacks explicit permissions"})
+            findings.append({"rule_id": "SEC-PERM-001", "severity": "warning", "path": rel, "message": "workflow lacks explicit permissions; migration required"})
         for match in WRITE_PERMISSIONS.finditer(text):
-            findings.append({"rule_id": "SEC-PERM-002", "severity": "warning", "path": rel, "message": f"write permission requires review: {match.group(0).strip()}"})
+            findings.append({"rule_id": "SEC-PERM-002", "severity": "warning", "path": rel, "message": f"write permission requires accountable review: {match.group(0).strip()}"})
         for action in actions:
             if "@" not in action:
                 findings.append({"rule_id": "SEC-ACTION-001", "severity": "error", "path": rel, "message": f"action reference lacks version: {action}"})

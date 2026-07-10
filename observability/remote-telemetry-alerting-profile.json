@@ -1,0 +1,79 @@
+{
+  "artifact_id": "OMSP-OBSERVABILITY-0001",
+  "work_package": "WP-0063",
+  "scope": "controlled-pilot",
+  "status": "control-contract",
+  "risk": "RR-003",
+  "signal_classes": [
+    "health",
+    "availability",
+    "performance",
+    "security",
+    "access",
+    "audit",
+    "deployment",
+    "provenance",
+    "pilot-governance"
+  ],
+  "required_context": [
+    "source_revision",
+    "artifact_digest",
+    "deployment_id",
+    "environment_id",
+    "identity",
+    "timestamp_utc",
+    "correlation_id",
+    "severity"
+  ],
+  "remote_export": {
+    "outside_primary_failure_domain": true,
+    "authenticated_transport": true,
+    "encrypted_transport": true,
+    "local_only_is_sufficient": false,
+    "sustained_failure_action": "pause-or-abort"
+  },
+  "alerting": {
+    "critical_requires_paging": true,
+    "acknowledgement_recorded": true,
+    "automatic_secondary_escalation": true,
+    "human_authority_required_for_continuation": true
+  },
+  "data_protection": {
+    "secret_redaction_required": true,
+    "data_minimization_required": true,
+    "access_logging_required": true,
+    "least_privilege_required": true
+  },
+  "retention": {
+    "declared_periods_required": true,
+    "security_and_governance_evidence_tamper_evident": true,
+    "authorized_retrieval_test_required": true,
+    "unauthorized_access_denial_test_required": true
+  },
+  "pilot_blockers": [
+    "critical_telemetry_unavailable",
+    "paging_not_verified",
+    "material_correlation_failure",
+    "sensitive_data_export",
+    "retention_integrity_uncertain",
+    "critical_audit_evidence_lost_or_altered"
+  ],
+  "validation_scenarios": [
+    "critical_signal_export",
+    "end_to_end_alert_delivery",
+    "acknowledgement_and_escalation",
+    "export_interruption_detection",
+    "buffer_recovery",
+    "sensitive_value_redaction",
+    "authorized_evidence_retrieval",
+    "unauthorized_access_denial",
+    "revision_correlation",
+    "visibility_loss_pause_or_abort"
+  ],
+  "governance": {
+    "automation_may_route_and_verify": true,
+    "automation_may_accept_risk": false,
+    "automation_may_authorize_pilot": false,
+    "production_authority_granted": false
+  }
+}

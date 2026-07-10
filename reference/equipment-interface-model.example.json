@@ -1,0 +1,149 @@
+{
+  "artifact_id": "OMSP-REFERENCE-EQUIPMENT-0001",
+  "version": "1.0.0",
+  "status": "review",
+  "applicability": {
+    "configuration_id": "configuration:vessel-design:hanse:460:reference-0.1.0",
+    "authority": "reference",
+    "not_installed_equipment_evidence": true
+  },
+  "equipment_classes": [
+    {
+      "id": "equipment-class:propulsion:main-engine",
+      "display_name": "Main propulsion engine",
+      "parent_system": "system:vessel-design:hanse:460:propulsion-maneuvering",
+      "ontology_concept": "OMSP-CONCEPT-EQUIPMENT",
+      "safety_relevance": "high",
+      "expected_port_families": [
+        "mechanical",
+        "electrical-power",
+        "fluid",
+        "data-signal",
+        "human",
+        "procedural"
+      ]
+    },
+    {
+      "id": "equipment-class:electrical:service-battery-bank",
+      "display_name": "Service battery bank",
+      "parent_system": "system:vessel-design:hanse:460:electrical",
+      "ontology_concept": "OMSP-CONCEPT-EQUIPMENT",
+      "safety_relevance": "high",
+      "expected_port_families": [
+        "electrical-power",
+        "data-signal",
+        "physical",
+        "procedural"
+      ]
+    },
+    {
+      "id": "equipment-class:bilge:automatic-pump",
+      "display_name": "Automatic bilge pump",
+      "parent_system": "system:vessel-design:hanse:460:water-waste-bilge",
+      "ontology_concept": "OMSP-CONCEPT-EQUIPMENT",
+      "safety_relevance": "high",
+      "expected_port_families": [
+        "electrical-power",
+        "fluid",
+        "data-signal",
+        "procedural"
+      ]
+    }
+  ],
+  "configuration_items": [
+    {
+      "id": "equipment:configuration:vessel-design:hanse:460:reference-0.1.0:main-propulsion-role",
+      "entity_layer": "configuration-item",
+      "equipment_class_id": "equipment-class:propulsion:main-engine",
+      "parent_system": "system:vessel-design:hanse:460:propulsion-maneuvering",
+      "role": "primary auxiliary propulsion",
+      "quantity": 1,
+      "authority": "reference",
+      "verification_state": "not-verified",
+      "manufacturer": "unknown",
+      "model": "unknown",
+      "serial_number": "not-applicable-at-design-family-layer",
+      "installation_location": "unknown",
+      "limitations": [
+        "Illustrative role only",
+        "Does not assert standard or optional fit",
+        "No vessel-instance applicability"
+      ],
+      "ports": [
+        {
+          "id": "port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:main-propulsion-role:shaft-output",
+          "family": "mechanical",
+          "direction": "output",
+          "media_or_protocol": "rotational-drive",
+          "nominal_constraints": "unknown"
+        },
+        {
+          "id": "port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:main-propulsion-role:dc-control-supply",
+          "family": "electrical-power",
+          "direction": "input",
+          "media_or_protocol": "dc",
+          "nominal_constraints": "unknown"
+        },
+        {
+          "id": "port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:main-propulsion-role:fuel-inlet",
+          "family": "fluid",
+          "direction": "input",
+          "media_or_protocol": "diesel-fuel",
+          "nominal_constraints": "unknown"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "capability:equipment-class:propulsion:main-engine:provide-propulsive-power",
+          "authority": "reference",
+          "description": "Provide mechanical power to a propulsion train",
+          "operational_authority": false
+        }
+      ],
+      "constraints": [
+        {
+          "id": "constraint:equipment-class:propulsion:main-engine:requires-supporting-services",
+          "authority": "reference",
+          "description": "Requires fuel, cooling, exhaust, control power and human operating procedures",
+          "verified_limits": false
+        }
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface:port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:main-propulsion-role:shaft-output:port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:propulsion-train-role:drive-input:mechanical-drive",
+      "type": "mechanical-drive",
+      "family": "mechanical",
+      "source_port": "port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:main-propulsion-role:shaft-output",
+      "target_port": "port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:propulsion-train-role:drive-input",
+      "direction": "source-to-target",
+      "authority": "reference",
+      "verification_state": "illustrative",
+      "nominal_constraints": "unknown",
+      "failure_implications": "Loss or degradation of propulsion capability; vessel-specific assessment required"
+    }
+  ],
+  "document_reference_template": {
+    "id": "document:<authority>:<identifier>:<version>",
+    "title": "unknown",
+    "authority": "unknown",
+    "version": "unknown",
+    "applicability": "unknown",
+    "proves_installation": false
+  },
+  "maintenance_task_template": {
+    "id": "maintenance-task:<equipment-class-or-design-id>:<slug>",
+    "interval": "unknown",
+    "source_document": "unknown",
+    "human_approval_required": true
+  },
+  "safety_boundary": {
+    "examples_are_illustrative": true,
+    "not_installed_equipment_records": true,
+    "not_operational_instructions": true,
+    "not_compatibility_approval": true,
+    "not_certification_evidence": true,
+    "human_review_required_for_promotion": true
+  }
+}

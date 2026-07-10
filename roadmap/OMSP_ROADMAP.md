@@ -13,8 +13,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-0 | Completed | Bootstrap repository and governance skeleton |
 | Sprint-1 | Completed | Production-quality Foundation Repository |
 | Sprint-2 | Completed | Formal engineering foundation and automation-ready designs |
-| Sprint-3 | Active | Knowledge platform foundations |
-| Sprint-4 | Planned | Digital twin foundation |
+| Sprint-3 | Completed | Knowledge platform foundations |
+| Sprint-4 | Active | Digital twin foundation |
 | Sprint-5 | Planned | Production platform readiness |
 
 ## Sprint-0: Bootstrap Foundation
@@ -99,7 +99,7 @@ Release and baseline authority remain subject to accountable human approval reco
 
 ## Sprint-3: Knowledge Platform Foundations
 
-Sprint-3 is active and establishes the governed conceptual and processing foundations for an OMSP knowledge platform.
+Sprint-3 established the governed conceptual and processing foundations for an OMSP knowledge platform.
 
 Execution plan:
 
@@ -117,25 +117,42 @@ Ordered Work Packages:
 7. WP-0036 — knowledge platform validation scenarios;
 8. WP-0037 — baseline and release readiness.
 
-Proposed release candidate:
+Release candidate:
 
 ```text
 v0.3.0-foundation-sprint-3
 ```
 
-The tag remains provisional until the Sprint-3 baseline is complete and an accountable human approves release.
+Sprint-3 Work Packages were completed and the governed baseline was prepared under accountable human approval authority.
 
 ## Sprint-4: Digital Twin Foundation
 
-Sprint-4 will begin domain-specific maritime reference modeling.
+Sprint-4 is active and begins domain-specific maritime reference modeling on top of the governed ontology, traceability and knowledge-platform foundations.
 
-Expected focus:
+Execution plan:
 
-- vessel reference model;
-- Hanse 460 reference material;
-- operational scenarios;
-- equipment and procedure modeling;
-- digital twin knowledge structure.
+- `planning/SPRINT_4_EXECUTION_PLAN.md`
+- WP-0038 / issue #72
+
+Ordered Work Packages:
+
+1. WP-0038 — Sprint scope and execution plan;
+2. WP-0039 — vessel reference model;
+3. WP-0040 — Hanse 460 reference configuration;
+4. WP-0041 — equipment and interface model;
+5. WP-0042 — operational scenario model;
+6. WP-0043 — digital twin state and observation model;
+7. WP-0044 — digital twin validation demonstrator;
+8. WP-0045 — digital twin governance and safety boundaries;
+9. WP-0046 — baseline and release readiness.
+
+Proposed release candidate:
+
+```text
+v0.4.0-foundation-sprint-4
+```
+
+Sprint-4 is limited to governed reference modeling and documentation-level validation. It does not establish production control, autonomous operation, certification or operational authority.
 
 ## Sprint-5: Production Platform
 

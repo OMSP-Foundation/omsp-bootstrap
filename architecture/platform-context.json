@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "OMSP-ARCH-CONTEXT-REGISTRY-0001",
+  "platform": "OMSP",
+  "boundary": "logical-platform",
+  "actors": [
+    "engineers-maintainers",
+    "engineering-council-reviewers",
+    "downstream-consumers",
+    "external-standards-reference-sources",
+    "ci-repository-automation"
+  ],
+  "engines": [
+    "engineering-kernel",
+    "knowledge-engine",
+    "traceability-engine",
+    "publication-engine"
+  ],
+  "repositories": [
+    "foundation",
+    "core-tooling",
+    "models-digital-twin",
+    "documentation-publication",
+    "reference-implementations"
+  ],
+  "authority_rules": {
+    "human_approval_required": true,
+    "automation_can_approve": false,
+    "artifact_identity_basis": "Artifact-ID"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "artifact_id": "OMSP-PROVENANCE-PROFILE-0001",
+  "version": "0.1.0",
+  "status": "draft",
+  "work_package": "WP-0062",
+  "risk": "RR-002",
+  "pilot_release_requirements": {
+    "immutable_source_revision": true,
+    "sha256_artifact_digests": true,
+    "signed_provenance_statement": true,
+    "independent_signature_verification": true,
+    "human_approval_bound_to_revision": true,
+    "fail_closed_on_verification_error": true
+  },
+  "required_statement_fields": [
+    "schema_version",
+    "repository",
+    "commit_sha",
+    "workflow_id",
+    "run_id",
+    "builder_identity",
+    "build_time_utc",
+    "inputs",
+    "artifacts",
+    "evidence",
+    "signing_key_id",
+    "signature_algorithm",
+    "verification_status",
+    "approval_record"
+  ],
+  "key_governance": {
+    "repository_storage_forbidden": true,
+    "mfa_required": true,
+    "least_privilege_required": true,
+    "rotation_required": true,
+    "revocation_check_required": true,
+    "compromise_response_required": true,
+    "separation_of_duties_required": true
+  },
+  "audit_integrity": {
+    "accepted_patterns": [
+      "append-only-retention-lock",
+      "write-once-object-retention",
+      "cryptographic-event-chain-with-independent-checkpoint",
+      "engineering-council-approved-equivalent"
+    ],
+    "mutable-repository-file-only": false,
+    "transient-workflow-log-only": false,
+    "required_event_fields": [
+      "timestamp_utc",
+      "event_type",
+      "actor_identity",
+      "subject_revision",
+      "outcome",
+      "correlation_id",
+      "integrity_reference"
+    ]
+  },
+  "blocking_conditions": [
+    "missing-provenance",
+    "mutable-source-reference",
+    "artifact-digest-mismatch",
+    "missing-or-invalid-signature",
+    "expired-or-revoked-key",
+    "unauthorized-signer",
+    "audit-write-or-verification-failure",
+    "open-key-compromise-investigation",
+    "missing-or-mismatched-human-approval"
+  ],
+  "required_validation_scenarios": [
+    "valid-signature",
+    "modified-artifact-rejected",
+    "unauthorized-signer-rejected",
+    "revoked-key-rejected",
+    "key-rotation-drill",
+    "key-compromise-drill",
+    "audit-chain-integrity-check"
+  ],
+  "risk_disposition": {
+    "status": "open",
+    "closure_requires": [
+      "concrete-signing-mechanism-provisioned",
+      "tamper-evident-retention-target-provisioned",
+      "validation-scenarios-passed",
+      "accountable-human-approval"
+    ]
+  },
+  "authority_boundary": {
+    "automation_may_generate_and_verify_evidence": true,
+    "automation_may_approve_release": false,
+    "automation_may_accept_risk": false,
+    "automation_may_authorize_pilot": false,
+    "production_deployment_authorized": false
+  }
+}

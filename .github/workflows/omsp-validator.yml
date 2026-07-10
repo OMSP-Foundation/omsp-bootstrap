@@ -1,0 +1,28 @@
+name: OMSP Validator
+
+on:
+  pull_request:
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run unit tests
+        run: python -m unittest tests/test_omsp_validator.py
+      - name: Validate governed artifacts
+        run: python tooling/omsp_validate.py governance planning roadmap architecture knowledge reference release schemas validation --output omsp-validation-report.json
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: omsp-validation-report
+          path: omsp-validation-report.json

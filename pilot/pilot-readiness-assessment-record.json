@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "omsp.controlled-pilot-readiness-assessment",
+  "status": "TEMPLATE_ONLY",
+  "candidate": {
+    "repository": null,
+    "source_commit_sha": null,
+    "artifact_id": null,
+    "artifact_digest": null,
+    "provenance_statement_id": null,
+    "signer_identity": null,
+    "environment_id": null,
+    "environment_revision": null,
+    "configuration_revision": null,
+    "policy_revision": null,
+    "demonstrator_execution_id": null,
+    "evidence_manifest_digest": null
+  },
+  "assessment": {
+    "created_at": null,
+    "expires_at": null,
+    "technical_assessor": null,
+    "conflicts_declared": [],
+    "final_disposition": "BLOCKED",
+    "recommendation_only": true
+  },
+  "gate_outcomes": {
+    "controlled_pilot_environment": "BLOCKED",
+    "signed_provenance_and_audit": "BLOCKED",
+    "remote_telemetry_alerting_retention": "BLOCKED",
+    "vulnerability_and_history_scanning": "BLOCKED",
+    "performance_availability_capacity": "BLOCKED",
+    "external_backup_and_dr": "BLOCKED",
+    "controlled_pilot_integration_demonstrator": "BLOCKED"
+  },
+  "allowed_gate_values": [
+    "PASS",
+    "PASS_WITH_LIMITATIONS",
+    "FAIL",
+    "BLOCKED"
+  ],
+  "allowed_final_dispositions": [
+    "APPROVED_FOR_CONTROLLED_PILOT",
+    "APPROVED_WITH_CONDITIONS",
+    "NOT_APPROVED",
+    "BLOCKED"
+  ],
+  "risk_register": [
+    {"id": "RR-001", "status": "OPEN", "severity": "HIGH", "owner": null, "evidence": [], "residual_exposure": null, "acceptance_requested": false, "acceptance_reference": null, "expires_at": null},
+    {"id": "RR-002", "status": "OPEN", "severity": "HIGH", "owner": null, "evidence": [], "residual_exposure": null, "acceptance_requested": false, "acceptance_reference": null, "expires_at": null},
+    {"id": "RR-003", "status": "OPEN", "severity": "MEDIUM", "owner": null, "evidence": [], "residual_exposure": null, "acceptance_requested": false, "acceptance_reference": null, "expires_at": null},
+    {"id": "RR-004", "status": "OPEN", "severity": "MEDIUM", "owner": null, "evidence": [], "residual_exposure": null, "acceptance_requested": false, "acceptance_reference": null, "expires_at": null},
+    {"id": "RR-005", "status": "OPEN", "severity": "HIGH", "owner": null, "evidence": [], "residual_exposure": null, "acceptance_requested": false, "acceptance_reference": null, "expires_at": null}
+  ],
+  "limitations": [],
+  "blocking_conditions": [
+    "missing_or_unverifiable_mandatory_evidence",
+    "unapproved_controlled_pilot_environment",
+    "invalid_or_missing_signed_provenance",
+    "critical_security_gate_failure",
+    "verified_exposed_secret",
+    "remote_telemetry_or_audit_loss",
+    "failed_external_recovery_validation",
+    "failed_abort_or_revocation_control",
+    "missing_required_human_approval"
+  ],
+  "approvals": {
+    "security_approver": null,
+    "operations_reliability_approver": null,
+    "accountable_pilot_owner": null,
+    "risk_owner_approvals": [],
+    "all_required_approvals_present": false
+  },
+  "approval_constraints": {
+    "automation_may_approve": false,
+    "production_authority_granted": false,
+    "physical_system_control_authorized": false,
+    "approval_bound_to_immutable_identity": true,
+    "separation_of_duties_required": true,
+    "automatic_expiry_required": true,
+    "reassessment_on_material_change": true
+  },
+  "revocation_triggers": [
+    "approval_expiry",
+    "source_artifact_environment_or_configuration_change",
+    "signing_key_revocation_or_compromise",
+    "new_critical_vulnerability_or_exposed_secret",
+    "telemetry_alerting_or_audit_unavailability",
+    "recovery_objective_failure",
+    "material_incident",
+    "mandatory_control_failure",
+    "human_approver_revocation"
+  ]
+}

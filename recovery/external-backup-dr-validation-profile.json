@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "work_package": "WP-0066",
+  "issue": 154,
+  "title": "External Backup and Disaster-Recovery Validation",
+  "scope": "controlled-pilot",
+  "production_authority": false,
+  "risk_refs": ["RR-005"],
+  "required_bindings": [
+    "source_revision",
+    "artifact_digest",
+    "environment_id",
+    "backup_id",
+    "manifest_digest"
+  ],
+  "controls": {
+    "external_failure_domain_copy": true,
+    "encryption_in_transit": true,
+    "encryption_at_rest": true,
+    "administrative_separation": true,
+    "tamper_or_deletion_protection": true,
+    "least_privilege_restore": true,
+    "integrity_manifest": true,
+    "declared_rpo_before_drill": true,
+    "declared_rto_before_drill": true,
+    "retain_failed_attempts": true,
+    "independent_review": true,
+    "human_approval_required": true
+  },
+  "validation_scenarios": [
+    "isolated_copy_restore",
+    "digest_and_provenance_verification",
+    "secret_safe_configuration_recovery",
+    "corrupted_backup_rejection",
+    "unauthorized_restore_denial",
+    "unauthorized_delete_denial",
+    "primary_failure_domain_loss",
+    "partial_restore_escalation",
+    "telemetry_and_audit_continuity"
+  ],
+  "pause_conditions": [
+    "verified_backup_outside_rpo",
+    "integrity_verification_incomplete",
+    "isolated_copy_unavailable",
+    "restore_authorization_unverified",
+    "recovery_key_access_unverified"
+  ],
+  "abort_conditions": [
+    "no_trustworthy_recovery_copy",
+    "backup_tampering_detected",
+    "untraceable_restored_state",
+    "critical_recovery_dependency_unavailable",
+    "recovery_evidence_unreviewable"
+  ],
+  "required_evidence": [
+    "backup_inventory",
+    "backup_manifest",
+    "isolation_evidence",
+    "encryption_evidence",
+    "access_control_evidence",
+    "restore_logs",
+    "integrity_results",
+    "measured_rpo",
+    "measured_rto",
+    "failures_and_retries",
+    "limitations",
+    "human_approval_record"
+  ],
+  "limitations": [
+    "baseline_does_not_provision_external_storage",
+    "pilot_results_do_not_establish_production_dr_readiness",
+    "automation_cannot_accept_risk_or_approve_continuation"
+  ]
+}

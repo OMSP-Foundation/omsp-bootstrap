@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "omsp-controlled-pilot-integration-demonstrator",
+  "authority_boundary": {
+    "production_authorized": false,
+    "physical_control_authorized": false,
+    "autonomous_action_authorized": false,
+    "risk_acceptance_requires_human": true,
+    "pilot_activation_requires_human": true
+  },
+  "data_boundary": {
+    "allowed": [
+      "synthetic",
+      "public",
+      "explicitly_approved_non_production"
+    ],
+    "prohibited": [
+      "unapproved_personal_data",
+      "production_secrets",
+      "live_control_credentials",
+      "production_operational_data"
+    ]
+  },
+  "entry_gates": [
+    "approved_pilot_environment",
+    "immutable_source_revision",
+    "exact_artifact_digest",
+    "verified_signed_provenance",
+    "current_vulnerability_intelligence",
+    "full_history_secret_scan",
+    "remote_telemetry_and_alerting",
+    "declared_performance_thresholds",
+    "rollback_and_revocation_ready",
+    "external_recovery_ready",
+    "accountable_human_approval"
+  ],
+  "scenarios": [
+    {
+      "id": "D-01",
+      "name": "release_identity_and_provenance",
+      "mandatory": true,
+      "negative_controls": ["modified_artifact_rejected"]
+    },
+    {
+      "id": "D-02",
+      "name": "governed_deployment",
+      "mandatory": true,
+      "negative_controls": ["production_target_inaccessible"]
+    },
+    {
+      "id": "D-03",
+      "name": "end_to_end_functional_flow",
+      "mandatory": true,
+      "negative_controls": ["authority_escalation_absent"]
+    },
+    {
+      "id": "D-04",
+      "name": "telemetry_and_alert_delivery",
+      "mandatory": true,
+      "negative_controls": ["telemetry_loss_triggers_pause"]
+    },
+    {
+      "id": "D-05",
+      "name": "security_gate",
+      "mandatory": true,
+      "negative_controls": [
+        "critical_finding_blocks",
+        "seeded_secret_triggers_revocation"
+      ]
+    },
+    {
+      "id": "D-06",
+      "name": "performance_and_degradation",
+      "mandatory": true,
+      "negative_controls": ["threshold_breach_triggers_declared_action"]
+    },
+    {
+      "id": "D-07",
+      "name": "rollback_and_access_revocation",
+      "mandatory": true,
+      "negative_controls": ["revoked_identity_cannot_act"]
+    },
+    {
+      "id": "D-08",
+      "name": "backup_restore_and_recovery",
+      "mandatory": true,
+      "negative_controls": [
+        "corrupted_backup_rejected",
+        "unauthorized_restore_delete_denied"
+      ]
+    },
+    {
+      "id": "D-09",
+      "name": "pilot_abort",
+      "mandatory": true,
+      "negative_controls": ["automatic_restart_denied"]
+    }
+  ],
+  "required_evidence": [
+    "demonstrator_id",
+    "timestamps",
+    "source_revision",
+    "artifact_digest",
+    "provenance_reference",
+    "environment_revision",
+    "configuration_revision",
+    "identities_and_roles",
+    "human_approval_record",
+    "security_scan_evidence",
+    "telemetry_and_alert_evidence",
+    "performance_results",
+    "rollback_and_revocation_results",
+    "recovery_results",
+    "failures_retries_pauses_aborts",
+    "known_limitations",
+    "independent_review"
+  ],
+  "evidence_controls": {
+    "tamper_evident_or_append_only": true,
+    "outside_primary_failure_domain": true,
+    "failed_attempts_retained": true,
+    "correlation_required": true
+  },
+  "allowed_dispositions": [
+    "PASS",
+    "PASS_WITH_LIMITATIONS",
+    "FAIL",
+    "BLOCKED"
+  ],
+  "automation_limits": {
+    "may_execute": true,
+    "may_collect_evidence": true,
+    "may_recommend_disposition": true,
+    "may_approve_disposition": false,
+    "may_accept_risk": false,
+    "may_authorize_pilot_activation": false,
+    "may_authorize_production": false
+  },
+  "risk_references": ["RR-001", "RR-002", "RR-003", "RR-004", "RR-005"]
+}

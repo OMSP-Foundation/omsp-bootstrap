@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "work_package": "WP-0065",
+  "issue": 153,
+  "scope": "controlled-pilot-only",
+  "production_claim_authorized": false,
+  "required_bindings": [
+    "source_revision",
+    "artifact_digest",
+    "provenance_statement",
+    "environment_id",
+    "environment_configuration_revision",
+    "workload_profile_revision",
+    "telemetry_evidence_location",
+    "test_owner",
+    "independent_reviewer"
+  ],
+  "required_test_classes": [
+    "baseline",
+    "step_load",
+    "burst",
+    "endurance",
+    "dependency_degradation",
+    "recovery"
+  ],
+  "required_metrics": [
+    "throughput",
+    "latency_p50",
+    "latency_p95",
+    "latency_p99",
+    "error_rate",
+    "timeout_rate",
+    "retry_rate",
+    "resource_saturation",
+    "queue_depth",
+    "backlog_age",
+    "recovery_time",
+    "availability_window",
+    "telemetry_completeness"
+  ],
+  "predeclared_thresholds_required": true,
+  "retroactive_threshold_relaxation_allowed": false,
+  "abort_conditions": [
+    "authorization_boundary_violation",
+    "material_telemetry_loss",
+    "uncontrolled_resource_exhaustion",
+    "data_or_audit_integrity_failure",
+    "persistent_threshold_breach",
+    "rollback_or_access_revocation_failure",
+    "evidence_correlation_failure"
+  ],
+  "evidence": {
+    "raw_telemetry_required": true,
+    "failed_attempts_retained": true,
+    "injected_failure_timeline_required": true,
+    "limitations_required": true,
+    "immutable_correlation_required": true
+  },
+  "risk_mapping": {
+    "risk_id": "RR-005",
+    "status_after_documentation": "open",
+    "closure_requires": [
+      "representative_environment_execution",
+      "independent_evidence_review",
+      "external_disaster_recovery_validation",
+      "accountable_human_disposition"
+    ]
+  },
+  "human_authority": {
+    "required_for": [
+      "threshold_approval",
+      "test_result_disposition",
+      "risk_acceptance",
+      "pilot_continuation",
+      "production_claim"
+    ],
+    "automation_may_approve": false
+  }
+}

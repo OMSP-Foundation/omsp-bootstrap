@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-GOV-AI-GOVERNANCE-0001
 Title: AI Governance
-Version: 1.0.0
+Version: 1.1.0
 Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-6
@@ -79,7 +79,13 @@ originate from accountable human actors (`ontology/OMSP_ONTOLOGY.md` §6).
 The following always require explicit, recorded human approval:
 
 1. merge of any pull request into `develop` or `main`;
-2. baseline declaration and release publication;
+2. baseline declaration and release publication — with one governed
+   delegation: under `governance/ADR-0002-AUTOMATED-RELEASE-PIPELINE.md`,
+   the human act of closing a release milestone is the recorded release
+   decision, after which the automated pipeline verifies and publishes
+   the **pre-release-class** release without further approval, provided
+   every mechanical gate passes; production-release declarations and any
+   change to authorized-use scope remain direct human acts;
 3. canonical authority changes (`governance/CANONICAL_AUTHORITY_MAP.md`);
 4. artifact status promotion to `Active` for normative artifacts;
 5. deletion or retirement of governed artifacts and directories;

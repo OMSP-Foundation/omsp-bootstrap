@@ -16,7 +16,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-3 | Completed | Knowledge platform foundations |
 | Sprint-4 | Completed | Digital twin foundation |
 | Sprint-5 | Completed | Production platform readiness |
-| Sprint-6 | Active | Post-audit product reorientation and clean v0.5.1 baseline |
+| Sprint-6 | Completed | Post-audit product reorientation and clean v0.5.1 baseline |
+| Sprint-7 | Planned | Maritime domain model foundation (v0.6.0, epic #171) |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -187,7 +188,7 @@ Sprint-5 production-readiness claims require measurable evidence, explicit resid
 
 ## Sprint-6: Post-Audit Product Reorientation
 
-Sprint-6 is active. Following a full technical audit, the program pivoted from governance growth to domain-content growth: the guiding rule is that no governance work is added unless it directly enables a visible product outcome.
+Sprint-6 is completed. Following a full technical audit, the program pivoted from governance growth to domain-content growth: the guiding rule is that no governance work is added unless it directly enables a visible product outcome.
 
 Roadmap authority:
 
@@ -204,11 +205,24 @@ Ordered Work Packages:
 6. WP-0075 — domain roadmap and backlog re-baseline (#169);
 7. WP-0076 — clean baseline and v0.5.1 release readiness (#170).
 
-Proposed release:
+Published release:
 
 ```text
 v0.5.1 — clean baseline
 ```
+
+Closure status:
+
+- All seven Sprint-6 Work Packages (WP-0070–WP-0076) were merged into
+  `develop`; their issues (#165, #191, #166, #167, #168, #169, #170) are
+  closed.
+- The `v0.5.1 — Clean Baseline & Product Reorientation` release was published
+  on 2026-07-13 and the v0.5.1 milestone is closed.
+- Release readiness was verified through the WP-0076 baseline-readiness
+  assessment and the 2026-07-13 CTO audit.
+- Sprint-6 closure is recorded through issue #222. Sprint-7 (epic #171,
+  milestone v0.6.0) is planned; WP-0077–WP-0089 (#198–#210) are ready in the
+  backlog.
 
 ## Sprint-7 and Beyond: Domain Value and the MODS Stack
 

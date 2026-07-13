@@ -145,14 +145,17 @@ sınırları: `governance/AI_GOVERNANCE.md` §1/§5.
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
-## 7. Bilinen Durum ve Öncelikler (Sprint-6, v0.5.1'e doğru)
+## 7. Bilinen Durum ve Öncelikler (Sprint-6 kapandı, sırada Sprint-7 / v0.6.0)
 
-**Güncel durum (2026-07-13 CTO denetimiyle doğrulandı):**
+**Güncel durum (2026-07-13):**
 
+- **Sprint-6 kapandı (#222):** WP-0070…WP-0076 (#165, #191, #166, #167, #168,
+  #169, #170) tamamlandı, `v0.5.1 — Clean Baseline & Product Reorientation`
+  yayınlandı, v0.5.1 milestone'u kapalı. Sprint-7 (epic #171, milestone
+  v0.6.0) planlı; WP-0077…WP-0089 (#198–#210) backlog'da hazır.
 - Resmî roadmap: issue #145 "Post-Audit Product Reorientation" (Cengiz onaylı).
   `planning/SPRINT_6_EXECUTION_PLAN.md` (pilot-readiness) Superseded;
-  WP-0060–0068 numaraları emekli, yeniden kullanılamaz. Aktif Sprint-6 WP'leri:
-  WP-0070…WP-0076 (#165, #191, #166, #167, #168, #169, #170).
+  WP-0060–0068 numaraları emekli, yeniden kullanılamaz.
 - Metodoloji envanteri canon'da: `canon/ENGINEERING_METHODOLOGY.md` (WP-0069).
 - Depo topolojisi: monorepo — `governance/ADR-0001-REPOSITORY-TOPOLOGY.md`
   (tetikleyicili yeniden değerlendirme: dış katkıcı / bağımsız VDM kadansı /
@@ -162,10 +165,10 @@ dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
 **Açık teknik borç:**
 
-- `templates/` altındaki 5 şablon fiilen boş (WP-0071 / #191) — spec-first akışın ön koşulu.
-- Superseded/placeholder stub'lar ve `platform/`↔`architecture/`, `foundation/`↔`governance/` mükerrerliği (WP-0072 / #166 disposisyon paketi).
 - Hanse 460: hiçbir alan doğrulanmış değil; ontolojide denizcilik kavramı yok (Sprint-7+ işi).
 - Residual riskler RR-001…RR-005 açık.
+- (Kapananlar: şablon doldurma WP-0071/#191, stub disposisyonu ve
+  `platform/`/`foundation/` emekliliği WP-0072/#166 ile çözüldü.)
 
 **Ürün mimarisi (spec-first MODS yığını, `omsp-cto` sahipliğinde):**
 MODS Specification (ODS-100…600) → Marine Diagram System → Core Operations
@@ -175,7 +178,7 @@ N−1 en az Draft olmadan üretilmez.
 
 **Üç ufuklu geliştirme vizyonu (Sprint bloklarıyla):**
 
-- **Horizon 1 (Sprint-6):** Temiz taban — WP-0070…0076, v0.5.1 baseline.
+- **Horizon 1 (Sprint-6):** Temiz taban — WP-0070…0076, v0.5.1 baseline. **Tamamlandı.**
 - **Horizon 2 (Sprint-7…10):** İlk gerçek alan değeri — denizcilik ontolojisi,
   MODS Spec v0.1, Hanse 460 elektrik golden path, senaryolar + 5 dk demo
   (v0.6.0), ikinci alan dilimi (v0.6.1).

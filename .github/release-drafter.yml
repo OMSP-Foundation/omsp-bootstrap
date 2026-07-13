@@ -4,6 +4,11 @@
 name-template: "v$RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 commitish: develop
+# All published releases are prereleases until a production release is
+# approved (governance/RELEASE_POLICY.md) — anchor versioning on them
+# and keep drafts marked as prerelease too.
+include-pre-releases: true
+prerelease: true
 categories:
   - title: "Features & Domain Content"
     labels: ["type:feature"]

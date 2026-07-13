@@ -1,0 +1,79 @@
+name: Triage Lint
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled, milestoned, demilestoned]
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+concurrency:
+  group: triage-lint-${{ github.event.issue.number || 'weekly' }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check triage conventions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const MARKER = '<!-- omsp-triage-lint -->';
+            const TRIAGE_LABEL = 'needs-triage';
+
+            async function lintIssue(issue) {
+              if (issue.pull_request) return;
+              const labels = issue.labels.map(l => typeof l === 'string' ? l : l.name);
+              const problems = [];
+
+              const typeLabels = labels.filter(l => l.startsWith('type:'));
+              if (typeLabels.length === 0) problems.push('missing a `type:*` label');
+              if (typeLabels.length > 1) problems.push(`has ${typeLabels.length} \`type:*\` labels — keep exactly one`);
+              if (!labels.some(l => l.startsWith('area:'))) problems.push('missing an `area:*` label');
+              if (labels.some(l => l === 'priority:P0' || l === 'priority:P1') && !issue.milestone)
+                problems.push('`priority:P0/P1` issue has no milestone');
+              if (/sprint[- ]?\d/i.test(issue.title))
+                problems.push('title contains a sprint name — sprints live on the GitHub Project (iteration field), not in titles');
+
+              const { owner, repo } = context.repo;
+              const comments = await github.paginate(github.rest.issues.listComments,
+                { owner, repo, issue_number: issue.number, per_page: 100 });
+              const existing = comments.find(c => c.body && c.body.includes(MARKER));
+
+              if (problems.length === 0) {
+                if (labels.includes(TRIAGE_LABEL)) {
+                  await github.rest.issues.removeLabel({ owner, repo, issue_number: issue.number, name: TRIAGE_LABEL })
+                    .catch(() => {});
+                }
+                if (existing) {
+                  await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id,
+                    body: `${MARKER}\n✅ Triage checks pass.` });
+                }
+                return;
+              }
+
+              const body = `${MARKER}\n**Triage lint** found convention gaps (advisory — nothing was changed):\n`
+                + problems.map(p => `- ${p}`).join('\n')
+                + `\n\nConventions: exactly one \`type:*\`, at least one \`area:*\`, P0/P1 needs a milestone, no sprint names in titles.`;
+              if (existing) {
+                await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+              } else {
+                await github.rest.issues.createComment({ owner, repo, issue_number: issue.number, body });
+              }
+              if (!labels.includes(TRIAGE_LABEL)) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number: issue.number, labels: [TRIAGE_LABEL] });
+              }
+            }
+
+            if (context.payload.issue) {
+              await lintIssue(context.payload.issue);
+            } else {
+              const { owner, repo } = context.repo;
+              const issues = await github.paginate(github.rest.issues.listForRepo,
+                { owner, repo, state: 'open', per_page: 100 });
+              for (const issue of issues) await lintIssue(issue);
+            }

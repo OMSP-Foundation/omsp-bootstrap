@@ -1,0 +1,32 @@
+name: Bug Report
+description: Something in the repository, tooling or CI is broken or incorrect
+labels: ["type:bug", "needs-triage"]
+body:
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: input
+    id: artifact
+    attributes:
+      label: Affected Artifact / Path
+      description: File, workflow or tool affected (e.g. tooling/omsp_validate.py).
+    validations:
+      required: false

@@ -1,0 +1,50 @@
+name: Work Package
+description: Governed OMSP Work Package (smallest unit of engineering work)
+title: "WP-XXXX: "
+labels: ["type:task", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Replace `WP-XXXX` in the title with the next free WP number
+        (check open/closed issues and planning docs for the highest one).
+        Sprint assignment happens on the GitHub Project (iteration field),
+        not in the title.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is this Work Package about and why now?
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: User / Domain Value
+      description: Which user or domain outcome does this WP advance? (Every WP states user value.)
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Checkable statements that define "done".
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence Produced
+      description: Artifacts, validation output or records this WP will leave behind.
+    validations:
+      required: false
+  - type: input
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Blocking issues/WPs, if any (e.g. "#170, WP-0064").
+    validations:
+      required: false

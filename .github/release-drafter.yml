@@ -1,0 +1,33 @@
+# Release Drafter configuration.
+# Drafts are advisory: publishing a release remains an accountable human
+# decision under governance/RELEASE_POLICY.md.
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+commitish: develop
+categories:
+  - title: "Features & Domain Content"
+    labels: ["type:feature"]
+  - title: "Fixes"
+    labels: ["type:bug"]
+  - title: "Documentation"
+    labels: ["type:docs"]
+  - title: "Maintenance & Process"
+    labels: ["type:chore", "type:task"]
+change-template: "- $TITLE (#$NUMBER)"
+change-title-escapes: '\<*_&'
+version-resolver:
+  major:
+    labels: ["semver:major"]
+  minor:
+    labels: ["semver:minor", "type:feature"]
+  patch:
+    labels: ["semver:patch", "type:bug", "type:docs", "type:chore", "type:task"]
+  default: patch
+template: |
+  ## Changes
+
+  $CHANGES
+
+  ---
+  Draft generated automatically. Baseline approval and release publication
+  are accountable human decisions (see governance/RELEASE_POLICY.md).

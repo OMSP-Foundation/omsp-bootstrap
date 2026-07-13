@@ -1,0 +1,91 @@
+name: Approval Gate Merge
+
+# Test-gated auto-merge (ENGINEERING_PLAYBOOK §5.9): when a PR targeting
+# develop carries BOTH `gate:tester-approved` (omsp-tester verdict) and
+# `gate:cto-approved` (omsp-cto final TDD-compliance gate), and every other
+# check on the head commit is green, the PR is merged automatically.
+#
+# Merge authority for this path is explicitly delegated by the project owner
+# (Cengiz) — decision recorded in issue #212. The owner can always override by
+# removing a gate label or closing the PR before the gates complete.
+#
+# Prefers PROJECT_TOKEN for the merge (a PAT-authored merge still triggers
+# `on: push` workflows on develop); falls back to GITHUB_TOKEN.
+
+on:
+  pull_request:
+    types: [labeled]
+    branches: [develop]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: approval-gate-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  auto-merge:
+    # Job name is excluded from the check poll below — keep them in sync.
+    runs-on: ubuntu-latest
+    if: >-
+      contains(github.event.pull_request.labels.*.name, 'gate:tester-approved') &&
+      contains(github.event.pull_request.labels.*.name, 'gate:cto-approved') &&
+      !contains(github.event.pull_request.labels.*.name, 'gate:test-failed') &&
+      !github.event.pull_request.draft
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN || secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      SELF_JOB_NAME: auto-merge
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Wait for green checks, then merge
+        run: |
+          set -euo pipefail
+
+          deadline=$(( $(date +%s) + 1800 ))  # 30 min
+          while true; do
+            runs=$(gh api "repos/${REPO}/commits/${HEAD_SHA}/check-runs" \
+              --paginate --jq \
+              '[.check_runs[] | select(.name != env.SELF_JOB_NAME)
+                | {name, status, conclusion}]')
+            pending=$(jq '[.[] | select(.status != "completed")] | length' <<< "$runs")
+            failed=$(jq '[.[] | select(.status == "completed"
+              and (.conclusion != "success" and .conclusion != "neutral"
+                   and .conclusion != "skipped"))] | length' <<< "$runs")
+
+            if [ "$failed" -gt 0 ]; then
+              jq -r '.[] | select(.status == "completed"
+                and (.conclusion != "success" and .conclusion != "neutral"
+                     and .conclusion != "skipped"))
+                | "- \(.name): \(.conclusion)"' <<< "$runs" > failed.txt
+              {
+                echo "<!-- omsp-approval-gate -->"
+                echo "**Approval gate:** both gate labels are present, but CI is not green — auto-merge aborted."
+                echo
+                cat failed.txt
+                echo
+                echo "Fix CI, then re-apply a gate label (remove + add) to re-trigger the gate."
+              } > comment.md
+              gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file comment.md
+              exit 1
+            fi
+
+            if [ "$pending" -eq 0 ]; then
+              break
+            fi
+
+            if [ "$(date +%s)" -ge "$deadline" ]; then
+              gh pr comment "$PR_NUMBER" --repo "$REPO" --body \
+                "<!-- omsp-approval-gate --> **Approval gate:** timed out waiting for checks (30 min). Re-apply a gate label to re-trigger."
+              exit 1
+            fi
+            echo "Waiting: ${pending} check(s) pending..."
+            sleep 60
+          done
+
+          gh pr merge "$PR_NUMBER" --repo "$REPO" --merge
+          gh pr comment "$PR_NUMBER" --repo "$REPO" --body \
+            "<!-- omsp-approval-gate --> **Approval gate:** tester + CTO gates complete, CI green — merged automatically (delegation: #212)."

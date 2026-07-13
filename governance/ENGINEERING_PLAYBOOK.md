@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-GOV-PLAYBOOK-0001
 Title: OMSP Engineering Playbook
-Version: 1.0.0
+Version: 1.1.0
 Status: Active
 Owner: OMSP Engineering Council
 Baseline: Sprint-1
@@ -94,11 +94,13 @@ Self-Check
   ↓
 Architecture / Governance Review
   ↓
-Ready for Review
+Ready for Review → issue moves to Testing
   ↓
-Approval
+Testing Gate (omsp-tester) — fail returns to Implementation
   ↓
-Merge → develop
+CTO Gate (omsp-cto) — TDD-compliance review
+  ↓
+Auto-Merge → develop
   ↓
 Issue Closed
   ↓
@@ -184,9 +186,16 @@ Before marking a PR ready for review, the author must verify:
 
 Review must evaluate correctness, consistency, governance impact, and traceability. For governance or architecture artifacts, review must also check terminology, lifecycle alignment, and baseline impact.
 
+Review is a two-stage gate:
+
+1. **Testing Gate (omsp-tester).** Before the sprint starts, every sprint issue receives a test-scenario checklist (`<!-- omsp-test-checklist -->` comment). When a PR opens, the linked issue moves to the **Testing** status on the GitHub Project. The tester executes the checklist against the PR branch and issues an evidence-based verdict: **fail** → test-report comment + `gate:test-failed` label + issue returns to In Progress; **pass** → test-report comment + `gate:tester-approved` label + issue moves to In Review.
+2. **CTO Gate (omsp-cto).** After the tester gate, the CTO reviews TDD compliance (test checklist existed before implementation, scenarios cover the acceptance criteria, evidence is genuine) plus architecture and governance impact, and applies `gate:cto-approved`.
+
 ### 5.9 Merge
 
 Approved Work Packages merge into `develop` unless the issue explicitly defines a different target branch.
+
+A PR carrying both `gate:tester-approved` and `gate:cto-approved` with all other checks green is merged automatically by the `approval-gate-merge` workflow. Merge authority for this test-gated path is explicitly delegated by the project owner (decision recorded in issue #212); the owner retains override at all times by removing a gate label, closing the PR, or disabling the workflow. All other merge paths remain human-only.
 
 ### 5.10 Closure
 
@@ -262,7 +271,7 @@ A PR may be merged only when:
 
 - acceptance criteria are satisfied;
 - required checks pass or are explicitly waived;
-- required review is complete;
+- required review is complete — for test-gated PRs this means both `gate:tester-approved` and `gate:cto-approved` labels (see 5.8–5.9);
 - conflicts are resolved;
 - target branch is correct;
 - the PR preserves traceability to the issue.

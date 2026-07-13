@@ -109,6 +109,17 @@
   color: "FEF2C0"
   description: "Automation flagged: missing type/area label, milestone or title convention"
 
+# --- merge gates (test-gated auto-merge, see ENGINEERING_PLAYBOOK §5.9 / #212) ---
+- name: "gate:tester-approved"
+  color: "0E8A16"
+  description: "omsp-tester verdict: test checklist passed with evidence"
+- name: "gate:cto-approved"
+  color: "1D76DB"
+  description: "omsp-cto final gate: TDD compliance verified — triggers auto-merge"
+- name: "gate:test-failed"
+  color: "D73A4A"
+  description: "omsp-tester verdict: test failed — see test report comment"
+
 # --- GitHub meta (kept, restyled defaults) ---
 - name: "question"
   color: "D876E3"

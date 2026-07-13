@@ -1,0 +1,118 @@
+name: PR Testing Status
+
+# When a PR targeting develop opens (or becomes ready for review), move its
+# linked issues ("Closes #NN") to the "Testing" status on the OMSP Roadmap
+# org project, so omsp-tester picks them up (ENGINEERING_PLAYBOOK §5).
+#
+# Requires the PROJECT_TOKEN secret: a PAT that can write the org project
+# (classic PAT with `project` + `repo` scopes, or a fine-grained PAT with
+# organization project read/write). GITHUB_TOKEN cannot access org projects.
+# Without the secret the job skips gracefully — the tester agent then moves
+# the status manually.
+
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened]
+    branches: [develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-testing-status-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  move-to-testing:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+    env:
+      PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+      ORG: OMSP-Foundation
+      PROJECT_NUMBER: "1"
+      STATUS_NAME: Testing
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+    steps:
+      - name: Move linked issues to Testing
+        if: env.PROJECT_TOKEN != ''
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          issues=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  closingIssuesReferences(first: 20) { nodes { number } }
+                }
+              }
+            }' -f owner="${GITHUB_REPOSITORY_OWNER}" \
+               -f repo="${GITHUB_REPOSITORY#*/}" \
+               -F pr="${PR_NUMBER}" \
+            --jq '.data.repository.pullRequest.closingIssuesReferences.nodes[].number')
+
+          if [ -z "$issues" ]; then
+            echo "No closing issue references on PR #${PR_NUMBER} — nothing to move."
+            exit 0
+          fi
+
+          project=$(gh api graphql -f query='
+            query($org: String!, $num: Int!) {
+              organization(login: $org) {
+                projectV2(number: $num) {
+                  id
+                  field(name: "Status") {
+                    ... on ProjectV2SingleSelectField { id options { id name } }
+                  }
+                }
+              }
+            }' -f org="$ORG" -F num="$PROJECT_NUMBER")
+          project_id=$(jq -r '.data.organization.projectV2.id' <<< "$project")
+          field_id=$(jq -r '.data.organization.projectV2.field.id' <<< "$project")
+          option_id=$(jq -r --arg n "$STATUS_NAME" \
+            '.data.organization.projectV2.field.options[] | select(.name == $n) | .id' <<< "$project")
+
+          if [ -z "$option_id" ] || [ "$option_id" = "null" ]; then
+            echo "::warning::Status option '$STATUS_NAME' not found on project — skipping."
+            exit 0
+          fi
+
+          for issue in $issues; do
+            item_id=$(gh api graphql -f query='
+              query($org: String!, $repo: String!, $issue: Int!) {
+                repository(owner: $org, name: $repo) {
+                  issue(number: $issue) {
+                    projectItems(first: 10) {
+                      nodes { id project { id } }
+                    }
+                  }
+                }
+              }' -f org="${GITHUB_REPOSITORY_OWNER}" \
+                 -f repo="${GITHUB_REPOSITORY#*/}" \
+                 -F issue="$issue" \
+              --jq --arg p "$project_id" \
+                '.data.repository.issue.projectItems.nodes[] | select(.project.id == $p) | .id' \
+              | head -n1) || item_id=""
+
+            if [ -z "$item_id" ]; then
+              echo "::warning::Issue #${issue} is not on the project — skipping."
+              continue
+            fi
+
+            gh api graphql -f query='
+              mutation($project: ID!, $item: ID!, $field: ID!, $option: String!) {
+                updateProjectV2ItemFieldValue(input: {
+                  projectId: $project, itemId: $item, fieldId: $field,
+                  value: { singleSelectOptionId: $option }
+                }) { projectV2Item { id } }
+              }' -f project="$project_id" -f item="$item_id" \
+                 -f field="$field_id" -f option="$option_id" > /dev/null
+            echo "Issue #${issue} → ${STATUS_NAME}"
+          done
+
+      - name: PROJECT_TOKEN missing
+        if: env.PROJECT_TOKEN == ''
+        run: |
+          echo "::warning::PROJECT_TOKEN secret is not configured — issue status was not moved."
+          echo "Configure it with: gh secret set PROJECT_TOKEN (PAT with project scope)."

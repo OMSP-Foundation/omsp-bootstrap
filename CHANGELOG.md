@@ -2,6 +2,47 @@
 
 All notable changes to the OMSP Foundation repository are recorded here. Governed release scope and approval boundaries are defined by the corresponding GitHub Release records and project milestones.
 
+## [0.5.2] - 2026-07-13
+
+Process-automation and agent-architecture patch release on the v0.5.1 clean
+baseline. No maritime domain content; no change to the authorized-use scope.
+
+### Added
+
+- ADR-0002 automated release pipeline with standing human authorization:
+  milestone-close (or recorded human instruction via manual dispatch) →
+  mechanical CTO verification gate → automatic pre-release publication
+  (`governance/ADR-0002-AUTOMATED-RELEASE-PIPELINE.md`,
+  `.github/workflows/release-automation.yml`; WP-0090, #214);
+- `omsp-tester` agent and the test-gated merge flow delegated by the human
+  (#212): pre-sprint test checklists, evidence-based tester verdicts
+  (`gate:tester-approved` / `gate:test-failed`), CTO TDD gate
+  (`gate:cto-approved`) and automated merge on green CI
+  (`.claude/agents/omsp-tester.md`, `.github/workflows/approval-gate-merge.yml`,
+  `.github/workflows/pr-testing-status.yml`; #215);
+- `omsp-domain-engineer` agent — the program's domain-content author for
+  Horizon 2+ — with the AI governance registry aligned to the five-agent
+  architecture (`.claude/agents/omsp-domain-engineer.md`,
+  `governance/AI_GOVERNANCE.md`; #218, #219).
+
+### Changed
+
+- Sprint-6 formally closed per Engineering Playbook §9.3–§9.4: roadmap
+  closure record (7/7 Work Packages, published v0.5.1, closed milestone) and
+  working-agreement status alignment (#222, #223).
+
+### Removed
+
+- three broken CI workflow stubs without a `jobs` key that produced startup
+  failures on every trigger (#216, #217).
+
+### Known Limitations
+
+- unchanged from `v0.5.1`: production deployment not authorized; persistent
+  risks `RR-001`…`RR-005` remain open; maritime domain content (ontology,
+  vessel YAML models, scenarios) is defined but not yet implemented —
+  Sprint 7–9 scope.
+
 ## [0.5.1] - 2026-07-13
 
 Clean baseline and product reorientation (Sprint-6, Work Packages WP-0070…WP-0076). GitHub Release publication is a separate accountable human decision.

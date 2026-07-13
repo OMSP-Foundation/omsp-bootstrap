@@ -64,12 +64,13 @@ kontrollerin geçeceğinden emin ol; geçmeyecekse PR'da gerekçesini açıkla.
 - `omsp-validator.yml` → `tooling/omsp_validate.py` (governed artifact metadata, örn. `Title`)
 - `quality-gate.yml` → `tooling/omsp_quality_gate.py`
 - `markdown.yml` / `lint.yml` → markdownlint-cli2 (`.markdownlint.json`, `.markdownlint-cli2.jsonc`)
-- `link-check.yml` / `links.yml` → lychee (`.lychee.toml`)
+- `link-check.yml` → lychee (`.lychee.toml`)
 - `ontology.yml`, `platform-context.yml`, `platform-engines.yml`,
   `traceability-design.yml`, `publication-design.yml`, `checklist-lint-design.yml`
 - `canonical-authority.yml`, `security-supply-chain.yml`,
   `production-release-readiness.yml`, `operations-recovery-drill.yml`,
-  `observability-audit.yml`, `repository-generator.yml`, `release.yml`
+  `observability-audit.yml`, `repository-generator.yml`,
+  `release-automation.yml`, `release-drafter.yml`
 
 **Yerel doğrulama (push öncesi):**
 

@@ -129,10 +129,18 @@ agent'ı kullanılır (`.claude/agents/omsp-pm.md`).
 (`.claude/agents/omsp-cto.md`) — teknik vizyon, program isterleri,
 metodoloji gözetimi, TDD bekçiliği ve onay paketi hazırlığı; isterleri
 `omsp-pm` ile birlikte belirler, `omsp-pm` bunları sprint/WP planına çevirir,
+`omsp-domain-engineer` (`.claude/agents/omsp-domain-engineer.md`) CTO'nun
+spesifikasyonlarına uygun alan içeriğini (denizcilik ontolojisi, MODS/VDM
+içeriği, diyagram kaynakları, senaryolar) üretir,
 `omsp-tester` (`.claude/agents/omsp-tester.md`) sprint issue'larının test
 checklist'lerini ve test verdiklerini sahiplenir, `omsp-auditor` uygunluğu
-denetler. §4'teki test-gated merge delegasyonu (#212) dışında hiçbir agent
-onay yetkisi taşımaz; karar Cengiz'indir.
+denetler (tipik kadans: sprint kapanışı ve release-readiness öncesi).
+§4'teki test-gated merge delegasyonu (#212) dışında hiçbir agent
+onay yetkisi taşımaz; karar Cengiz'indir. Orkestrasyon ve genel
+implementasyon **tasarım gereği** ana Claude oturumundadır — ayrı bir
+implementer/orchestrator agent'ı bilinçli olarak yoktur; agent'lar devir
+paketlerini ana oturuma teslim eder. Kanonik agent listesi ve yetki
+sınırları: `governance/AI_GOVERNANCE.md` §1/§5.
 
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
@@ -156,7 +164,6 @@ dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
 - `templates/` altındaki 5 şablon fiilen boş (WP-0071 / #191) — spec-first akışın ön koşulu.
 - Superseded/placeholder stub'lar ve `platform/`↔`architecture/`, `foundation/`↔`governance/` mükerrerliği (WP-0072 / #166 disposisyon paketi).
-- `AI_GOVERNANCE.md` hâlâ 3 satır (WP-0073 / #167).
 - Hanse 460: hiçbir alan doğrulanmış değil; ontolojide denizcilik kavramı yok (Sprint-7+ işi).
 - Residual riskler RR-001…RR-005 açık.
 

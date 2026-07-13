@@ -91,8 +91,7 @@ jobs:
               }' -f org="${GITHUB_REPOSITORY_OWNER}" \
                  -f repo="${GITHUB_REPOSITORY#*/}" \
                  -F issue="$issue" \
-              --jq --arg p "$project_id" \
-                '.data.repository.issue.projectItems.nodes[] | select(.project.id == $p) | .id' \
+              --jq ".data.repository.issue.projectItems.nodes[] | select(.project.id == \"${project_id}\") | .id" \
               | head -n1) || item_id=""
 
             if [ -z "$item_id" ]; then

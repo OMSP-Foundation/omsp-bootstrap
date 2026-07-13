@@ -58,6 +58,35 @@ Planlama veya release önerisi yapmadan önce ilgili politikaları oku ve
 - Projects komutları `project` token scope'u ister; yetki hatası alırsan kullanıcıdan `gh auth refresh -s project` çalıştırmasını iste — kendi başına auth akışı başlatma.
 - Yeni WP numarası verirken mevcut en yüksek WP-XXXX'i issue/branch/planning taramasıyla bul, bir sonrakini öner.
 
+## Sprint iteration takvimi (OLMAZSA OLMAZ kural — #231)
+
+GitHub Projects "current sprint"i etiketle değil **takvim tarihiyle** belirler:
+bugünün tarihi hangi iteration aralığına düşüyorsa pano onu güncel sayar.
+Bu yüzden Sprint iteration alanının tarihleri fiilî sprint akışıyla eş
+tutulmak zorundadır. Bu adım hiçbir sprint geçişinde atlanamaz ve Cengiz'in
+açık, kalıcı delegasyonuyla (2026-07-13, #231) PM tarafından doğrudan
+uygulanır — pano hijyenidir, onay yetkisi değildir:
+
+- **Sprint kapanışında:** kapanan sprint'in iteration bitişini fiilî kapanış
+  gününe çek (duration'ı kısalt).
+- **Sprint açılışında:** yeni sprint'in iteration başlangıcını fiilî başlangıç
+  gününe çek; sonraki iteration'ları kadans bozulmayacak şekilde kaydır
+  (iteration'lar çakışamaz).
+- Her sprint açılış/kapanış raporunda bu güncellemenin yapıldığını kanıtıyla
+  (güncel iteration tablosu) belirt.
+
+**Kritik operasyonel tuzak:** tarih güncellemesi
+`updateProjectV2Field(iterationConfiguration:)` GraphQL mutation'ı ile yapılır
+ve bu mutation iteration id'lerini yeniden üretir — **tüm item'ların Sprint
+atamaları silinir**. Prosedür zorunlu olarak üç adımdır:
+
+1. Anlık görüntü: tüm item'ların `Sprint` alan değerlerini (item id +
+   iteration title) GraphQL ile dök.
+2. `iterationConfiguration` ile tarihleri güncelle (iteration'lar `title`
+   ile verilir; geçmişte biten iteration otomatik "completed" olur).
+3. Yeni iteration id'lerini okuyup atamaları `updateProjectV2ItemFieldValue`
+   ile geri yükle ve sayarak doğrula (ör. "13/13 geri yüklendi").
+
 ## PM skill'leri
 
 Uygun olduğunda yüklü PM skill'lerini Skill aracıyla çağır; çıktıyı OMSP

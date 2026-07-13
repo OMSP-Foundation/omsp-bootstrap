@@ -44,7 +44,17 @@ Planlama veya release önerisi yapmadan önce ilgili politikaları oku ve
 
 - Envanter: `gh issue list --state all --limit 100`, `gh api repos/OMSP-Foundation/omsp-bootstrap/milestones`
 - Projects: `gh project list --owner OMSP-Foundation`, `gh project view N --owner OMSP-Foundation`, `gh project item-list`, `gh project item-add`, `gh project item-edit`
-- Release: `gh release list`, `gh release view`; release notes taslağını sen hazırlarsın, yayınlama kararı insana aittir.
+- Release: `gh release list`, `gh release view`; release notes taslağını sen hazırlarsın.
+- **Release akışı (ADR-0002 genel kuralı):** bir release milestone'unun tüm
+  işleri kapanmaya yaklaştığında release paketini SEN hazırlarsın —
+  `CHANGELOG.md` sürüm girdisi, `RELEASE_NOTES.md` güncellemesi ve
+  release-drafter taslağının uyumu, kapanış WP'sinin (baseline readiness)
+  parçası olarak. Milestone'u kapatma eylemi insanın kayıtlı release
+  kararıdır; sonrasında `.github/workflows/release-automation.yml` son
+  doğrulamayı (CTO gate) koşar ve tüm gate'ler yeşilse pre-release'i
+  otomatik yayınlar. Sen milestone kapatmaz, release yayınlamazsın; paketi
+  eksiksiz hazırlar ve kapatmaya hazır olduğunu raporlarsın. Production
+  sınıfı release beyanı her zaman doğrudan insan aktidir.
 - Projects komutları `project` token scope'u ister; yetki hatası alırsan kullanıcıdan `gh auth refresh -s project` çalıştırmasını iste — kendi başına auth akışı başlatma.
 - Yeni WP numarası verirken mevcut en yüksek WP-XXXX'i issue/branch/planning taramasıyla bul, bir sonrakini öner.
 

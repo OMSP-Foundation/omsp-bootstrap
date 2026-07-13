@@ -1,68 +1,60 @@
-# OMSP Foundation Release Notes — v0.5.1
+# OMSP Foundation Release Notes — v0.5.2
 
 **Release date:** 2026-07-13
-**Classification:** Clean Baseline (Production Baseline Candidate lineage)
-**Approval status:** Prepared; GitHub Release publication pending accountable human approval
-**Authorized scope:** Controlled pre-production and pilot evaluation
+**Classification:** Process-automation patch (Production Baseline Candidate lineage)
+**Approval status:** Published by the Automated Release Pipeline under the standing human authorization of ADR-0002; recorded human release decision: direct instruction (Cengiz, 2026-07-13)
+**Authorized scope:** Controlled pre-production and pilot evaluation (unchanged from v0.5.1)
 
 ## Overview
 
-`v0.5.1` closes Sprint-6 and delivers the post-audit clean baseline: a
-reconciled, self-consistent repository reoriented from governance growth to
-maritime domain content. Following a full technical audit, the sprint
-resolved the Work Package numbering collision, superseded the conflicting
-pilot-readiness plan in favor of the official product-reorientation roadmap
-(issue #145), rationalized 25 stub and duplicate artifacts, consolidated
-lifecycle policy authority into the Engineering Playbook, and established
-the product foundations for Sprint 7–9: the canonical engineering
-methodology inventory, the spec-first MODS documentation product stack, the
-Hanse 460 golden-path definition, and an implementation-ready Sprint 7–14
-backlog.
+`v0.5.2` is a patch release on the `v0.5.1` clean baseline. It delivers the
+process automation and agent architecture that Sprint-7+ execution relies
+on: the test-gated merge flow with the `omsp-tester` agent, the automated
+release pipeline with standing human authorization (ADR-0002), the
+`omsp-domain-engineer` agent for Horizon 2+ domain content, the formal
+Sprint-6 closure record, and CI hygiene fixes.
 
-This baseline contains no new maritime domain content yet — it is the
-verified, planned starting line for it. It is not an authorized production
-release and grants no production deployment, unrestricted external
-publication, autonomous operational authority, certification or automatic
-residual-risk acceptance.
+This release contains no new maritime domain content and does not change
+the authorized-use scope. It is not an authorized production release and
+grants no production deployment, unrestricted external publication,
+autonomous operational authority, certification or automatic residual-risk
+acceptance.
 
 ## Notable Outcomes
 
-- audit reconciliation: 16 findings dispositioned with direct evidence
-  (`planning/WP-0070-AUDIT-DISPOSITION.md`); Work Package collision resolved
-  (WP-0070…0076 renumbering; WP-0060–0068 retired);
-- repository rationalization: `foundation/` and `platform/` directories
-  retired, eight thin lifecycle mini-policies merged into the Engineering
-  Playbook, canonical authority registry extended to five domains with
-  removed-legacy-path provenance; stub ratio reduced from ~29.7% to ~17.2%;
-- governed artifact templates (requirement, risk, validation record, ADR,
-  Work Package) filled and activated — the spec-first workflow precondition;
-- canonical AI governance (`governance/AI_GOVERNANCE.md`): permitted and
-  prohibited AI roles, eight mandatory human approval gates, provenance and
-  attribution rules, runtime boundary;
-- ADR-0001: monorepo topology with trigger-based re-evaluation;
-- canonical engineering methodology inventory in canon
-  (`canon/ENGINEERING_METHODOLOGY.md`);
-- Hanse 460 golden-path product definition: users, provenance-bound inputs,
-  electrical-slice model boundary, validator evidence contract, advisory
-  output specification, five-minute demo storyboard
-  (`planning/WP-0074-GOLDEN-PATH-DEFINITION.md`);
-- Sprint 7–14 product-led backlog: epic exit criteria, WP-0077…WP-0089
-  breakdown (issues #198–#210), capacity policy, deferred-governance
-  triggers, measurable release gates
-  (`planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md`).
+- test-gated merge flow delegated by the human (#212): `omsp-tester` issues
+  evidence-based verdicts (`gate:tester-approved` / `gate:test-failed`),
+  `omsp-cto` reviews TDD compliance (`gate:cto-approved`), and
+  `approval-gate-merge.yml` merges automatically on green CI; issue status
+  transitions are driven by `pr-testing-status.yml` (#215);
+- ADR-0002 automated release pipeline: closing a SemVer release milestone
+  (or a recorded human instruction via manual dispatch) triggers the
+  mechanical CTO verification gate — full validator family, quality gate,
+  changelog/release-notes version alignment — and publishes the pre-release
+  automatically on GO, or opens a blocking issue on NO-GO
+  (`governance/ADR-0002-AUTOMATED-RELEASE-PIPELINE.md`, WP-0090, #214);
+- `omsp-domain-engineer` agent added as the program's domain-content author
+  for Horizon 2+ (maritime ontology, MODS-layer content, Hanse 460 VDM
+  content, diagram sources, scenarios), with
+  `governance/AI_GOVERNANCE.md` aligned to the five-agent architecture
+  (#218, #219);
+- Sprint-6 formally closed per Engineering Playbook §9.3–§9.4: roadmap
+  closure record (7/7 Work Packages delivered, `v0.5.1` published, milestone
+  closed) and working-agreement status alignment (#222, #223);
+- CI hygiene: three broken workflow stubs without a `jobs` key removed
+  (#216, #217).
 
 ## Verification Evidence
 
-Collected on the final Sprint-6 baseline state:
+Collected on the final `v0.5.2` state of `develop`; the publishing pipeline
+run appends its own machine-produced verification record to the GitHub
+Release:
 
 - `omsp_validate.py` on all governed paths (including canon, docs,
   templates): **0 findings**;
 - quality gate: **6/6 checks passed**;
-- canonical authority validation: **5 domains passed**, no duplicate active
-  authority;
 - all seven `validate_*.py` domain validators pass;
-- Sprint-6 Work Packages WP-0070…WP-0076 delivered through reviewed pull
-  requests #192–#197 plus the v0.5.1 readiness package.
+- `CHANGELOG.md` and `RELEASE_NOTES.md` aligned to `v0.5.2`.
 
 ## Compatibility and Usage
 
@@ -75,7 +67,7 @@ recorded in `governance/canonical-authorities.json` under
 
 ## Approval Boundary
 
-The accountable approval for `v0.5.1` permits controlled pre-production and
+The accountable approval for `v0.5.2` permits controlled pre-production and
 pilot evaluation only. The following remain separately governed decisions:
 
 - production deployment;
@@ -86,12 +78,14 @@ pilot evaluation only. The following remain separately governed decisions:
 - autonomous or safety-critical control authority.
 
 Automation and AI assistance may produce evidence and recommendations but
-cannot originate these decisions (`governance/AI_GOVERNANCE.md`).
+cannot originate these decisions (`governance/AI_GOVERNANCE.md`). The
+automated release pipeline operates strictly within the pre-release class
+under ADR-0002; declaring a production release remains a direct human act.
 
 ## Known Limitations
 
-Deferred capabilities carry recorded re-entry triggers
-(`planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md` §8):
+Unchanged from `v0.5.1`. Deferred capabilities carry recorded re-entry
+triggers (`planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md` §8):
 
 - production environment approval and deployment controls;
 - signed provenance, attestations and cryptographically signed audit
@@ -121,14 +115,14 @@ foundation:
 - domain validation rules and a compliant sample model package — the
   sprint's visible outcome (WP-0080 / #201).
 
-Planned Sprint-7 work is not part of the delivered `v0.5.1` baseline until
+Planned Sprint-7 work is not part of the delivered `v0.5.2` baseline until
 implemented, reviewed and approved.
 
 ## Governed References
 
 - GitHub Releases — release notes, baseline approval and readiness records per tag
 - GitHub Projects, Issues and Milestones — sprint, Work Package and release tracking
-- `planning/WP-0070-AUDIT-DISPOSITION.md`
+- `governance/ADR-0002-AUTOMATED-RELEASE-PIPELINE.md`
 - `planning/WP-0074-GOLDEN-PATH-DEFINITION.md`
 - `planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md`
 - `governance/CANONICAL_AUTHORITY_MAP.md`

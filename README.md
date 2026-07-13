@@ -12,7 +12,7 @@ OMSP Foundation provides the governed standards, models, tooling and evidence ne
 | Item | Status |
 | --- | --- |
 | Repository | Foundation Repository |
-| Current Governed Baseline | `v0.5.1` (clean baseline; GitHub Release publication pending human approval) |
+| Current Governed Baseline | `v0.5.2` (process-automation patch on the `v0.5.1` clean baseline) |
 | Baseline Classification | Clean Baseline — Production Baseline Candidate lineage |
 | Authorized Use | Controlled pre-production and pilot evaluation |
 | Production Deployment | Not authorized |
@@ -21,7 +21,7 @@ OMSP Foundation provides the governed standards, models, tooling and evidence ne
 | Development Branch | `develop` |
 | Work Package Flow | Issue → Branch → Commit → Draft PR → Review → Merge |
 
-`v0.5.1` is a clean-baseline release in the approved-with-conditions candidate lineage. It is not a production release and does not authorize production deployment, unrestricted external publication, autonomous operational authority or automatic residual-risk acceptance.
+`v0.5.2` is a process-automation patch on the `v0.5.1` clean baseline, in the approved-with-conditions candidate lineage. It is not a production release and does not authorize production deployment, unrestricted external publication, autonomous operational authority or automatic residual-risk acceptance.
 
 ---
 
@@ -94,7 +94,7 @@ OMSP remains a governed engineering foundation. Physical-vessel applicability, p
 | `governance/CANONICAL_AUTHORITY_MAP.md` | Canonical standard authority map |
 | `planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md` | Sprint 7–14 product-led backlog and release gates |
 | `planning/WP-0074-GOLDEN-PATH-DEFINITION.md` | Canonical first golden path (Hanse 460 electrical) |
-| `RELEASE_NOTES.md` | Governed `v0.5.1` release notes |
+| `RELEASE_NOTES.md` | Governed `v0.5.2` release notes |
 | GitHub Releases & Projects | Release records, baseline approvals, issue and milestone tracking |
 | `roadmap/OMSP_ROADMAP.md` | Roadmap and sprint evolution |
 
@@ -140,7 +140,7 @@ Automation may validate, report and recommend. It cannot approve a pull request,
 The current governed baseline is:
 
 ```text
-v0.5.1
+v0.5.2
 ```
 
 It is approved for controlled pre-production and pilot evaluation only. Persistent risks `RR-001` through `RR-005` and the following production gaps remain open (each with a recorded re-entry trigger in `planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md` §8):

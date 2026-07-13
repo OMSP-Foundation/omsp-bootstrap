@@ -117,23 +117,44 @@ uygunluğu denetler. Hiçbir agent onay yetkisi taşımaz; karar Cengiz'indir.
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
-## 7. Bilinen Durum ve Öncelikler (v0.5.0)
+## 7. Bilinen Durum ve Öncelikler (Sprint-6, v0.5.1'e doğru)
+
+**Güncel durum (2026-07-13 CTO denetimiyle doğrulandı):**
+
+- Resmî roadmap: issue #145 "Post-Audit Product Reorientation" (Cengiz onaylı).
+  `planning/SPRINT_6_EXECUTION_PLAN.md` (pilot-readiness) Superseded;
+  WP-0060–0068 numaraları emekli, yeniden kullanılamaz. Aktif Sprint-6 WP'leri:
+  WP-0070…WP-0076 (#165, #191, #166, #167, #168, #169, #170).
+- Metodoloji envanteri canon'da: `canon/ENGINEERING_METHODOLOGY.md` (WP-0069).
+- Depo topolojisi: monorepo — `governance/ADR-0001-REPOSITORY-TOPOLOGY.md`
+  (tetikleyicili yeniden değerlendirme: dış katkıcı / bağımsız VDM kadansı /
+  dış MODS tüketicisi).
+- Eski borçlardan kapananlar: Title metadata ihlalleri (validator 0 bulgu),
+  kök dokümanlar v0.5.0 hizalı (#143 kapalı). Stub oranı ~%30'a düştü.
 
 **Açık teknik borç:**
 
-- `foundation/` içindeki üç standart belgede eksik `Title` metadata (validator ihlali).
-- Kök `README.md`, `CHANGELOG.md`, `RELEASE_NOTES.md` bayat (hâlâ Sprint 1 / v0.1.0-alpha referanslı).
-- `foundation/` ↔ `governance/` arasında çözülmemiş örtüşme/tekrar.
-- Hanse 460 dijital ikiz katmanı yalnızca README placeholder — gerçek ekipman envanteri / operasyonel YAML modeli yok.
-- Residual riskler RR-001…RR-005 yeniden değerlendirme planı olmadan ertelenmiş.
-- Markdown dosyalarının ~%57'si <15 satır stub; `AI_GOVERNANCE.md` üç satırlık placeholder.
-- Ontoloji jenerik meta-model — henüz denizciliğe özgü kavram yok.
+- `templates/` altındaki 5 şablon fiilen boş (WP-0071 / #191) — spec-first akışın ön koşulu.
+- Superseded/placeholder stub'lar ve `platform/`↔`architecture/`, `foundation/`↔`governance/` mükerrerliği (WP-0072 / #166 disposisyon paketi).
+- `AI_GOVERNANCE.md` hâlâ 3 satır (WP-0073 / #167).
+- Hanse 460: hiçbir alan doğrulanmış değil; ontolojide denizcilik kavramı yok (Sprint-7+ işi).
+- Residual riskler RR-001…RR-005 açık.
 
-**Üç ufuklu geliştirme vizyonu:**
+**Ürün mimarisi (spec-first MODS yığını, `omsp-cto` sahipliğinde):**
+MODS Specification (ODS-100…600) → Marine Diagram System → Core Operations
+Manual → Vessel Definition Module (ilk: Hanse 460) → Scenario Library → QRH.
+YAML modeli tek kaynak; MODS insan-okur yayın standardıdır. Katman N içeriği,
+N−1 en az Draft olmadan üretilmez.
 
-- **Horizon 1 (yakın):** Öz-tutarlılık — 3 metadata ihlalini düzelt, `foundation/`–`governance/` tekrarını çöz, kök dokümanları v0.5.0'a güncelle.
-- **Horizon 2 (orta):** İlk gerçek alan değeri — Hanse 460'ı doküman stub'larından doğrulanmış YAML modellerine ve operasyonel senaryolara çevir.
-- **Horizon 3 (uzun):** Platformlaşma — Hanse 460 şablonundan ikinci bir gemi tipi türet (yeniden kullanılabilirliği kanıtla), sonra topluluk erişimi.
+**Üç ufuklu geliştirme vizyonu (Sprint bloklarıyla):**
+
+- **Horizon 1 (Sprint-6):** Temiz taban — WP-0070…0076, v0.5.1 baseline.
+- **Horizon 2 (Sprint-7…10):** İlk gerçek alan değeri — denizcilik ontolojisi,
+  MODS Spec v0.1, Hanse 460 elektrik golden path, senaryolar + 5 dk demo
+  (v0.6.0), ikinci alan dilimi (v0.6.1).
+- **Horizon 3 (Sprint-11+):** Platformlaşma — VDM + ikinci tekne profili
+  (v0.7.0), QRH + tasarım-ortağı pilotu (v0.8.0), topluluk (v0.9.0),
+  v1.0 stabilizasyon. Ayrıntı: `roadmap/OMSP_ROADMAP.md`.
 
 ## 8. Claude Çalışma Kalıpları (bu depoda işe yarayanlar)
 

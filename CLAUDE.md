@@ -53,6 +53,21 @@ Acceptance Criteria, Quality Gates, Review Notes ve **AI Assistance Boundary**.
 - AI; **governance, architecture, baseline, release veya validation** yetkisini onaylamaz.
 - AI **kanıt uydurmaz** (evidence invention yasak).
 - İnsan onayı gereken kararlarda son söz Cengiz'dedir; Claude öneri sunar, karar vermez.
+- **Tek delegasyon istisnası — test-gated merge (#212):** `develop`'a giden
+  PR'larda `omsp-tester` (`gate:tester-approved`/`gate:test-failed`) ve
+  ardından `omsp-cto` (`gate:cto-approved`) gate'leri Cengiz'in açık
+  delegasyonuyla işler; iki gate + yeşil CI sonrası `approval-gate-merge.yml`
+  otomatik merge eder (playbook §5.8–5.9). Cengiz label kaldırarak veya
+  workflow'u kapatarak her an override eder. Diğer tüm onay yolları insana aittir.
+
+**Test-gated akış (özet):** Sprint öncesi `omsp-tester` her sprint issue'suna
+test-senaryo checklist'i yorumlar (`<!-- omsp-test-checklist -->`). PR açılınca
+bağlı issue proje panosunda **Testing** statüsüne geçer
+(`pr-testing-status.yml`; `PROJECT_TOKEN` secret'ı gerekir). Tester checklist'i
+PR dalında koşar: FAIL → test raporu + `gate:test-failed` + issue In
+Progress'e; PASS → test raporu + `gate:tester-approved` + issue In Review'a.
+`omsp-cto` TDD uygunluğunu inceleyip `gate:cto-approved` ekler; CI yeşilse PR
+otomatik merge olur ve issue kapanır.
 
 ## 5. CI Kalite Gate'leri
 
@@ -111,9 +126,12 @@ agent'ı kullanılır (`.claude/agents/omsp-pm.md`).
 
 **Agent hiyerarşisi (hepsi advisory):** En üst katman `omsp-cto`
 (`.claude/agents/omsp-cto.md`) — teknik vizyon, program isterleri,
-metodoloji gözetimi ve onay paketi hazırlığı; isterleri `omsp-pm` ile
-birlikte belirler, `omsp-pm` bunları sprint/WP planına çevirir, `omsp-auditor`
-uygunluğu denetler. Hiçbir agent onay yetkisi taşımaz; karar Cengiz'indir.
+metodoloji gözetimi, TDD bekçiliği ve onay paketi hazırlığı; isterleri
+`omsp-pm` ile birlikte belirler, `omsp-pm` bunları sprint/WP planına çevirir,
+`omsp-tester` (`.claude/agents/omsp-tester.md`) sprint issue'larının test
+checklist'lerini ve test verdiklerini sahiplenir, `omsp-auditor` uygunluğu
+denetler. §4'teki test-gated merge delegasyonu (#212) dışında hiçbir agent
+onay yetkisi taşımaz; karar Cengiz'indir.
 
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.

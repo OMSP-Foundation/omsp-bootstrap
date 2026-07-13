@@ -26,7 +26,7 @@ Traceability:
 > (issues #165, #191, #166, #167, #168, #169, #170). Work Package numbers
 > WP-0060–WP-0068 remain reserved for the retired pilot-readiness definitions
 > recorded in closed issues #149–#156 and must not be reused. This file is
-> retained for traceability per `governance/BASELINE_MANAGEMENT.md`.
+> retained for traceability per `governance/ENGINEERING_PLAYBOOK.md` §10.
 
 ## Purpose
 

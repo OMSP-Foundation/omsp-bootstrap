@@ -192,7 +192,7 @@ ve kolayca genişletilebilir kalsın. Zincir sözleşmesi:
 | Revizyon | Git | Tek gerçek kaynak depodur; her içerik değişikliği dal + PR ile gider. |
 | Görev yönetimi | GitHub Projects | omsp-pm ile birlikte; issue/milestone/WP izlenebilirliği zorunlu. |
 | Karar kayıtları | ADR | Teknoloji, format ve araç seçimleri ADR'siz yapılmaz (`templates/ADR_TEMPLATE.md`); mevcut bir ADR'yi değiştiren karar onu supersede eder. |
-| Sürümleme | Semantic Versioning | Hem artefakt metadata `Version` alanında hem GitHub Releases'ta SemVer (`governance/RELEASE_POLICY.md`). |
+| Sürümleme | Semantic Versioning | Hem artefakt metadata `Version` alanında hem GitHub Releases'ta SemVer (`governance/ENGINEERING_PLAYBOOK.md` §11). |
 
 Sürdürülebilirlik ölçütleri (her araç/format önerisinde denetle):
 

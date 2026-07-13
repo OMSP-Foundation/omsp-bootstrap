@@ -61,12 +61,12 @@ The repository is organized around stable engineering concerns:
 | Concern | Directory |
 | --- | --- |
 | Governance | `governance/` |
-| Standards | `foundation/` |
+| Standards | `governance/` |
 | Schemas | `schemas/` |
 | Templates | `templates/` |
 | Canonical language | `canon/` |
 | Ontology meta-model | `ontology/` |
-| Platform concepts | `platform/` |
+| Platform concepts | `architecture/` |
 | Architecture designs | `architecture/` |
 | Knowledge platform | `knowledge/` |
 | Validation | `validation/` |

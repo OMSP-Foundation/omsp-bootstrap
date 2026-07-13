@@ -1,3 +1,0 @@
-# Engineering Kernel
-
-Bootstrap content.

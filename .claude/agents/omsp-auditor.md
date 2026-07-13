@@ -33,9 +33,11 @@ Useful commands:
 2. **Authority boundary** — no automation-approval phrasing where the AI, validator,
    or CI is said to have "approved" something (`OMSP-AUTH-001`); no artifact claims
    automation approval authority.
-3. **Canonical consistency** — `Superseded` stubs carry `Superseded-By`; nothing
-   creates new references to superseded `foundation/` paths;
-   `foundation/`↔`governance/` duplication is flagged, not silently trusted.
+3. **Canonical consistency** — any `Superseded` stub carries `Superseded-By`;
+   nothing references removed legacy paths (see `removed_legacy_paths` in
+   `governance/canonical-authorities.json` — retired `foundation/` and
+   `platform/` paths included); one active authority per domain per
+   `governance/CANONICAL_AUTHORITY_MAP.md`.
 4. **Traceability** — WP-XXXX and derived artifacts link to their upstream sources.
 5. **Depth vs breadth** — surface stub files (<15 lines), placeholders
    (e.g. `AI_GOVERNANCE.md`), and stale root docs (README/CHANGELOG/RELEASE_NOTES).

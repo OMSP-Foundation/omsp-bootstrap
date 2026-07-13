@@ -91,10 +91,11 @@ python3 tooling/omsp_quality_gate.py      # kalite gate
 
 `main`/`develop` kökündeki başlıca dizinler ve amaçları:
 
-- `canon/` — OMSP dili/kimliği: vizyon, misyon, ilkeler, terminoloji, ontoloji özeti
-- `foundation/` — mühendislik standartları (artefakt, metadata, izlenebilirlik, adlandırma, AI governance)
-- `governance/` — planlama, inceleme, onay, release ve baseline yönetişimi
-- `platform/` — dört motorun kavramsal tanımları
+- `canon/` — OMSP dili/kimliği: vizyon, misyon, ilkeler, terminoloji, metodoloji envanteri, ontoloji özeti
+- `governance/` — mühendislik standartları + planlama/inceleme/onay/release yönetişimi
+  (yaşam döngüsü politikalarının tek kaynağı `ENGINEERING_PLAYBOOK.md`;
+  otorite kaydı `CANONICAL_AUTHORITY_MAP.md`. `foundation/` ve `platform/`
+  dizinleri WP-0072'de emekliye ayrıldı — motor tanımları `architecture/` altında)
 - `ontology/`, `schemas/` — meta-model ve makine-okunur şemalar
 - `templates/` — ADR, requirement, risk, validation, Work Package şablonları
 - `tooling/` — validator/generator scriptleri (`omsp_validate.py` ve `validate_*.py` ailesi)

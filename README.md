@@ -64,8 +64,7 @@ OMSP remains a governed engineering foundation. Physical-vessel applicability, p
 | --- | --- |
 | `.github/` | Workflows, templates and repository automation |
 | `governance/` | Canonical governance, decision, review and engineering standards |
-| `foundation/` | Legacy compatibility artifacts and foundational material |
-| `canon/` | Vision, mission, principles, terminology and ontology overview |
+| `canon/` | Vision, mission, principles, terminology, methodology and ontology overview |
 | `ontology/` | Formal ontology and evolution policy |
 | `architecture/` | Platform, engine, context, traceability and publication architecture |
 | `knowledge/` | Knowledge graph, registry, AI-processing and publication contracts |

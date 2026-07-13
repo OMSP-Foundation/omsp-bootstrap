@@ -40,7 +40,7 @@
   description: "Maritime domain content: Hanse 460, vessel/equipment models, scenarios"
 - name: "area:foundation"
   color: "C5DEF5"
-  description: "Engineering standards (foundation/)"
+  description: "Engineering standards (governance/)"
 - name: "area:governance"
   color: "C5DEF5"
   description: "Governance policies and decision records (governance/)"

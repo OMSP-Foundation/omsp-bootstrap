@@ -7,21 +7,54 @@
       "canonical_artifact_id": "OMSP-STD-ARTIFACT-0001",
       "canonical_path": "governance/ENGINEERING_ARTIFACT_STANDARD.md",
       "status": "Active",
-      "legacy_paths": ["foundation/ENGINEERING_ARTIFACT_STANDARD.md"]
+      "legacy_paths": [],
+      "removed_legacy_paths": ["foundation/ENGINEERING_ARTIFACT_STANDARD.md"]
     },
     {
       "domain": "metadata-and-traceability-standard",
       "canonical_artifact_id": "OMSP-STD-METADATA-TRACEABILITY-0001",
       "canonical_path": "governance/METADATA_AND_TRACEABILITY_STANDARD.md",
       "status": "Active",
-      "legacy_paths": ["foundation/METADATA_STANDARD.md", "foundation/TRACEABILITY_STANDARD.md"]
+      "legacy_paths": [],
+      "removed_legacy_paths": ["foundation/METADATA_STANDARD.md", "foundation/TRACEABILITY_STANDARD.md"]
     },
     {
       "domain": "decision-and-review-policy",
       "canonical_artifact_id": "OMSP-GOV-DECISION-REVIEW-0001",
       "canonical_path": "governance/DECISION_AND_REVIEW_POLICY.md",
       "status": "Active",
-      "legacy_paths": ["governance/DECISION_POLICY.md", "governance/REVIEW_POLICY.md"]
+      "legacy_paths": [],
+      "removed_legacy_paths": ["governance/DECISION_POLICY.md", "governance/REVIEW_POLICY.md"]
+    },
+    {
+      "domain": "engineering-lifecycle-policies",
+      "canonical_artifact_id": "OMSP-GOV-PLAYBOOK-0001",
+      "canonical_path": "governance/ENGINEERING_PLAYBOOK.md",
+      "status": "Active",
+      "legacy_paths": [],
+      "removed_legacy_paths": [
+        "governance/BRANCHING_STRATEGY.md",
+        "governance/SPRINT_POLICY.md",
+        "governance/WORK_PACKAGE_LIFECYCLE.md",
+        "governance/BASELINE_MANAGEMENT.md",
+        "governance/DEFINITION_OF_DONE.md",
+        "governance/PULL_REQUEST_POLICY.md",
+        "governance/RELEASE_POLICY.md",
+        "governance/CONTRIBUTION_WORKFLOW.md"
+      ]
+    },
+    {
+      "domain": "platform-engine-definitions",
+      "canonical_artifact_id": "OMSP-ARCH-PLATFORM-0001",
+      "canonical_path": "architecture/PLATFORM_ARCHITECTURE.md",
+      "status": "Active",
+      "legacy_paths": [],
+      "removed_legacy_paths": [
+        "platform/ENGINEERING_KERNEL.md",
+        "platform/KNOWLEDGE_ENGINE.md",
+        "platform/PUBLICATION_ENGINE.md",
+        "platform/TRACEABILITY_ENGINE.md"
+      ]
     }
   ]
 }

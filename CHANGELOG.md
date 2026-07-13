@@ -2,6 +2,39 @@
 
 All notable changes to the OMSP Foundation repository are recorded here. Governed release scope and approval boundaries are defined by the corresponding GitHub Release records and project milestones.
 
+## [0.5.1] - 2026-07-13
+
+Clean baseline and product reorientation (Sprint-6, Work Packages WP-0070…WP-0076). GitHub Release publication is a separate accountable human decision.
+
+### Added
+
+- canonical engineering-methodology inventory (`canon/ENGINEERING_METHODOLOGY.md`, WP-0069);
+- `omsp-cto` top-layer advisory agent: aviation-derived operational-documentation expertise, spec-first MODS product stack (MODS Specification / ODS-100…600, Marine Diagram System, Core Operations Manual, Vessel Definition Modules, Scenario Library, QRH), docs-as-code chain ownership, task-to-skill map;
+- audit reconciliation disposition table with 16 evidence-backed findings (`planning/WP-0070-AUDIT-DISPOSITION.md`);
+- ADR-0001 repository topology: monorepo with trigger-based re-evaluation (`governance/ADR-0001-REPOSITORY-TOPOLOGY.md`);
+- filled governed artifact templates: requirement, risk, validation record, ADR, Work Package (WP-0071);
+- canonical AI governance artifact with human approval gates and provenance rules (`governance/AI_GOVERNANCE.md`, WP-0073);
+- Hanse 460 golden-path product definition — users, provenance rules, model boundary, validator evidence contract, output specification, five-minute demo storyboard (`planning/WP-0074-GOLDEN-PATH-DEFINITION.md`);
+- Sprint 7–14 product-led backlog with epic exit criteria, WP-0077…WP-0089 breakdown, capacity policy, deferred-governance triggers and measurable release gates (`planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md`).
+
+### Changed
+
+- issue #145 (Post-Audit Product Reorientation) declared the official roadmap; the controlled-pilot-readiness Sprint-6 plan superseded;
+- open Sprint-6 work renumbered WP-0070…WP-0076 (resolving the WP-0061…0066 collision); WP-0060–0068 retired and reserved;
+- roadmap updated: Sprint-5 completed, Sprint-6 reorientation, Sprint-7…14+ MODS-fused blocks;
+- lifecycle mini-policies consolidated into the Engineering Playbook as the single authority; canonical authority registry extended to five domains with removed-legacy-path provenance;
+- root documentation, navigation and structure documents aligned to the clean baseline.
+
+### Removed
+
+- 25 stub/duplicate files removed with governed authority record (WP-0072): overdue superseded `foundation/` stubs, `platform/` bootstrap duplicates, eight thin governance mini-policies, and orphan placeholders; `foundation/` and `platform/` directories retired (Markdown stub ratio reduced from ~29.7% to ~17.2%; remaining short files are intentional fixtures or phase-deferred).
+
+### Known Limitations
+
+- carried over from `v0.5.0`: production deployment not authorized; provenance signing, remote telemetry, vulnerability intelligence, performance qualification, and external disaster-recovery remain deferred — now each with a recorded re-entry trigger;
+- persistent risks `RR-001`…`RR-005` remain open; reassessment is scheduled against design-partner pilot evidence (Sprint-12);
+- maritime domain content (ontology concepts, vessel YAML models, scenarios) is defined but not yet implemented — Sprint 7–9 scope.
+
 ## [0.5.0] - 2026-07-10
 
 ### Added

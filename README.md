@@ -12,16 +12,16 @@ OMSP Foundation provides the governed standards, models, tooling and evidence ne
 | Item | Status |
 | --- | --- |
 | Repository | Foundation Repository |
-| Current Governed Baseline | `v0.5.0` |
-| Baseline Classification | Production Baseline Candidate |
+| Current Governed Baseline | `v0.5.1` (clean baseline; GitHub Release publication pending human approval) |
+| Baseline Classification | Clean Baseline — Production Baseline Candidate lineage |
 | Authorized Use | Controlled pre-production and pilot evaluation |
 | Production Deployment | Not authorized |
-| Completed Sprint | Sprint-5 |
-| Current Planning Horizon | Sprint-6 — Post-Audit Product Reorientation (v0.5.1 clean baseline) |
+| Completed Sprint | Sprint-6 |
+| Current Planning Horizon | Sprint-7 — Maritime Domain Model Foundation (v0.6.0, epic #171) |
 | Development Branch | `develop` |
 | Work Package Flow | Issue → Branch → Commit → Draft PR → Review → Merge |
 
-`v0.5.0` is an approved-with-conditions baseline candidate. It is not a production release and does not authorize production deployment, unrestricted external publication, autonomous operational authority or automatic residual-risk acceptance.
+`v0.5.1` is a clean-baseline release in the approved-with-conditions candidate lineage. It is not a production release and does not authorize production deployment, unrestricted external publication, autonomous operational authority or automatic residual-risk acceptance.
 
 ---
 
@@ -92,8 +92,9 @@ OMSP remains a governed engineering foundation. Physical-vessel applicability, p
 | `docs/NAVIGATION.md` | Recommended reading paths |
 | `governance/ENGINEERING_PLAYBOOK.md` | Governed engineering workflow |
 | `governance/CANONICAL_AUTHORITY_MAP.md` | Canonical standard authority map |
-| `planning/SPRINT_5_EXECUTION_PLAN.md` | Sprint-5 implementation and readiness plan |
-| `RELEASE_NOTES.md` | Governed `v0.5.0` release notes |
+| `planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md` | Sprint 7–14 product-led backlog and release gates |
+| `planning/WP-0074-GOLDEN-PATH-DEFINITION.md` | Canonical first golden path (Hanse 460 electrical) |
+| `RELEASE_NOTES.md` | Governed `v0.5.1` release notes |
 | GitHub Releases & Projects | Release records, baseline approvals, issue and milestone tracking |
 | `roadmap/OMSP_ROADMAP.md` | Roadmap and sprint evolution |
 
@@ -129,7 +130,8 @@ Automation may validate, report and recommend. It cannot approve a pull request,
 | Sprint-3 | Completed | Knowledge platform foundations |
 | Sprint-4 | Completed | Vessel and digital-twin reference foundation |
 | Sprint-5 | Completed | Executable tooling and production-readiness candidate |
-| Sprint-6 | Planning | Controlled pilot readiness and persistent-risk reassessment |
+| Sprint-6 | Completed | Post-audit product reorientation and v0.5.1 clean baseline |
+| Sprint-7 | Planning | Maritime domain model foundation (ontology, schemas, MODS Spec v0.1) |
 
 ---
 
@@ -138,10 +140,10 @@ Automation may validate, report and recommend. It cannot approve a pull request,
 The current governed baseline is:
 
 ```text
-v0.5.0
+v0.5.1
 ```
 
-It is approved for controlled pre-production and pilot evaluation only. Persistent risks `RR-001` through `RR-005` and the following production gaps remain open:
+It is approved for controlled pre-production and pilot evaluation only. Persistent risks `RR-001` through `RR-005` and the following production gaps remain open (each with a recorded re-entry trigger in `planning/WP-0075-DOMAIN-BACKLOG-REBASELINE.md` §8):
 
 - production environment approval;
 - signed provenance and attestations;

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the OMSP Foundation repository are recorded here. Governed release scope and approval boundaries are defined by the corresponding records under `release/`.
+All notable changes to the OMSP Foundation repository are recorded here. Governed release scope and approval boundaries are defined by the corresponding GitHub Release records and project milestones.
 
 ## [0.5.0] - 2026-07-10
 

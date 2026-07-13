@@ -13,7 +13,6 @@ omsp-bootstrap/
 ├── governance/
 ├── platform/
 ├── reference/
-├── release/
 ├── roadmap/
 ├── schemas/
 ├── templates/
@@ -57,10 +56,6 @@ Platform component concepts such as Engineering Kernel, Knowledge Engine, Tracea
 ## `reference/`
 
 Reference material and domain examples. This area will expand as OMSP develops maritime operational reference models.
-
-## `release/`
-
-Release, versioning and change policy documentation.
 
 ## `roadmap/`
 

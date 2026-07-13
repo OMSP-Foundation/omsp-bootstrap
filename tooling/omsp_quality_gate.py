@@ -13,7 +13,7 @@ from pathlib import Path
 GATE_VERSION = "0.1.0"
 GOVERNED_PATHS = (
     "governance", "planning", "roadmap", "architecture", "knowledge",
-    "reference", "release", "schemas", "validation", "generator",
+    "reference", "schemas", "validation", "generator",
     "publication", "security", "ci", "operations", "demonstrator",
 )
 

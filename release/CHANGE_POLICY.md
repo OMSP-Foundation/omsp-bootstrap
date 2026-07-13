@@ -1,3 +1,0 @@
-# Change Policy
-
-Bootstrap content.

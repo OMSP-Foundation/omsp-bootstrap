@@ -108,6 +108,12 @@ Release kayıtları GitHub Releases'ta; issue, milestone ve sprint/WP takibi
 GitHub Projects üzerinde yürütülür. Proje yönetimi işleri için `omsp-pm`
 agent'ı kullanılır (`.claude/agents/omsp-pm.md`).
 
+**Agent hiyerarşisi (hepsi advisory):** En üst katman `omsp-cto`
+(`.claude/agents/omsp-cto.md`) — teknik vizyon, program isterleri,
+metodoloji gözetimi ve onay paketi hazırlığı; isterleri `omsp-pm` ile
+birlikte belirler, `omsp-pm` bunları sprint/WP planına çevirir, `omsp-auditor`
+uygunluğu denetler. Hiçbir agent onay yetkisi taşımaz; karar Cengiz'indir.
+
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 

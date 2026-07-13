@@ -1,12 +1,12 @@
 ---
 Artifact-ID: OMSP-ONTOLOGY-CORE-0001
 Title: OMSP Formal Ontology
-Version: 1.0.0
+Version: 1.1.0
 Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-2
 Classification: Public
-Related-Issue: WP-0023 / #49
+Related-Issue: WP-0023 / #49, WP-0077 / #198
 Depends-On:
   - OMSP-CANON-ONTOLOGY-OVERVIEW-0001
   - OMSP-CANON-TERMINOLOGY-0001
@@ -113,3 +113,5 @@ Canon term → Ontology concept/relation → Model or architecture artifact → 
 ## 10. Boundaries
 
 This artifact does not define a complete maritime domain ontology, runtime data model, database schema, reasoning engine or certified operational instruction set. Domain extensions must build on these identifiers through separate governed artifacts.
+
+The first such extension is the maritime domain layer defined in [`MARITIME_ONTOLOGY.md`](MARITIME_ONTOLOGY.md) (`OMSP-ONTOLOGY-MARITIME-0001`), which extends this core additively (WP-0077 / #198). Its registry entries in `omsp-ontology.json` carry the marker field `"layer": "maritime"`; entries without a `layer` field remain governed by this artifact.

@@ -18,7 +18,17 @@
     {"id":"OMSP-CONCEPT-BASELINE","label":"Baseline","parent":"OMSP-CONCEPT-ARTIFACT"},
     {"id":"OMSP-CONCEPT-RELEASE","label":"Release","parent":"OMSP-CONCEPT-ARTIFACT"},
     {"id":"OMSP-CONCEPT-WORK-PACKAGE","label":"Work Package","parent":"OMSP-CONCEPT-ENTITY"},
-    {"id":"OMSP-CONCEPT-CLAIM","label":"Claim","parent":"OMSP-CONCEPT-ENTITY"}
+    {"id":"OMSP-CONCEPT-CLAIM","label":"Claim","parent":"OMSP-CONCEPT-ENTITY"},
+    {"id":"OMSP-CONCEPT-VESSEL","label":"Vessel","parent":"OMSP-CONCEPT-SYSTEM","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-VESSEL-SYSTEM","label":"Vessel System","parent":"OMSP-CONCEPT-SYSTEM","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-EQUIPMENT-ROLE","label":"Equipment Role","parent":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-PORT","label":"Port","parent":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-INTERFACE","label":"Interface","parent":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-CONNECTION","label":"Connection","parent":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-PROTECTION","label":"Protection","parent":"OMSP-CONCEPT-CAPABILITY","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-MEASUREMENT-POINT","label":"Measurement Point","parent":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-OPERATIONAL-SCENARIO","label":"Operational Scenario","parent":"OMSP-CONCEPT-MODEL","layer":"maritime"},
+    {"id":"OMSP-CONCEPT-SOURCE-RECORD","label":"Source Record","parent":"OMSP-CONCEPT-EVIDENCE","layer":"maritime"}
   ],
   "relations": [
     {"id":"OMSP-RELATION-DEFINES","label":"defines","domain":"OMSP-CONCEPT-ARTIFACT","range":"OMSP-CONCEPT-ENTITY"},
@@ -34,6 +44,11 @@
     {"id":"OMSP-RELATION-PRODUCES","label":"produces","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-ENTITY"},
     {"id":"OMSP-RELATION-SUPERSEDES","label":"supersedes","domain":"OMSP-CONCEPT-ARTIFACT","range":"OMSP-CONCEPT-ARTIFACT"},
     {"id":"OMSP-RELATION-SUPPORTS","label":"supports","domain":"OMSP-CONCEPT-EVIDENCE","range":"OMSP-CONCEPT-CLAIM"},
-    {"id":"OMSP-RELATION-APPROVES","label":"approves","domain":"OMSP-CONCEPT-ACTOR","range":"OMSP-CONCEPT-ARTIFACT","human_authority_required":true}
+    {"id":"OMSP-RELATION-APPROVES","label":"approves","domain":"OMSP-CONCEPT-ACTOR","range":"OMSP-CONCEPT-ARTIFACT","human_authority_required":true},
+    {"id":"OMSP-RELATION-CONNECTS-TO","label":"connects-to","domain":"OMSP-CONCEPT-PORT","range":"OMSP-CONCEPT-PORT","layer":"maritime"},
+    {"id":"OMSP-RELATION-SUPPLIES","label":"supplies","domain":"OMSP-CONCEPT-EQUIPMENT-ROLE","range":"OMSP-CONCEPT-EQUIPMENT-ROLE","layer":"maritime"},
+    {"id":"OMSP-RELATION-PROTECTS","label":"protects","domain":"OMSP-CONCEPT-EQUIPMENT-ROLE","range":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-RELATION-MEASURES","label":"measures","domain":"OMSP-CONCEPT-MEASUREMENT-POINT","range":"OMSP-CONCEPT-ENTITY","layer":"maritime"},
+    {"id":"OMSP-RELATION-SOURCED-FROM","label":"sourced-from","domain":"OMSP-CONCEPT-ENTITY","range":"OMSP-CONCEPT-SOURCE-RECORD","layer":"maritime"}
   ]
 }

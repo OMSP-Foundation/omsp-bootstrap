@@ -17,7 +17,7 @@ OMSP Foundation provides the governed standards, models, tooling and evidence ne
 | Authorized Use | Controlled pre-production and pilot evaluation |
 | Production Deployment | Not authorized |
 | Completed Sprint | Sprint-5 |
-| Current Planning Horizon | Sprint-6 — Controlled Pilot Readiness |
+| Current Planning Horizon | Sprint-6 — Post-Audit Product Reorientation (v0.5.1 clean baseline) |
 | Development Branch | `develop` |
 | Work Package Flow | Issue → Branch → Commit → Draft PR → Review → Merge |
 

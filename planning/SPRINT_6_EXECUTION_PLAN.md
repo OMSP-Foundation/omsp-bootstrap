@@ -1,21 +1,32 @@
 ---
 Artifact-ID: OMSP-PLANNING-SPRINT6-0001
 Title: Sprint-6 Controlled Pilot Readiness Execution Plan
-Version: 0.1.0
-Status: Draft
+Version: 0.2.0
+Status: Superseded
 Owner: OMSP Engineering Council
 Created: 2026-07-10
-Last-Updated: 2026-07-10
+Last-Updated: 2026-07-13
 Sprint: Sprint-6
 Work-Package: WP-0060
+Superseded-By: ISSUE-145
 Traceability:
   - ISSUE-145
   - ISSUE-143
   - ISSUE-144
+  - ISSUE-165
   - OMSP-RISK-REASSESSMENT-0001
 ---
 
 # Sprint-6 Controlled Pilot Readiness Execution Plan
+
+> **Superseded (2026-07-13, accountable human approval — Cengiz).** This
+> controlled-pilot-readiness plan is no longer the active Sprint-6 definition.
+> The authoritative Sprint-6 scope is the Post-Audit Product Reorientation
+> roadmap in issue #145, executed through Work Packages WP-0070…WP-0076
+> (issues #165, #191, #166, #167, #168, #169, #170). Work Package numbers
+> WP-0060–WP-0068 remain reserved for the retired pilot-readiness definitions
+> recorded in closed issues #149–#156 and must not be reused. This file is
+> retained for traceability per `governance/BASELINE_MANAGEMENT.md`.
 
 ## Purpose
 

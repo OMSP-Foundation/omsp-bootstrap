@@ -15,7 +15,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-2 | Completed | Formal engineering foundation and automation-ready designs |
 | Sprint-3 | Completed | Knowledge platform foundations |
 | Sprint-4 | Completed | Digital twin foundation |
-| Sprint-5 | Active | Production platform readiness |
+| Sprint-5 | Completed | Production platform readiness |
+| Sprint-6 | Active | Post-audit product reorientation and clean v0.5.1 baseline |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -156,7 +157,7 @@ Sprint-4 completed its governed documentation baseline and recorded accountable 
 
 ## Sprint-5: Production Platform Readiness
 
-Sprint-5 is active and implements the first executable, testable and supportable OMSP platform toolchain while keeping production-readiness, release and deployment authority separate from automation.
+Sprint-5 implemented the first executable, testable and supportable OMSP platform toolchain while keeping production-readiness, release and deployment authority separate from automation. It closed with the `v0.5.0` Production Baseline Candidate approved with conditions.
 
 Execution plan:
 
@@ -183,6 +184,58 @@ v0.5.0-foundation-sprint-5
 ```
 
 Sprint-5 production-readiness claims require measurable evidence, explicit residual risks and accountable human approval. Demonstrator or CI success alone does not authorize production deployment.
+
+## Sprint-6: Post-Audit Product Reorientation
+
+Sprint-6 is active. Following a full technical audit, the program pivoted from governance growth to domain-content growth: the guiding rule is that no governance work is added unless it directly enables a visible product outcome.
+
+Roadmap authority:
+
+- issue #145 — Post-Audit Product Reorientation (approved as the official roadmap, 2026-07-13);
+- the original controlled-pilot-readiness plan (`planning/SPRINT_6_EXECUTION_PLAN.md`, WP-0060) is Superseded; WP-0060–WP-0068 remain reserved for the retired pilot definitions in closed issues #149–#156.
+
+Ordered Work Packages:
+
+1. WP-0070 — audit reconciliation and current-state verification (#165);
+2. WP-0071 — governed artifact templates P0 fill (#191);
+3. WP-0072 — artifact rationalization and stub disposition (#166);
+4. WP-0073 — AI governance consolidation (#167);
+5. WP-0074 — Hanse 460 golden path product definition (#168);
+6. WP-0075 — domain roadmap and backlog re-baseline (#169);
+7. WP-0076 — clean baseline and v0.5.1 release readiness (#170).
+
+Proposed release:
+
+```text
+v0.5.1 — clean baseline
+```
+
+## Sprint-7 and Beyond: Domain Value and the MODS Stack
+
+From Sprint-7 onward the program builds maritime domain value on two fused
+tracks: the machine-verifiable vessel model (YAML as the single source of
+truth) and the MODS operational-documentation product stack (MODS
+Specification with the ODS-100…600 series → Marine Diagram System → Core
+Operations Manual → Vessel Definition Modules → Scenario Library → QRH), where
+MODS is the human-readable publication standard over the model. Repository
+topology is monorepo per `governance/ADR-0001-REPOSITORY-TOPOLOGY.md`.
+
+Planned blocks (targets, refined per sprint through issue-backed planning):
+
+| Block | Goal | Milestone | Epic |
+| --- | --- | --- | --- |
+| Sprint-7 | Maritime core ontology v0.1, vessel/equipment schemas, MODS Spec v0.1 (ODS-100/300 Draft) | v0.6.0 | #171 |
+| Sprint-8 | Hanse 460 electrical golden path with sourced data; ODS-200/400/500/600 Draft; MDS v0.1 | v0.6.0 | #172 |
+| Sprint-9 | Three operational scenarios, report generator, five-minute reproducible demo; Core Operations Manual skeleton | v0.6.0 | #173 |
+| Sprint-10 | Second maritime domain slice; Scenario Library v0.1 with validated entries | v0.6.1 | #174 |
+| Sprint-11 | VDM–Hanse 460 delta module; second vessel profile via generator (multi-vessel proof) | v0.7.0 | #175 |
+| Sprint-12 | QRH v0.1 (fully source-traceable), design-partner pilot, automated PDF pipeline | v0.8.0 | #176 |
+| Sprint-13 | Community and contributor readiness; monorepo ADR re-evaluation trigger T1 | v0.9.0 | #177 |
+| Sprint-14+ | v1.0 stabilization: schema/ontology SemVer commitment, MODS Specification v1.0 release candidate | v1.0.0 | #178 |
+
+No block produces navigation-safety approval, certification or seaworthiness
+claims; operational content remains Draft until validated against real-vessel
+experience under accountable human authority.
 
 ## Roadmap Rule
 

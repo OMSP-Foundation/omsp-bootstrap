@@ -6,7 +6,7 @@ Status: Draft
 Owner: OMSP Foundation Governance
 Baseline: Sprint-6
 Classification: Public
-Related-Issue: WP-0069 / #TBD
+Related-Issue: WP-0069 / #185
 ---
 
 # OMSP Engineering Methodology

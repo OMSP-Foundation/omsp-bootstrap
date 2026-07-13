@@ -6,7 +6,7 @@ Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-6
 Classification: Public
-Related-Issue: WP-0069 / #TBD
+Related-Issue: WP-0069 / #185
 Traceability:
   - OMSP-CANON-VISION-0001
   - OMSP-CANON-PHILOSOPHY-0001
@@ -72,7 +72,7 @@ Out of scope:
 
 - The inventory can drift if normative sources change; mitigated by the maintenance rule in the artifact (§9) requiring review when sources change materially.
 - The external standards-alignment gap remains open by design; deferred to a future Work Package.
-- `Related-Issue: #TBD` placeholders must be replaced with the real issue number once the GitHub issue is created by the accountable human.
+- Resolved: `Related-Issue` placeholders were replaced with issue #185 after the accountable human approved issue creation.
 
 ## 8. Branch and Issue
 

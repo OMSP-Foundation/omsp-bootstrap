@@ -1,3 +1,0 @@
-# Publication Engine
-
-Bootstrap content.

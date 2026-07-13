@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-CANON-METHODOLOGY-0001
 Title: OMSP Engineering Methodology
-Version: 0.1.0
+Version: 0.1.1
 Status: Draft
 Owner: OMSP Foundation Governance
 Baseline: Sprint-6
@@ -73,13 +73,13 @@ Claims, approvals, baselines, and releases must be supported by traceable eviden
 
 Artifacts are versioned with SemVer, carry lifecycle status, and enter governed baseline snapshots. Superseded artifacts are retired through explicit `supersedes` relations and compatibility stubs; canonical authority follows stable Artifact IDs, not paths.
 
-- Defined by: `governance/BASELINE_MANAGEMENT.md`, `governance/RELEASE_POLICY.md`, `governance/CANONICAL_AUTHORITY_MAP.md` (`OMSP-GOV-AUTHORITY-MAP-0001`).
+- Defined by: `governance/ENGINEERING_PLAYBOOK.md` §10–§11 (baseline management, release governance), `governance/CANONICAL_AUTHORITY_MAP.md` (`OMSP-GOV-AUTHORITY-MAP-0001`).
 
 ### 3.5 Sprint and Work-Package-Based Iterative Delivery
 
 Work proceeds in sprint cycles decomposed into numbered Work Packages (WP-XXXX), each bound to an issue, a branch, acceptance criteria, and artifact-level traceability. Each sprint increases engineering maturity while preserving traceability.
 
-- Defined by: `roadmap/OMSP_ROADMAP.md`, `governance/WORK_PACKAGE_LIFECYCLE.md`, `governance/SPRINT_POLICY.md`, `governance/ENGINEERING_PLAYBOOK.md` (`OMSP-GOV-PLAYBOOK-0001`).
+- Defined by: `roadmap/OMSP_ROADMAP.md`, `governance/ENGINEERING_PLAYBOOK.md` §5 and §9 (Work Package lifecycle, sprint lifecycle) (`OMSP-GOV-PLAYBOOK-0001`).
 
 ### 3.6 Docs-as-Code with Automated Quality Gates
 
@@ -97,7 +97,7 @@ Domain modeling for the Hanse 460 reference vessel follows a layered digital-twi
 
 AI assistance is advisory only: it may draft, analyze, compare, and check consistency, but may not approve, invent evidence, or hold baseline or release authority. The ontology encodes this boundary: the `approves` relation may only originate from accountable human actors.
 
-- Defined by: [Principles](./PRINCIPLES.md) §2.10, [Philosophy](./PHILOSOPHY.md) §5, `ontology/OMSP_ONTOLOGY.md` §6, `foundation/AI_GOVERNANCE.md`.
+- Defined by: [Principles](./PRINCIPLES.md) §2.10, [Philosophy](./PHILOSOPHY.md) §5, `ontology/OMSP_ONTOLOGY.md` §6, `governance/AI_GOVERNANCE.md`.
 
 ### 3.9 Reusable Open-Foundation Platform Engineering
 

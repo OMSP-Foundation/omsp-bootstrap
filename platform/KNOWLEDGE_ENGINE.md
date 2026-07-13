@@ -1,3 +1,0 @@
-# Knowledge Engine
-
-Bootstrap content.

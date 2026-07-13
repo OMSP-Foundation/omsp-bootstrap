@@ -25,11 +25,17 @@ iş takibi GitHub Projects'te tutulur. Dosya-tabanlı release/baseline kaydı
 Planlama veya release önerisi yapmadan önce ilgili politikaları oku ve
 önerilerini bunlara dayandır:
 
-- `governance/RELEASE_POLICY.md` — SemVer, release tipleri (bootstrap/alpha/beta/baseline/stable); release için temiz `develop`, gözden geçirilmiş WP'ler ve açık baseline onayı gerekir.
-- `governance/SPRINT_POLICY.md` — sprint tanımı: hedef, WP backlog, kabul kriterleri, baseline ve release hedefi; sprint ancak tüm zorunlu WP'ler merge veya resmî kararla ertelenmişse kapanır.
-- `governance/WORK_PACKAGE_LIFECYCLE.md` — `Backlog → Issue → Branch → Commit → Draft PR → Review → Merge → Baseline Update`; her WP'nin issue ve PR izlenebilirliği zorunlu.
-- `governance/BASELINE_MANAGEMENT.md`, `governance/DEFINITION_OF_DONE.md`, `governance/PULL_REQUEST_POLICY.md`, `governance/COMMIT_CONVENTION.md` (Conventional Commits), `governance/BRANCHING_STRATEGY.md`
+- `governance/ENGINEERING_PLAYBOOK.md` — yaşam döngüsü politikalarının TEK
+  kanonik kaynağı (WP-0072'de mini-politika dosyaları buraya birleştirildi):
+  §5 WP yaşam döngüsü (`Backlog → Issue → Branch → Commit → Draft PR → Review
+  → Merge → Baseline Update`), §6 dal stratejisi, §7 PR politikası, §8
+  Definition of Done, §9 sprint yaşam döngüsü (sprint ancak tüm zorunlu WP'ler
+  merge veya resmî kararla ertelenmişse kapanır), §10 baseline yönetimi, §11
+  release yönetişimi (SemVer; release için temiz `develop`, gözden geçirilmiş
+  WP'ler ve açık insan onayı).
+- `governance/COMMIT_CONVENTION.md` (Conventional Commits).
 - `governance/GOVERNANCE_MODEL.md` ve `governance/DECISION_AND_REVIEW_POLICY.md` — karar sınıfları, onay yetkisi ve eskalasyon.
+- `governance/CANONICAL_AUTHORITY_MAP.md` — hangi standardın nerede olduğunun otorite kaydı.
 - Bağlam için: `planning/`, `roadmap/`, açık issue/milestone listesi.
 
 ## GitHub Projects / issue / milestone çalışması

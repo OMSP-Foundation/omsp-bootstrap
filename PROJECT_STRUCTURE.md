@@ -12,7 +12,6 @@ omsp-bootstrap/
 ├── demonstrator/
 ├── docs/
 ├── examples/
-├── foundation/
 ├── generator/
 ├── governance/
 ├── knowledge/
@@ -22,7 +21,6 @@ omsp-bootstrap/
 ├── performance/
 ├── pilot/
 ├── planning/
-├── platform/
 ├── provenance/
 ├── publication/
 ├── recovery/
@@ -69,10 +67,6 @@ Repository-level documentation, navigation, overview and onboarding material.
 
 Examples of OMSP artifacts, structures and future domain-specific usage.
 
-## `foundation/`
-
-Engineering standards that define artifacts, metadata, traceability, naming, repository structure, documentation quality and AI governance.
-
 ## `generator/`
 
 Repository generator MVP that derives new governed repositories from the foundation baseline.
@@ -108,10 +102,6 @@ Controlled pilot environment baseline, validation, integration demonstrator and 
 ## `planning/`
 
 Sprint execution plans and work package maps.
-
-## `platform/`
-
-Platform component concepts such as Engineering Kernel, Knowledge Engine, Traceability Engine and Publication Engine.
 
 ## `provenance/`
 

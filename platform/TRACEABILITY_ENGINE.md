@@ -1,3 +1,0 @@
-# Traceability Engine
-
-Bootstrap content.

@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-CANON-INDEX-0001
 Title: OMSP Canon Index
-Version: 1.0.0
+Version: 1.1.0
 Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-1
@@ -25,6 +25,7 @@ It helps downstream artifacts reference the correct canon source for identity, p
 4. [Principles](./PRINCIPLES.md) — operating rules for design, governance, review, and evolution.
 5. [Terminology](./TERMINOLOGY.md) — canonical vocabulary for downstream artifacts.
 6. [Ontology Overview](./ONTOLOGY_OVERVIEW.md) — foundational concept and relation families.
+7. [Engineering Methodology](./ENGINEERING_METHODOLOGY.md) — canonical inventory of adopted engineering methodologies.
 
 ## 3. Canon Artifact Map
 
@@ -36,6 +37,7 @@ It helps downstream artifacts reference the correct canon source for identity, p
 | [Principles](./PRINCIPLES.md) | `OMSP-CANON-PRINCIPLES-0001` | Guide design, governance, review, baseline, release, and automation decisions. |
 | [Terminology](./TERMINOLOGY.md) | `OMSP-CANON-TERMINOLOGY-0001` | Define stable vocabulary for governed artifacts. |
 | [Ontology Overview](./ONTOLOGY_OVERVIEW.md) | `OMSP-CANON-ONTOLOGY-OVERVIEW-0001` | Introduce concept and relation families for model-based work. |
+| [Engineering Methodology](./ENGINEERING_METHODOLOGY.md) | `OMSP-CANON-METHODOLOGY-0001` | Reference the adopted methodology set and its normative sources. |
 
 ## 4. Downstream Reference Guidance
 

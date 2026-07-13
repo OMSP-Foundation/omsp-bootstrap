@@ -76,7 +76,7 @@ kontrollerin geçeceğinden emin ol; geçmeyecekse PR'da gerekçesini açıkla.
 ```bash
 # CI ile AYNI kapsam (.github/workflows/omsp-validator.yml) — governed path'ler
 python3 tooling/omsp_validate.py governance planning roadmap architecture \
-  knowledge reference release schemas validation
+  knowledge reference schemas validation
 python3 tooling/omsp_quality_gate.py      # kalite gate
 ```
 
@@ -101,7 +101,12 @@ python3 tooling/omsp_quality_gate.py      # kalite gate
 - `validation/`, `tests/` — kalite gate'leri, doğrulama çerçevesi, kontrol listeleri
 - `reference/`, `examples/`, `demonstrator/`, `pilot/` — alan örnekleri ve gösterim
 - `roadmap/`, `planning/` — sprint planları ve program yol haritası
-- `release/`, `provenance/`, `recovery/`, `security/`, `observability/`, `performance/` — işletim/yönetişim alanları
+- `provenance/`, `recovery/`, `security/`, `observability/`, `performance/` — işletim/yönetişim alanları
+
+**Release ve proje takibi:** Depoda `release/` klasörü yoktur (kaldırıldı).
+Release kayıtları GitHub Releases'ta; issue, milestone ve sprint/WP takibi
+GitHub Projects üzerinde yürütülür. Proje yönetimi işleri için `omsp-pm`
+agent'ı kullanılır (`.claude/agents/omsp-pm.md`).
 
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.

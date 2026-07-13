@@ -77,7 +77,6 @@ OMSP remains a governed engineering foundation. Physical-vessel applicability, p
 | `security/` | Security and software supply-chain baseline |
 | `operations/` | Observability, audit, incident and recovery models |
 | `demonstrator/` | End-to-end integration demonstrator documentation |
-| `release/` | Baseline, approval, risk and release-readiness records |
 | `planning/` | Sprint execution plans |
 | `roadmap/` | Program roadmap and horizon status |
 | `docs/` | Repository guidance and navigation |
@@ -95,9 +94,8 @@ OMSP remains a governed engineering foundation. Physical-vessel applicability, p
 | `governance/ENGINEERING_PLAYBOOK.md` | Governed engineering workflow |
 | `governance/CANONICAL_AUTHORITY_MAP.md` | Canonical standard authority map |
 | `planning/SPRINT_5_EXECUTION_PLAN.md` | Sprint-5 implementation and readiness plan |
-| `release/SPRINT_5_RELEASE_NOTES.md` | Governed `v0.5.0` release notes |
-| `release/PRODUCTION_BASELINE_RELEASE_READINESS.md` | Production-readiness boundary and evidence |
-| `release/BASELINE_APPROVAL_RECORD_0.5.0.md` | Accountable approval record |
+| `RELEASE_NOTES.md` | Governed `v0.5.0` release notes |
+| GitHub Releases & Projects | Release records, baseline approvals, issue and milestone tracking |
 | `roadmap/OMSP_ROADMAP.md` | Roadmap and sprint evolution |
 
 ---
@@ -153,7 +151,7 @@ It is approved for controlled pre-production and pilot evaluation only. Persiste
 - performance and capacity qualification;
 - external backup and disaster-recovery validation.
 
-See `RELEASE_NOTES.md`, `CHANGELOG.md` and the governed records under `release/` for the authoritative scope and limitations.
+See `RELEASE_NOTES.md`, `CHANGELOG.md` and the corresponding GitHub Release and Project records for the authoritative scope and limitations. Release, baseline and milestone tracking is managed on GitHub (Releases, Issues, Milestones and Projects), not in a repository folder.
 
 ---
 

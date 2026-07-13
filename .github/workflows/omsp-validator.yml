@@ -19,7 +19,7 @@ jobs:
       - name: Run unit tests
         run: python -m unittest tests/test_omsp_validator.py
       - name: Validate governed artifacts
-        run: python tooling/omsp_validate.py governance planning roadmap architecture knowledge reference release schemas validation --output omsp-validation-report.json
+        run: python tooling/omsp_validate.py governance planning roadmap architecture knowledge reference schemas validation --output omsp-validation-report.json
       - name: Upload validation report
         if: always()
         uses: actions/upload-artifact@v4

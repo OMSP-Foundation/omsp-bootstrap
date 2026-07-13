@@ -90,7 +90,7 @@ The repository is organized around stable engineering concerns:
 | Documentation assets | `assets/` |
 | Roadmap | `roadmap/` |
 | Sprint planning | `planning/` |
-| Release and baselines | `release/` |
+| Release and baselines | GitHub Releases, Milestones and Projects |
 
 ## Lifecycle
 
@@ -104,7 +104,7 @@ The current approved baseline is:
 v0.5.0
 ```
 
-`v0.5.0` is a Production Baseline Candidate, approved with conditions for controlled pre-production and pilot evaluation (see `release/BASELINE_APPROVAL_RECORD_0.5.0.md`). It does not authorize production deployment.
+`v0.5.0` is a Production Baseline Candidate, approved with conditions for controlled pre-production and pilot evaluation (see the `v0.5.0` GitHub Release record; the historical baseline approval record is preserved in git history). It does not authorize production deployment.
 
 Baseline history:
 

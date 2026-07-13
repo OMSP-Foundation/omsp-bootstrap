@@ -27,7 +27,6 @@ omsp-bootstrap/
 ├── publication/
 ├── recovery/
 ├── reference/
-├── release/
 ├── risk/
 ├── roadmap/
 ├── schemas/
@@ -129,10 +128,6 @@ External backup and disaster recovery validation baseline with its machine-reada
 ## `reference/`
 
 Reference material and domain examples. This area will expand as OMSP develops maritime operational reference models.
-
-## `release/`
-
-Release, versioning and change policy documentation, plus sprint release notes, baseline manifests and baseline approval records.
 
 ## `risk/`
 

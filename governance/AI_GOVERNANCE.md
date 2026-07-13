@@ -1,12 +1,12 @@
 ---
 Artifact-ID: OMSP-GOV-AI-GOVERNANCE-0001
 Title: AI Governance
-Version: 1.1.0
+Version: 1.2.0
 Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-6
 Classification: Public
-Related-Issue: WP-0073 / #167
+Related-Issue: WP-0073 / #167, #218
 Traceability:
   - OMSP-CANON-PRINCIPLES-0001
   - OMSP-CANON-PHILOSOPHY-0001
@@ -29,7 +29,7 @@ applications of this artifact, not competing authorities:
 | Validation work | `validation/VALIDATION_FRAMEWORK.md` §11 |
 | Digital-twin work | `reference/DIGITAL_TWIN_AI_ASSISTANCE_BOUNDARIES.md` |
 | Every pull request | `.github/PULL_REQUEST_TEMPLATE.md` — AI Assistance Boundary section |
-| Agent definitions | `.claude/agents/` (omsp-cto, omsp-pm, omsp-auditor) |
+| Agent definitions | `.claude/agents/` (omsp-cto, omsp-pm, omsp-domain-engineer, omsp-tester, omsp-auditor) |
 
 If an application artifact appears to conflict with this artifact, this
 artifact prevails and the conflict must be raised as an issue.
@@ -78,7 +78,14 @@ originate from accountable human actors (`ontology/OMSP_ONTOLOGY.md` §6).
 
 The following always require explicit, recorded human approval:
 
-1. merge of any pull request into `develop` or `main`;
+1. merge of any pull request into `develop` or `main` — with one governed
+   delegation: under `governance/ENGINEERING_PLAYBOOK.md` §5.8–5.9 (recorded
+   in issue #212), a pull request into `develop` carrying both
+   `gate:tester-approved` and `gate:cto-approved` with all CI checks green
+   is merged automatically by `.github/workflows/approval-gate-merge.yml`;
+   the owner retains override at any time by removing a gate label, closing
+   the pull request, or disabling the workflow; every other merge path
+   remains a direct human act;
 2. baseline declaration and release publication — with one governed
    delegation: under `governance/ADR-0002-AUTOMATED-RELEASE-PIPELINE.md`,
    the human act of closing a release milestone is the recorded release
@@ -147,3 +154,6 @@ Maintained through issue-backed Work Packages and reviewed pull requests.
 Material changes require governance review and version metadata update.
 This version consolidates the placeholder relocated in WP-0072 and closes
 the AI-governance gap recorded in the WP-0070 audit disposition (F7).
+Version 1.2.0 (#218) records the test-gated merge delegation of issue #212
+in §5, and completes the agent list in §1 with `omsp-tester` and the new
+`omsp-domain-engineer`.

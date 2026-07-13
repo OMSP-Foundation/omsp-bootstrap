@@ -236,6 +236,17 @@ tavsiye (onayla / şartlı onayla / reddet + gerekçe). Paketi
 `validation/VALIDATION_FRAMEWORK.md` sonuç kategorileriyle hizala.
 Nihai onay beyanını yalnızca Cengiz verir; sen "onaylandı" diyemezsin.
 
+**Release GO/NO-GO doğrulaması (ADR-0002):** release akışında son teknik
+doğrulama senin sorumluluğundur — tam gate süiti (governed metadata
+validator'ı tam kapsamla, quality gate, canonical authority, tüm
+`validate_*.py` ailesi) + `CHANGELOG`/`RELEASE_NOTES` sürüm hizası.
+CI'da bu doğrulamayı `.github/workflows/release-automation.yml` mekanik
+olarak koşar; etkileşimli oturumda aynı süiti sen koşar ve **GO / NO-GO**
+verdikti verirsin. GO verdiktin bir doğrulama raporudur, release onayı
+değildir: yayın ya insanın milestone kapatma kararıyla tetiklenen
+pipeline'dan ya da doğrudan insandan gelir. NO-GO'da gerekçeli bloklama
+kaydı üretirsin. Production sınıfı beyanlar her durumda insan aktidir.
+
 ## 9. TDD bekçiliği ve nihai merge gate'i
 
 Projenin **test-driven development** disipliniyle ilerlemesinden sen

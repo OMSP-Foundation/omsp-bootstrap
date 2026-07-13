@@ -1,0 +1,172 @@
+name: Automated Release Pipeline
+
+# ADR-0002: closing a release milestone is the recorded human release
+# decision. This pipeline then runs the final verification suite (CTO gate)
+# and, only if every check passes, publishes the pre-release. Any failure
+# blocks publication and opens a blocking issue (NO-GO).
+
+on:
+  milestone:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. v0.6.0) — manual re-run of the pipeline"
+        required: true
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  verify-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve version and guard trigger
+        id: version
+        shell: bash
+        env:
+          MILESTONE_TITLE: ${{ github.event.milestone.title }}
+          MILESTONE_OPEN: ${{ github.event.milestone.open_issues }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          if [ -n "${INPUT_VERSION:-}" ]; then
+            RAW="$INPUT_VERSION"
+          else
+            RAW="$MILESTONE_TITLE"
+            if [ "${MILESTONE_OPEN:-0}" != "0" ]; then
+              echo "Milestone still has open issues — not a release trigger."
+              echo "proceed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          VERSION=$(echo "$RAW" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1 || true)
+          if [ -z "$VERSION" ]; then
+            echo "No SemVer version in trigger ('$RAW') — nothing to release."
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "proceed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout develop
+        if: steps.version.outputs.proceed == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Set up Python
+        if: steps.version.outputs.proceed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Final verification suite (CTO gate)
+        if: steps.version.outputs.proceed == 'true'
+        id: verify
+        shell: bash
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          FAIL=0
+          {
+            echo "## Release Verification Record"
+            echo ""
+            echo "- Version: $VERSION"
+            echo "- Commit: $(git rev-parse HEAD)"
+            echo "- Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo ""
+          } > verification.md
+
+          run_check() {
+            local name="$1"; shift
+            if "$@" > /tmp/check.out 2>&1; then
+              echo "- $name: PASS" >> verification.md
+            else
+              echo "- $name: FAIL" >> verification.md
+              echo "::error::$name failed"
+              sed 's/^/    /' /tmp/check.out | tail -20 >> verification.md
+              FAIL=1
+            fi
+          }
+
+          run_check "Governed metadata validation" python3 tooling/omsp_validate.py \
+            governance planning roadmap architecture knowledge reference \
+            schemas validation templates canon docs
+          run_check "Quality gate" python3 tooling/omsp_quality_gate.py
+          for v in tooling/validate_*.py; do
+            run_check "$(basename "$v")" python3 "$v"
+          done
+
+          NOVERSION="${VERSION#v}"
+          if grep -q "\[$NOVERSION\]" CHANGELOG.md; then
+            echo "- CHANGELOG contains [$NOVERSION]: PASS" >> verification.md
+          else
+            echo "- CHANGELOG contains [$NOVERSION]: FAIL" >> verification.md
+            FAIL=1
+          fi
+          if grep -q "$VERSION" RELEASE_NOTES.md; then
+            echo "- RELEASE_NOTES references $VERSION: PASS" >> verification.md
+          else
+            echo "- RELEASE_NOTES references $VERSION: FAIL" >> verification.md
+            FAIL=1
+          fi
+
+          echo "fail=$FAIL" >> "$GITHUB_OUTPUT"
+          if [ "$FAIL" != "0" ]; then
+            exit 1
+          fi
+
+      - name: Publish release (GO)
+        if: steps.version.outputs.proceed == 'true' && steps.verify.outputs.fail == '0'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          {
+            cat RELEASE_NOTES.md
+            echo ""
+            echo "---"
+            echo ""
+            cat verification.md
+            echo ""
+            echo "_Published by the Automated Release Pipeline under the standing"
+            echo "human authorization of ADR-0002; the recorded human release"
+            echo "decision is the milestone-close event. Pre-release class only._"
+          } > body.md
+          if gh release view "$VERSION" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit "$VERSION" --repo "$GITHUB_REPOSITORY" \
+              --target develop --prerelease --draft=false \
+              --notes-file body.md
+          else
+            gh release create "$VERSION" --repo "$GITHUB_REPOSITORY" \
+              --target develop --prerelease \
+              --title "$VERSION" --notes-file body.md
+          fi
+          echo "Published $VERSION"
+
+      - name: Open blocking issue (NO-GO)
+        if: failure() && steps.version.outputs.proceed == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          {
+            echo "Automated release verification failed for ${VERSION:-unknown} — publication blocked (NO-GO) per ADR-0002."
+            echo ""
+            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo ""
+            cat verification.md 2>/dev/null || echo "verification record unavailable"
+            echo ""
+            echo "Next steps: fix the failing gate, then reopen and re-close the milestone (or re-run via workflow_dispatch) to retry."
+          } > nogo-body.md
+          gh issue create --repo "$GITHUB_REPOSITORY" \
+            --title "Release ${VERSION:-unknown} blocked: automated verification failed" \
+            --body-file nogo-body.md

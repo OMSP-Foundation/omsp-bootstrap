@@ -7,8 +7,8 @@ name: PR Testing Status
 # Requires the PROJECT_TOKEN secret: a PAT that can write the org project
 # (classic PAT with `project` + `repo` scopes, or a fine-grained PAT with
 # organization project read/write). GITHUB_TOKEN cannot access org projects.
-# Without the secret the job skips gracefully — the tester agent then moves
-# the status manually.
+# Without the secret the job FAILS (#220): a gate that silently skips looks
+# green while doing nothing, which hid the missing secret on PR #219.
 
 on:
   pull_request:
@@ -74,8 +74,8 @@ jobs:
             '.data.organization.projectV2.field.options[] | select(.name == $n) | .id' <<< "$project")
 
           if [ -z "$option_id" ] || [ "$option_id" = "null" ]; then
-            echo "::warning::Status option '$STATUS_NAME' not found on project — skipping."
-            exit 0
+            echo "::error::Status option '$STATUS_NAME' not found on project — the gate cannot run. Fix the project Status field or STATUS_NAME." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 1
           fi
 
           for issue in $issues; do
@@ -97,6 +97,7 @@ jobs:
 
             if [ -z "$item_id" ]; then
               echo "::warning::Issue #${issue} is not on the project — skipping."
+              echo "⚠️ Issue #${issue} is not on the OMSP Roadmap project — its status was NOT moved to ${STATUS_NAME}; move it manually if it belongs to the sprint." >> "$GITHUB_STEP_SUMMARY"
               continue
             fi
 
@@ -114,5 +115,6 @@ jobs:
       - name: PROJECT_TOKEN missing
         if: env.PROJECT_TOKEN == ''
         run: |
-          echo "::warning::PROJECT_TOKEN secret is not configured — issue status was not moved."
-          echo "Configure it with: gh secret set PROJECT_TOKEN (PAT with project scope)."
+          echo "::error::PROJECT_TOKEN secret is not configured — issue status was not moved (#220)."
+          echo "❌ PROJECT_TOKEN secret is not configured — the Testing gate did not move the linked issue. Configure it with: gh secret set PROJECT_TOKEN (PAT with org-project write access)." >> "$GITHUB_STEP_SUMMARY"
+          exit 1

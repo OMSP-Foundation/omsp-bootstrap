@@ -134,7 +134,10 @@ spesifikasyonlarına uygun alan içeriğini (denizcilik ontolojisi, MODS/VDM
 içeriği, diyagram kaynakları, senaryolar) üretir,
 `omsp-tester` (`.claude/agents/omsp-tester.md`) sprint issue'larının test
 checklist'lerini ve test verdiklerini sahiplenir, `omsp-auditor` uygunluğu
-denetler (tipik kadans: sprint kapanışı ve release-readiness öncesi).
+denetler (tipik kadans: sprint kapanışı ve release-readiness öncesi),
+`omsp-web-steward` (`.claude/agents/omsp-web-steward.md`) halka açık
+standartlar sitesinin (ADR-0003) editoryal bakımını ve içerik-senkron
+sağlığını sahiplenir.
 §4'teki test-gated merge delegasyonu (#212) dışında hiçbir agent
 onay yetkisi taşımaz; karar Cengiz'indir. Orkestrasyon ve genel
 implementasyon **tasarım gereği** ana Claude oturumundadır — ayrı bir

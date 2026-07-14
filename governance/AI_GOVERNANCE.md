@@ -168,4 +168,8 @@ in §5, and completes the agent list in §1 with `omsp-tester` and the new
 `omsp-domain-engineer`. Version 1.3.0 (WP-0091, #235) registers
 `omsp-web-steward`, the advisory keeper of the public standards website
 (`governance/ADR-0003-PUBLIC-STANDARDS-WEBSITE.md`); it holds no gate or
-publication authority.
+publication authority. Version 1.3.0 also records the process-delegation
+extensions of issue #221 (source: Cengiz, 2026-07-13 session instruction):
+autonomous issue opening and the test-gated merge act by `omsp-pm` (§3, §5.1),
+the pre-implementation checklist rule, and the lightweight CTO gate — the two
+changes landed independently on the same day and share this version.

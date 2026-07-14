@@ -6,7 +6,7 @@ Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-6
 Classification: Public
-Related-Issue: WP-0073 / #167, #218, #235
+Related-Issue: WP-0073 / #167, #218, #221, #235
 Traceability:
   - OMSP-CANON-PRINCIPLES-0001
   - OMSP-CANON-PHILOSOPHY-0001
@@ -55,7 +55,15 @@ AI may, under the conditions in §6:
 - generate clearly-labeled simulated test data;
 - execute mechanical repository operations explicitly instructed and
   reviewable through normal workflow (commits on work branches, opening PRs,
-  issue metadata edits recorded with audit comments).
+  issue metadata edits recorded with audit comments);
+- open and schedule issues autonomously in the project-manager role
+  (omsp-pm): side findings and newly discovered needs may be captured as
+  issues and placed into the current sprint or the backlog by severity,
+  each issue recording its delegation source (#221; Cengiz, 2026-07-13
+  session instruction);
+- execute the delegated merge act in the project-manager role (omsp-pm)
+  on the test-gated path only — after both gate labels and green CI —
+  under the conditions and override rights of §5 item 1.
 
 ## 4. Prohibited Roles (Non-Delegable Authority)
 
@@ -80,11 +88,12 @@ The following always require explicit, recorded human approval:
 
 1. merge of any pull request into `develop` or `main` — with one governed
    delegation: under `governance/ENGINEERING_PLAYBOOK.md` §5.8–5.9 (recorded
-   in issue #212), a pull request into `develop` carrying both
+   in issue #212 and extended in issue #221; source: Cengiz, 2026-07-13
+   session instruction), a pull request into `develop` carrying both
    `gate:tester-approved` and `gate:cto-approved` with all CI checks green
-   is merged automatically by `.github/workflows/approval-gate-merge.yml`;
+   is merged by `omsp-pm` as a delegated mechanical act recorded on the PR;
    the owner retains override at any time by removing a gate label, closing
-   the pull request, or disabling the workflow; every other merge path
+   the pull request, or revoking the delegation; every other merge path
    remains a direct human act;
 2. baseline declaration and release publication — with one governed
    delegation: under `governance/ADR-0002-AUTOMATED-RELEASE-PIPELINE.md`,
@@ -159,4 +168,8 @@ in §5, and completes the agent list in §1 with `omsp-tester` and the new
 `omsp-domain-engineer`. Version 1.3.0 (WP-0091, #235) registers
 `omsp-web-steward`, the advisory keeper of the public standards website
 (`governance/ADR-0003-PUBLIC-STANDARDS-WEBSITE.md`); it holds no gate or
-publication authority.
+publication authority. Version 1.3.0 also records the process-delegation
+extensions of issue #221 (source: Cengiz, 2026-07-13 session instruction):
+autonomous issue opening and the test-gated merge act by `omsp-pm` (§3, §5.1),
+the pre-implementation checklist rule, and the lightweight CTO gate — the two
+changes landed independently on the same day and share this version.

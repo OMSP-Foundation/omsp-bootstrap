@@ -53,21 +53,29 @@ Acceptance Criteria, Quality Gates, Review Notes ve **AI Assistance Boundary**.
 - AI; **governance, architecture, baseline, release veya validation** yetkisini onaylamaz.
 - AI **kanıt uydurmaz** (evidence invention yasak).
 - İnsan onayı gereken kararlarda son söz Cengiz'dedir; Claude öneri sunar, karar vermez.
-- **Tek delegasyon istisnası — test-gated merge (#212):** `develop`'a giden
-  PR'larda `omsp-tester` (`gate:tester-approved`/`gate:test-failed`) ve
-  ardından `omsp-cto` (`gate:cto-approved`) gate'leri Cengiz'in açık
-  delegasyonuyla işler; iki gate + yeşil CI sonrası `approval-gate-merge.yml`
-  otomatik merge eder (playbook §5.8–5.9). Cengiz label kaldırarak veya
-  workflow'u kapatarak her an override eder. Diğer tüm onay yolları insana aittir.
+- **Delegasyon istisnaları — süreç delegasyonları (#212 + #221; kaynak:
+  Cengiz, 2026-07-13 oturum talimatı):** (1) `develop`'a giden PR'larda
+  `omsp-tester` (`gate:tester-approved`/`gate:test-failed`) ve ardından
+  `omsp-cto` (`gate:cto-approved`, hafif son-bakış: ilkeler/vizyon/mimari —
+  detaylı test sorumluluğu tester'dadır) gate'leri Cengiz'in açık
+  delegasyonuyla işler; iki gate + yeşil CI sonrası **merge eylemini
+  `omsp-pm` gerçekleştirir** (playbook §5.8–5.9; eski `approval-gate-merge.yml`
+  emekli). (2) `omsp-pm` yan bulgular/yeni ihtiyaçlar için **özerk issue açar**
+  ve önemine göre sprint'e veya backlog'a yerleştirir. Cengiz label kaldırarak
+  veya delegasyonu geri çekerek her an override eder. Diğer tüm onay yolları
+  insana aittir.
 
-**Test-gated akış (özet):** Sprint öncesi `omsp-tester` her sprint issue'suna
-test-senaryo checklist'i yorumlar (`<!-- omsp-test-checklist -->`). PR açılınca
-bağlı issue proje panosunda **Testing** statüsüne geçer
-(`pr-testing-status.yml`; `PROJECT_TOKEN` secret'ı gerekir). Tester checklist'i
-PR dalında koşar: FAIL → test raporu + `gate:test-failed` + issue In
-Progress'e; PASS → test raporu + `gate:tester-approved` + issue In Review'a.
-`omsp-cto` TDD uygunluğunu inceleyip `gate:cto-approved` ekler; CI yeşilse PR
-otomatik merge olur ve issue kapanır.
+**Test-gated akış (özet):** Her iş (sprint WP'si veya `task/NN`) için
+`omsp-tester` test-senaryo checklist'ini (`<!-- omsp-test-checklist -->`)
+**implementasyon başlamadan önce** yorumlar — sprint issue'larında sprint
+öncesi, diğer işlerde ilk implementasyon commit'inden önce; retroaktif
+checklist istisna değil **ihlaldir** (#221). PR açılınca bağlı issue proje
+panosunda **Testing** statüsüne geçer (`pr-testing-status.yml`;
+`PROJECT_TOKEN` secret'ı gerekir). Tester checklist'i PR dalında koşar:
+FAIL → test raporu + `gate:test-failed` + issue In Progress'e; PASS → test
+raporu + `gate:tester-approved` + issue In Review'a. `omsp-cto` hafif
+son-bakış sonrası `gate:cto-approved` ekler; CI yeşilse merge'ü `omsp-pm`
+yapar ve issue kapanır.
 
 ## 5. CI Kalite Gate'leri
 
@@ -128,17 +136,18 @@ agent'ı kullanılır (`.claude/agents/omsp-pm.md`).
 **Agent hiyerarşisi (hepsi advisory):** En üst katman `omsp-cto`
 (`.claude/agents/omsp-cto.md`) — teknik vizyon, program isterleri,
 metodoloji gözetimi, TDD bekçiliği ve onay paketi hazırlığı; isterleri
-`omsp-pm` ile birlikte belirler, `omsp-pm` bunları sprint/WP planına çevirir,
+`omsp-pm` ile birlikte belirler, `omsp-pm` bunları sprint/WP planına çevirir
+(#221 delegasyonlarıyla: yan bulgular için özerk issue açar, test-gated
+yolda merge eylemini gerçekleştirir),
 `omsp-domain-engineer` (`.claude/agents/omsp-domain-engineer.md`) CTO'nun
 spesifikasyonlarına uygun alan içeriğini (denizcilik ontolojisi, MODS/VDM
 içeriği, diyagram kaynakları, senaryolar) üretir,
-`omsp-tester` (`.claude/agents/omsp-tester.md`) sprint issue'larının test
-checklist'lerini ve test verdiklerini sahiplenir, `omsp-auditor` uygunluğu
-denetler (tipik kadans: sprint kapanışı ve release-readiness öncesi),
-`omsp-web-steward` (`.claude/agents/omsp-web-steward.md`) halka açık
-standartlar sitesinin (ADR-0003) editoryal bakımını ve içerik-senkron
-sağlığını sahiplenir.
-§4'teki test-gated merge delegasyonu (#212) dışında hiçbir agent
+`omsp-tester` (`.claude/agents/omsp-tester.md`) tüm işlerin implementasyon
+öncesi test checklist'lerini ve test verdiklerini sahiplenir, `omsp-auditor`
+uygunluğu denetler (tipik kadans: sprint kapanışı ve release-readiness
+öncesi), `omsp-web-steward` (`.claude/agents/omsp-web-steward.md`) halka açık
+standartlar sitesinin editoryal bakımını ve içerik-senkron sağlığını
+sahiplenir. §4'teki süreç delegasyonları (#212 + #221) dışında hiçbir agent
 onay yetkisi taşımaz; karar Cengiz'indir. Orkestrasyon ve genel
 implementasyon **tasarım gereği** ana Claude oturumundadır — ayrı bir
 implementer/orchestrator agent'ı bilinçli olarak yoktur; agent'lar devir

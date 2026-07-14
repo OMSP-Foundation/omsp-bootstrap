@@ -98,9 +98,9 @@ Ready for Review → issue moves to Testing
   ↓
 Testing Gate (omsp-tester) — fail returns to Implementation
   ↓
-CTO Gate (omsp-cto) — TDD-compliance review
+CTO Gate (omsp-cto) — lightweight final review
   ↓
-Auto-Merge → develop
+Merge by omsp-pm → develop
   ↓
 Issue Closed
   ↓

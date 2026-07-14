@@ -1,8 +1,8 @@
 ---
 Artifact-ID: OMSP-GOV-ADR-0003
 Title: ADR-0003 Public Standards Website — Platform, Repository and Content Sync
-Version: 0.1.0
-Status: Draft
+Version: 1.0.0
+Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-7 candidate
 Classification: Public
@@ -16,9 +16,11 @@ Traceability:
 
 ## Status
 
-Draft — awaiting accountable human decision (Cengiz). Acceptance of this ADR
-is the gate for opening the website repository (WP-0091 Phase 2); no
-repository is created and nothing is published before that recorded decision.
+Accepted by accountable human decision (Cengiz, 2026-07-14, recorded
+instruction: "ADR-0003 kabul ediyorum", logged on issue #235), delivered
+through WP-0091. Acceptance is the gate for opening the website repository
+(WP-0091 Phase 2); nothing was created or published before that recorded
+decision.
 
 ## Context
 

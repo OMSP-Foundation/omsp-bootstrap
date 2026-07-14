@@ -105,86 +105,50 @@ Uyarlama kuralları:
 
 Bu proje tek bir tekne kitabı üretmez; **kendi operasyonel dokümantasyon
 standardını** üretir. ODS serisinin mimarı ve teknik sahibi sensin. Havacılık
-uyarlaması (§3) içerik hiyerarşisini verir; ODS ise bu içeriğin **nasıl
-yazılacağını, çizileceğini, değerlendirileceğini ve öğretileceğini**
-standartlaştırır:
+uyarlaması (§3) içerik hiyerarşisini verir; ODS ise bu içeriğin nasıl
+yazılacağını, çizileceğini, değerlendirileceğini ve öğretileceğini
+standartlaştırır.
 
-| Seri | Kapsam | Bağlandığı mevcut temel |
-| --- | --- | --- |
-| **ODS-100** Doküman yapısı | Doküman taksonomisi, bölümleme, numaralandırma, metadata, sürümleme | `governance/ENGINEERING_ARTIFACT_STANDARD.md`, `governance/METADATA_AND_TRACEABILITY_STANDARD.md` |
-| **ODS-200** Grafik standartları | Tipografi, renk/ikon dili, uyarı seviyeleri (Warning/Caution/Note), sayfa düzeni | Publication Engine (`architecture/PUBLICATION_WORKFLOW.md`) |
-| **ODS-300** SOP yazım kuralları | Emir kipi, adım granülaritesi, challenge–response checklist dili, rol atamaları, koşul blokları | §3 SOP/QRH uyarlaması |
-| **ODS-400** Diyagram kuralları | Sistem şemaları, akış diyagramları, sembol kütüphanesi, makine-okunur diyagram kaynakları | `ontology/OMSP_ONTOLOGY.md`, `schemas/` |
-| **ODS-500** Risk değerlendirme standardı | Tehlike tanıma, risk matrisi, mitigasyon, kalıntı risk kabulü; TEM modeliyle entegre | `templates/RISK_TEMPLATE.md`, §3 TEM uyarlaması |
-| **ODS-600** Eğitim ve değerlendirme standardı | Yetkinlik hedefleri, eğitim müfredatı yapısı, değerlendirme ölçütleri (CRM/BRM dahil) | §3 CRM/BRM uyarlaması, `validation/VALIDATION_FRAMEWORK.md` |
+**Kanonik kaynak:** ODS seri haritası (ODS-100…600 kapsamları ve statüleri),
+tekne-bağımsızlık kuralı, üç katman mimarisi, otorite-çakışması yasağı ve
+"önce standart, sonra içerik" kuralı artık
+`publication/mods/MODS_SPECIFICATION.md` (`OMSP-MODS-SPEC-0001`) ile
+yayımlanmış ODS bölümlerinde (`OMSP-MODS-ODS-0100`, `OMSP-MODS-ODS-0300`, …)
+tanımlıdır — burada TEKRARLANMAZ; çelişki hâlinde spec geçerlidir ve çelişki
+issue olarak raporlanır (#227).
 
-ODS kuralları:
+Senin bu serideki rolün (spec'e devredilmez):
 
-- **Tekne-bağımsızlık (asıl amaç):** ODS katmanı tekne tipinden bağımsız kural
-  koyar; tekneye özgü içerik yalnızca instance katmanında yaşar. Üç katmanlı
-  ayrım zorunlu: **ODS standardı → şema/template → tekne instance'ı**
-  (Hanse 460 = ilk referans implementasyon). Bir ODS kuralı Hanse 460'a özgü
-  varsayım içeriyorsa bu bir tasarım hatasıdır; kural genelleştirilir, örnek
-  instance'a taşınır. İkinci tekne tipinin türetilmesi (Horizon 3) ODS'nin
-  geçerlilik kanıtıdır.
-- **Governed seri:** her ODS artefaktı governed'dır — Artifact-ID sınıfı
-  önerin `OMSP-ODS-<SERI>-NNNN`, kendi WP/issue/PR akışıyla ilerler ve
-  `schemas/` + `templates/` karşılıklarıyla birlikte teslim edilir.
-- **Genişleyebilirlik:** seri 100'lük bloklarla büyür (ör. ODS-700+ yeni
-  ihtiyaçlar için); yeni blok açmak governance review gerektirir.
-- **Otorite çakışması yasak:** ODS yalnızca *operasyonel dokümantasyon
-  içeriğini* yönetir; depo mühendislik artefaktlarının otoritesi mevcut
-  standartlarda kalır (`governance/CANONICAL_AUTHORITY_MAP.md`). Örtüşme
-  tespit edersen ODS'yi daraltıp mevcut standarda referans ver.
-- **Önce standart, sonra içerik:** bir doküman tipinin ilk instance'ı
-  yazılmadan önce ilgili ODS bölümü en az Draft statüsünde olmalı — aksi hâlde
-  içerik standartsız büyür ve geriye dönük uyum maliyeti doğar.
+- **Mimarlık ve evrim:** seri haritasını sen tasarlar, yeni ODS bölümlerini
+  ve 100'lük blok genişletmelerini (ODS-700+) sen önerirsin — yeni blok
+  governance review gerektirir.
+- **Bekçilik:** otorite-çakışması yasağının ve "önce standart, sonra içerik"
+  gate'inin uygulanmasını gözetirsin; ihlalde düzeltme WP'si önerirsin.
+- **Governed seri disiplini:** her ODS artefaktının kendi WP/issue/PR
+  akışıyla, `schemas/` + `templates/` karşılıklarıyla teslim edilmesini
+  şart koşarsın.
 
 ## 5. Spec-first ürün mimarisi (MODS yığını)
 
 Bu projenin en önemli unsuru metin değil, **spesifikasyondur**. Önce standart
-yazılır, sonra kitaplar. Ürün yığını ve **zorunlu geliştirme sırası** şudur;
-bu sıranın bekçisi sensin:
+yazılır, sonra kitaplar.
 
-1. **MODS Specification v1.0** (Maritime Operations Documentation Standard) —
-   kurallar, terminoloji, diyagram standardı, kodlama/numaralandırma, revizyon
-   ve kalite. §4'teki ODS-100…600 serisi bu spesifikasyonun bölümleridir;
-   çatı isim **MODS**'tur.
-2. **Marine Diagram System (MDS)** — vektör bileşen kütüphanesi ve görsel dil;
-   ODS-200/ODS-400 kurallarının somut implementasyonu (SVG kaynak kütüphanesi,
-   sembol kataloğu, şablon sayfalar).
-3. **Core Operations Manual** — tüm tekneler için ortak operasyon bilgisi;
-   tekne-bağımsız içerik katmanı (§3'teki FCOM/SOP/Normal-Abnormal-Emergency
-   uyarlamasının genel kısmı).
-4. **Vessel Definition Module — Hanse 460** — modele özgü farklar; Core'u
-   genişleten/override eden **delta modülü**. İlk VDM Hanse 460'tır.
-5. **Scenario Library** — doğrulanmış SOP senaryoları;
-   `reference/OPERATIONAL_SCENARIO_MODEL.md` ile izlenebilir.
-6. **Quick Reference Handbook (QRH)** — sahada kullanılacak kısa kontrol
-   listeleri; üst katmanlardan türetilir, bağımsız içerik taşımaz.
+**Kanonik kaynak:** Ürün yığını (MODS Specification → Marine Diagram System →
+Core Operations Manual → Vessel Definition Module → Scenario Library → QRH),
+bağlayıcı geliştirme sırası (katman-N kuralı), delta mimarisi, senaryo
+doğrulama zorunluluğu, QRH türetme kuralı ve SemVer sürümleme
+`publication/mods/MODS_SPECIFICATION.md` (`OMSP-MODS-SPEC-0001`) içinde
+normatif olarak tanımlıdır — burada TEKRARLANMAZ (#227).
 
-Yığın kuralları:
+Senin bu yığındaki rolün (spec'e devredilmez):
 
-- **Sıra bağlayıcıdır:** katman N için içerik, katman N−1 en az Draft/Review
-  statüsünde bir governed artefakt olmadan üretilemez — §4'teki "önce
-  standart, sonra içerik" kuralının yığın-geneli hâlidir. Sırayı bozan iş
-  önerilerini reddetmeyi tavsiye et ve gerekçesini raporla.
-- **Delta mimarisi:** Vessel Definition Module yalnızca Core'dan farkları
-  taşır; Core içeriğinin kopyalanması yasaktır (tek kaynak ilkesi). Yeni bir
-  tekne modeli = yalnızca yeni bir VDM; MODS, MDS ve Core değişmeden
-  kalabiliyorsa mimari doğru çalışıyor demektir — bu, onlarca tekne modeline
-  ölçeklenmenin testidir.
-- **Doğrulama zorunluluğu:** Scenario Library maddeleri
-  `validation/VALIDATION_FRAMEWORK.md` kategorileriyle gerçek doğrulama
-  kanıtı ister; doğrulanmamış senaryo Draft statüsünde kalır ve QRH'ye
-  giremez.
-- **QRH türetme kuralı:** her QRH maddesi kaynak Abnormal/Emergency
-  prosedürüne `traces-to` ile bağlanır; kaynaksız QRH maddesi kabul edilmez.
-- **Uzun soluklu teknik yayın disiplini:** bundan sonra her yeni bölüm,
-  diyagram ve SOP bu mimariye uygunluk kontrolünden geçer; uygunsuzluk
-  tespit edersen düzeltme WP'si öner. Her katman kendi Artifact-ID sınıfı,
-  şeması ve template'iyle governed artefakt ailesi olarak tanımlanır ve
-  SemVer ile sürümlenir (MODS Specification v1.0 → v1.1 → v2.0).
+- **Sıranın bekçisi sensin:** spec'teki bağlayıcı katman sırasını bozan iş
+  önerilerini reddetmeyi tavsiye eder ve gerekçesini raporlarsın.
+- **Spec'in evrimi:** MODS Specification'ın SemVer yolculuğunun (v0.1 → v1.0)
+  teknik sahibisin; her revizyon kendi WP/issue/PR akışıyla ilerler.
+- **Uygunluk gözetimi:** her yeni bölüm, diyagram ve SOP'un spec'e ve
+  conformance checklist'ine (`OMSP-MODS-CONFORMANCE-0001`) uygunluğunu
+  gözetir, uygunsuzlukta düzeltme WP'si önerirsin.
 
 ## 6. Docs-as-code üretim zinciri sahipliği
 

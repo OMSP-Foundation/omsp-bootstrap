@@ -1,0 +1,49 @@
+# Fictional NEGATIVE fixture — MUST be rejected by schema validation.
+# See tests/schemas/README.md (D6 declaration). Violation: mandatory
+# stop_abort_conditions field missing from a scenario instance (TS-6).
+schema_version: "0.1.0"
+id: scenario:fixture:example-yacht:n9-stop-abort-missing:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Negative fixture — stop/abort conditions missing
+objective: >-
+  This otherwise complete fictional scenario omits stop_abort_conditions
+  and must fail validation.
+applicability:
+  - vessel-design:fixture:example-yacht
+accountable_authority: Skipper (human); software is advisory only.
+trigger:
+  description: Fictional trigger for the negative fixture.
+  source: reported
+  timestamp: Recorded at report time by the reporting human.
+  confidence: low
+preconditions:
+  - Configuration applicability confirmed against the fixture configuration.
+affected_systems:
+  - system:vessel-design:fixture:example-yacht:energy
+causes:
+  - description: Fictional cause entry.
+    implicates:
+      - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank
+    evidence_requirement: Fictional evidence requirement.
+inspection_sequence:
+  - step_id: scenario-step:scenario:fixture:example-yacht:n9-stop-abort-missing:0.1.0:1
+    sequence: 1
+    responsible_actor: Skipper (human)
+    action: Fictional observation step.
+    entry_criteria: Trigger reported.
+    completion_criteria: Observation recorded.
+    expected_observation: Fictional observation.
+    escalation: Route ambiguity to the conservative human-review branch.
+    human_confirmation_required: true
+safety_constraints:
+  - No instruction to bypass any protection device.
+related_equipment:
+  - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank
+source_manuals:
+  - document:fixture:example-manual:1.0
+unacceptable_outcomes:
+  - Fictional unacceptable outcome without a recorded human decision.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence routes to the accountable human for
+  conservative review.

@@ -1,0 +1,9 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+schema_version: "0.1.0"
+id: connection:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:feed-line-1
+concept: OMSP-CONCEPT-CONNECTION
+source_port: port:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank:supply-out
+target_port: port:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel:feed-in
+implements: interface:port:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank:supply-out:port:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel:feed-in:electrical-power
+belongs_to: configuration:vessel-design:fixture:example-yacht:reference-0.1.0
+name: Feed line 1 (fictional fixture)

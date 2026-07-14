@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/equipment-instance.schema.json",
+  "title": "OMSP Maritime Equipment-Role Instance",
+  "description": "Instance schema for OMSP-CONCEPT-EQUIPMENT-ROLE (OMSP-ONTOLOGY-MARITIME-0001 section 2). Identity follows OMSP-REFERENCE-EQUIPMENT-0001 section 3 (equipment:<configuration-id>:<local-id>); ports, measurement points, protection, documents and dependencies express every golden-path section 5.1 role (OMSP-PLANNING-GOLDEN-PATH-0001). Value-bearing fields carry the shared provenanced-value contract. Advisory validation only; no certification claim.",
+  "type": "object",
+  "required": ["schema_version", "id", "concept", "belongs_to", "role"],
+  "properties": {
+    "schema_version": {"$ref": "provenance.schema.json#/$defs/schema-version"},
+    "id": {"type": "string", "pattern": "^equipment:[a-z0-9][a-z0-9:._-]*$"},
+    "concept": {"const": "OMSP-CONCEPT-EQUIPMENT-ROLE"},
+    "belongs_to": {"type": "string", "pattern": "^system:[a-z0-9][a-z0-9:._-]*$"},
+    "name": {"type": "string", "minLength": 1},
+    "role": {"type": "string", "minLength": 1},
+    "equipment_class": {"type": "string", "pattern": "^equipment-class:[a-z0-9][a-z0-9:._-]*$"},
+    "quantity": {"$ref": "provenance.schema.json#/$defs/provenanced-value"},
+    "ports": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/port"},
+      "uniqueItems": true
+    },
+    "measurement_points": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/measurement-point"},
+      "uniqueItems": true
+    },
+    "implements": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {"const": "OMSP-CONCEPT-PROTECTION"},
+          {"type": "string", "pattern": "^capability:[a-z0-9][a-z0-9:._-]*$"}
+        ]
+      },
+      "uniqueItems": true
+    },
+    "protects": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^(equipment|connection|port|system):[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    },
+    "attributes": {"$ref": "provenance.schema.json#/$defs/attribute-map"},
+    "installation_location": {"$ref": "provenance.schema.json#/$defs/provenanced-value"},
+    "manufacturer": {"$ref": "provenance.schema.json#/$defs/provenanced-value"},
+    "model": {"$ref": "provenance.schema.json#/$defs/provenanced-value"},
+    "serial_number": {"$ref": "provenance.schema.json#/$defs/provenanced-value"},
+    "documents": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^document:[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^equipment:[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "port": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^port:[a-z0-9][a-z0-9:._-]*$"},
+        "concept": {"const": "OMSP-CONCEPT-PORT"},
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "measurement-point": {
+      "type": "object",
+      "required": ["id", "measures"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^measurement-point:[a-z0-9][a-z0-9:._-]*$"},
+        "concept": {"const": "OMSP-CONCEPT-MEASUREMENT-POINT"},
+        "name": {"type": "string", "minLength": 1},
+        "measures": {"type": "string", "pattern": "^(equipment|connection|port|system):[a-z0-9][a-z0-9:._-]*$"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+# Unknown-positive fixture (TS-5a): every value-bearing field carries the
+# explicit unknown marker and the instance must PASS.
+schema_version: "0.1.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:energy
+name: Energy storage bank role (fictional fixture)
+role: >-
+  Fictional stored-energy role supplying the distribution panel; fixture
+  use only.
+attributes:
+  storage-capacity:
+    status: unknown
+    note: Capacity not established by fixture evidence.
+  nominal-level:
+    status: unknown
+installation_location:
+  status: unknown
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown

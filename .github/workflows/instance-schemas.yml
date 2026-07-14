@@ -1,0 +1,25 @@
+name: Instance Schema Validation
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned validation dependencies (ADR-0003)
+        run: pip install jsonschema==4.26.0 PyYAML==6.0.3
+      - name: Validate instance schemas and fixtures
+        run: python tooling/validate_instance_schemas.py

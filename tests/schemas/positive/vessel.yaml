@@ -1,0 +1,26 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+schema_version: "0.1.0"
+id: vessel-design:fixture:example-yacht
+concept: OMSP-CONCEPT-VESSEL
+layer: vessel-design
+name: Example Yacht (fictional fixture)
+description: >-
+  Fictional design-family fixture used only for schema self-tests. It does
+  not represent any real vessel.
+configuration: configuration:vessel-design:fixture:example-yacht:reference-0.1.0
+systems:
+  - system:vessel-design:fixture:example-yacht:energy
+  - system:vessel-design:fixture:example-yacht:freshwater
+characteristics:
+  length-overall:
+    value: 14.2
+    unit: fixture-metre
+    provenance:
+      source_id: source:fixture:design-summary:2026-07-14
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-14"
+      applicability: Fictional example-yacht design family; fixture use only
+  displacement:
+    status: unknown
+    note: Not established by fixture evidence; explicit unknown marker.

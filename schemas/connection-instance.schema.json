@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/connection-instance.schema.json",
+  "title": "OMSP Maritime Connection Instance",
+  "description": "Instance schema for OMSP-CONCEPT-CONNECTION (OMSP-ONTOLOGY-MARITIME-0001 section 2). A connection is a realized link between two ports in a specific configuration and implements an interface contract (core implements relation). Advisory validation only; no certification claim.",
+  "type": "object",
+  "required": ["schema_version", "id", "concept", "source_port", "target_port", "implements", "belongs_to"],
+  "properties": {
+    "schema_version": {"$ref": "provenance.schema.json#/$defs/schema-version"},
+    "id": {"type": "string", "pattern": "^connection:[a-z0-9][a-z0-9:._-]*$"},
+    "concept": {"const": "OMSP-CONCEPT-CONNECTION"},
+    "source_port": {"type": "string", "pattern": "^port:[a-z0-9][a-z0-9:._-]*$"},
+    "target_port": {"type": "string", "pattern": "^port:[a-z0-9][a-z0-9:._-]*$"},
+    "implements": {"type": "string", "pattern": "^interface:[a-z0-9][a-z0-9:._-]*$"},
+    "belongs_to": {"type": "string", "pattern": "^configuration:[a-z0-9][a-z0-9:._-]*$"},
+    "name": {"type": "string", "minLength": 1},
+    "attributes": {"$ref": "provenance.schema.json#/$defs/attribute-map"}
+  },
+  "additionalProperties": false
+}

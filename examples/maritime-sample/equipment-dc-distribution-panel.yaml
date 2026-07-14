@@ -1,0 +1,53 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value.
+schema_version: "0.1.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:electrical
+name: DC distribution panel role (fictional sample)
+role: >-
+  Fictional distribution role that receives stored energy from the
+  battery-bank role and feeds consumer roles; sample use only.
+equipment_class: equipment-class:fixture:distribution-panel
+quantity:
+  value: 1
+  provenance:
+    source_id: source:fixture:design-summary:2026-07-14
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-14"
+    applicability: Fictional example-yacht sample configuration
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel:feed-in
+    concept: OMSP-CONCEPT-PORT
+    name: Feed input
+    description: Fictional inbound feed port from the battery-bank role.
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel:consumer-out-1
+    concept: OMSP-CONCEPT-PORT
+    name: Consumer output 1
+implements:
+  - OMSP-CONCEPT-PROTECTION
+protects:
+  - connection:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:electrical-feed
+attributes:
+  rated-throughput:
+    value: 100
+    unit: fixture-unit
+    provenance:
+      source_id: source:fixture:panel-datasheet:2026-07-14
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-14"
+      applicability: Fictional panel datasheet; sample use only
+installation_location:
+  status: unknown
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown
+documents:
+  - document:fixture:electrical-notes:1.0
+depends_on:
+  - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:battery-bank

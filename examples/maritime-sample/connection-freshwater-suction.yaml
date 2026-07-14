@@ -1,0 +1,15 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value.
+# Non-electrical placeholder connection (TS-4).
+schema_version: "0.1.0"
+id: connection:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-suction
+concept: OMSP-CONCEPT-CONNECTION
+source_port: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-tank:outlet
+target_port: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump:suction-in
+implements: interface:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-suction
+belongs_to: configuration:vessel-design:fixture:example-yacht:sample-0.1.0
+name: Freshwater suction line (fictional sample)
+attributes:
+  hose-length:
+    status: unknown
+    note: Not established by fictional sample evidence.

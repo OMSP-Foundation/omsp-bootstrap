@@ -1,0 +1,12 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+# N11: the concept identity does not resolve to the ontology registry
+# (ontology/omsp-ontology.json); the ontology-conformance rule
+# (OMSP-ISCHEMA-005) must reject it, independently of any schema const.
+schema_version: "0.1.0"
+id: system:vessel-design:fixture:example-yacht:phantom
+concept: OMSP-CONCEPT-PHANTOM-SYSTEM
+belongs_to: vessel-design:fixture:example-yacht
+name: Phantom system (fictional fixture)
+purpose: >-
+  Negative fixture; the concept ID is deliberately absent from the
+  ontology registry and must be rejected, never silently accepted.

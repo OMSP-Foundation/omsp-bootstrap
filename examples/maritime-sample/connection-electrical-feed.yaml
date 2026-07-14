@@ -1,0 +1,14 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value.
+schema_version: "0.1.0"
+id: connection:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:electrical-feed
+concept: OMSP-CONCEPT-CONNECTION
+source_port: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:battery-bank:supply-out
+target_port: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel:feed-in
+implements: interface:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:electrical-feed
+belongs_to: configuration:vessel-design:fixture:example-yacht:sample-0.1.0
+name: Electrical feed line (fictional sample)
+attributes:
+  conductor-length:
+    status: unknown
+    note: Not established by fictional sample evidence.

@@ -1,0 +1,55 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value.
+# Non-electrical placeholder equipment (domain-neutrality proof, TS-4):
+# same schema, same validator, same command chain as the electrical slice.
+schema_version: "0.1.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:freshwater
+name: Freshwater pressure pump role (fictional sample)
+role: >-
+  Fictional pump role moving fresh water from the tank role to consumer
+  outlets; sample use only.
+equipment_class: equipment-class:fixture:freshwater-pump
+quantity:
+  value: 1
+  provenance:
+    source_id: source:fixture:design-summary:2026-07-14
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-14"
+    applicability: Fictional example-yacht sample configuration
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump:suction-in
+    concept: OMSP-CONCEPT-PORT
+    name: Suction inlet
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump:discharge-out
+    concept: OMSP-CONCEPT-PORT
+    name: Discharge outlet
+measurement_points:
+  - id: measurement-point:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump:outlet-pressure
+    concept: OMSP-CONCEPT-MEASUREMENT-POINT
+    name: Outlet pressure observation point
+    measures: equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump
+attributes:
+  rated-flow:
+    value: 12
+    unit: fixture-flow-unit
+    provenance:
+      source_id: source:fixture:pump-datasheet:2026-07-14
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-14"
+      applicability: Fictional pump datasheet; sample use only
+installation_location:
+  status: unknown
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown
+documents:
+  - document:fixture:freshwater-notes:1.0
+depends_on:
+  - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel

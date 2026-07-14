@@ -188,14 +188,14 @@ Review must evaluate correctness, consistency, governance impact, and traceabili
 
 Review is a two-stage gate:
 
-1. **Testing Gate (omsp-tester).** Before the sprint starts, every sprint issue receives a test-scenario checklist (`<!-- omsp-test-checklist -->` comment). When a PR opens, the linked issue moves to the **Testing** status on the GitHub Project. The tester executes the checklist against the PR branch and issues an evidence-based verdict: **fail** → test-report comment + `gate:test-failed` label + issue returns to In Progress; **pass** → test-report comment + `gate:tester-approved` label + issue moves to In Review.
-2. **CTO Gate (omsp-cto).** After the tester gate, the CTO reviews TDD compliance (test checklist existed before implementation, scenarios cover the acceptance criteria, evidence is genuine) plus architecture and governance impact, and applies `gate:cto-approved`.
+1. **Testing Gate (omsp-tester).** Every work item — sprint Work Package or standalone task — must carry a test-scenario checklist (`<!-- omsp-test-checklist -->` comment) **before implementation begins**: sprint issues receive it before the sprint starts; any other work item receives it before its first implementation commit. A retroactive checklist is a **violation**, not an exception (rule recorded in #221; source: Cengiz, 2026-07-13 session instruction). When a PR opens, the linked issue moves to the **Testing** status on the GitHub Project. The tester executes the checklist against the PR branch and issues an evidence-based verdict: **fail** → test-report comment + `gate:test-failed` label + issue returns to In Progress; **pass** → test-report comment + `gate:tester-approved` label + issue moves to In Review.
+2. **CTO Gate (omsp-cto).** After the tester gate, the CTO performs a **lightweight final review**: detailed test responsibility rests with omsp-tester; the CTO checks alignment with overall principles, vision, and architecture — including that the pre-implementation checklist rule above was honoured — and applies `gate:cto-approved` (gate scope narrowed by #221).
 
 ### 5.9 Merge
 
 Approved Work Packages merge into `develop` unless the issue explicitly defines a different target branch.
 
-A PR carrying both `gate:tester-approved` and `gate:cto-approved` with all other checks green is merged automatically by the `approval-gate-merge` workflow. Merge authority for this test-gated path is explicitly delegated by the project owner (decision recorded in issue #212); the owner retains override at all times by removing a gate label, closing the PR, or disabling the workflow. All other merge paths remain human-only.
+A PR carrying both `gate:tester-approved` and `gate:cto-approved` with all other checks green is merged by **omsp-pm** (`gh pr merge`), which records the act with a PR comment referencing the delegation. Merge authority for this test-gated path is explicitly delegated by the project owner (decision recorded in issue #212, extended in #221; source: Cengiz, 2026-07-13 session instruction); the owner retains override at all times by removing a gate label, closing the PR, or revoking the delegation. The former `approval-gate-merge` auto-merge workflow is retired (#221). All other merge paths remain human-only.
 
 ### 5.10 Closure
 

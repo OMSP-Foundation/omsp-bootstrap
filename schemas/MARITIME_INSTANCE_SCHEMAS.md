@@ -122,7 +122,7 @@ standing smoke test for this rule.
   const dispatch. Output is a JSON findings report consistent with
   `tooling/omsp_validate.py`; any finding exits non-zero.
 - CI gate: `.github/workflows/instance-schemas.yml`, with dependencies
-  pinned per `governance/ADR-0003-PYTHON-VALIDATION-DEPENDENCIES.md`.
+  pinned per `governance/ADR-0004-PYTHON-VALIDATION-DEPENDENCIES.md`.
 - Sample package: `examples/maritime-sample/` (WP-0080) instantiates
   every schema type; its README documents the single validation
   command chain (not repeated here).

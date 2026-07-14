@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-TEMPLATE-ADR-0001
 Title: Architecture Decision Record Template
-Version: 1.0.0
+Version: 1.0.1
 Status: Active
 Owner: OMSP Engineering Council
 Baseline: Sprint-6
@@ -16,6 +16,9 @@ structure decision. Docs-as-code rule: such decisions are not made without
 an ADR. ADRs are `Decision` artifacts in the ontology and live in
 `governance/` as `ADR-NNNN-<slug>.md` (example:
 `governance/ADR-0001-REPOSITORY-TOPOLOGY.md`).
+Before assigning a number, check the highest existing ADR number across
+`governance/` and open PR branches, and take the next one — parallel work
+streams once produced two ADR-0003s (#240).
 
 ```markdown
 ---

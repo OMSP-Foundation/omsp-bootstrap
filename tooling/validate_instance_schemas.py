@@ -20,7 +20,7 @@ Output is a JSON findings report consistent with ``omsp_validate.py``.
 Exit code 0 means no findings; 1 means findings; 2 means the tool could
 not run (missing dependencies or bad arguments).
 
-Dependencies (pinned per governance/ADR-0003-PYTHON-VALIDATION-DEPENDENCIES.md):
+Dependencies (pinned per governance/ADR-0004-PYTHON-VALIDATION-DEPENDENCIES.md):
 ``jsonschema==4.26.0`` and ``PyYAML==6.0.3``.
 """
 from __future__ import annotations

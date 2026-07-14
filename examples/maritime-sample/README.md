@@ -72,7 +72,7 @@ slices). Nested `ports[]` and `measurement_points[]` entries resolve to
 ## 4. Validation — the one documented command chain
 
 Prerequisite (once per environment, pinned per
-`governance/ADR-0003-PYTHON-VALIDATION-DEPENDENCIES.md`):
+`governance/ADR-0004-PYTHON-VALIDATION-DEPENDENCIES.md`):
 `pip install jsonschema==4.26.0 PyYAML==6.0.3`.
 
 Run from the repository root:

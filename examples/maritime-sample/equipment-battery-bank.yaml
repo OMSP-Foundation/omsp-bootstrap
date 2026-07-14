@@ -1,0 +1,50 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value.
+schema_version: "0.1.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:battery-bank
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:electrical
+name: Battery bank role (fictional sample)
+role: >-
+  Fictional energy-storage role supplying the distribution-panel role of
+  the electrical sample slice; sample use only.
+equipment_class: equipment-class:fixture:battery-bank
+quantity:
+  value: 1
+  provenance:
+    source_id: source:fixture:design-summary:2026-07-14
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-14"
+    applicability: Fictional example-yacht sample configuration
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:battery-bank:supply-out
+    concept: OMSP-CONCEPT-PORT
+    name: Supply output
+    description: Fictional outbound supply port of the storage role.
+measurement_points:
+  - id: measurement-point:equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:battery-bank:state-of-energy
+    concept: OMSP-CONCEPT-MEASUREMENT-POINT
+    name: State-of-energy observation point
+    measures: equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:battery-bank
+attributes:
+  rated-capacity:
+    value: 200
+    unit: fixture-capacity-unit
+    provenance:
+      source_id: source:fixture:storage-datasheet:2026-07-14
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-14"
+      applicability: Fictional storage datasheet; sample use only
+installation_location:
+  status: unknown
+  note: Not established by fictional sample evidence.
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown
+documents:
+  - document:fixture:electrical-notes:1.0

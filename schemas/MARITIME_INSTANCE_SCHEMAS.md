@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-SCHEMA-MARITIME-0001
 Title: Maritime Instance Schemas v0.1
-Version: 0.1.0
+Version: 0.1.1
 Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-7
@@ -11,6 +11,7 @@ Depends-On:
   - OMSP-ONTOLOGY-MARITIME-0001
 Traceability:
   - ISSUE-199
+  - ISSUE-201
   - OMSP-PLANNING-GOLDEN-PATH-0001
   - OMSP-PLANNING-REBASELINE-0001
   - OMSP-REFERENCE-EQUIPMENT-0001
@@ -114,11 +115,17 @@ standing smoke test for this rule.
   `schemas/*.schema.json` against the Draft 2020-12 meta-schema,
   (2) self-tests the contracts (`tests/schemas/positive/*` must pass,
   `tests/schemas/negative/*` must be rejected), (3) validates instance
-  YAML paths passed as arguments. Output is a JSON findings report
-  consistent with `tooling/omsp_validate.py`; any finding exits
-  non-zero.
+  YAML paths passed as arguments, (4) ontology conformance (WP-0080,
+  rule `OMSP-ISCHEMA-005`): every `OMSP-CONCEPT-*` reference in the
+  schema files and in argument instances must resolve to
+  `ontology/omsp-ontology.json`, independently of the schema `concept`
+  const dispatch. Output is a JSON findings report consistent with
+  `tooling/omsp_validate.py`; any finding exits non-zero.
 - CI gate: `.github/workflows/instance-schemas.yml`, with dependencies
   pinned per `governance/ADR-0003-PYTHON-VALIDATION-DEPENDENCIES.md`.
+- Sample package: `examples/maritime-sample/` (WP-0080) instantiates
+  every schema type; its README documents the single validation
+  command chain (not repeated here).
 - Fixtures are permanent and fictional; see `tests/schemas/README.md`
   (decision D6). Referential integrity across instances and resolution
   of `source_id` against the source register are WP-0083 scope, not

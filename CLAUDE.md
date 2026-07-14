@@ -157,30 +157,39 @@ sınırları: `governance/AI_GOVERNANCE.md` §1/§5.
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
-## 7. Bilinen Durum ve Öncelikler (Sprint-6 kapandı, sırada Sprint-7 / v0.6.0)
+## 7. Bilinen Durum ve Öncelikler (Sprint-7 kapandı, sırada Sprint-8 / v0.6.0)
 
-**Güncel durum (2026-07-13):**
+**Güncel durum (2026-07-15):**
 
-- **Sprint-6 kapandı (#222):** WP-0070…WP-0076 (#165, #191, #166, #167, #168,
-  #169, #170) tamamlandı, `v0.5.1 — Clean Baseline & Product Reorientation`
-  yayınlandı, v0.5.1 milestone'u kapalı. Sprint-7 (epic #171, milestone
-  v0.6.0) planlı; WP-0077…WP-0089 (#198–#210) backlog'da hazır.
+- **Sprint-7 kapandı (#243, erken kapanış — Cengiz kararı 2026-07-15):**
+  7/7 kapsam issue'su tamamlandı (WP-0077…WP-0080 / #198–#201 + #221 + #240 +
+  #227). Çıktılar: denizcilik çekirdek ontolojisi v0.1
+  (`ontology/MARITIME_ONTOLOGY.md`), 6 instance tipi için provenance-first
+  JSON şemaları + `instance-schemas` CI gate'i, MODS Spec v0.1 iskeleti
+  (ODS-100/300 Draft, `publication/mods/`), doğrulanmış örnek model paketi
+  (`examples/maritime-sample/`), süreç delegasyonları v2 (§4), ADR-0004.
+  Epic #171 açık — kriter-6 değerlendirmesi Sprint-8 planlamasında.
+- Sprint-8 (epic #172, milestone v0.6.0) planlı; WP-0081…WP-0084 (#202–#205)
+  backlog'da triage'lı ve hazır. Sprint-9 (#206–#210) sırada.
 - Resmî roadmap: issue #145 "Post-Audit Product Reorientation" (Cengiz onaylı).
   `planning/SPRINT_6_EXECUTION_PLAN.md` (pilot-readiness) Superseded;
   WP-0060–0068 numaraları emekli, yeniden kullanılamaz.
 - Metodoloji envanteri canon'da: `canon/ENGINEERING_METHODOLOGY.md` (WP-0069).
 - Depo topolojisi: monorepo — `governance/ADR-0001-REPOSITORY-TOPOLOGY.md`
   (tetikleyicili yeniden değerlendirme: dış katkıcı / bağımsız VDM kadansı /
-  dış MODS tüketicisi).
+  dış MODS tüketicisi). Halka açık standartlar sitesi: ADR-0003 (WP-0091).
 - Eski borçlardan kapananlar: Title metadata ihlalleri (validator 0 bulgu),
-  kök dokümanlar v0.5.0 hizalı (#143 kapalı). Stub oranı ~%30'a düştü.
+  kök dokümanlar hizalı (#143 kapalı). Stub oranı ~%30'a düştü.
 
 **Açık teknik borç:**
 
-- Hanse 460: hiçbir alan doğrulanmış değil; ontolojide denizcilik kavramı yok (Sprint-7+ işi).
-- Residual riskler RR-001…RR-005 açık.
-- (Kapananlar: şablon doldurma WP-0071/#191, stub disposisyonu ve
-  `platform/`/`foundation/` emekliliği WP-0072/#166 ile çözüldü.)
+- Hanse 460: hiçbir alan doğrulanmış gerçek veriyle modellenmiş değil —
+  kaynak yakalama ve elektrik dilimi Sprint-8 işi (WP-0081/0082).
+- Residual riskler RR-001…RR-005 açık (#144 kararıyla Sprint-12'ye ertelendi).
+- ADR-0004 (Python doğrulama bağımlılıkları) `Review` statüsünde — `Active`
+  terfisi insan kararı bekliyor.
+- (Kapananlar: ontolojide denizcilik katmanı WP-0077 ile kuruldu; şablon
+  doldurma WP-0071/#191, stub disposisyonu WP-0072/#166 ile çözüldü.)
 
 **Ürün mimarisi (spec-first MODS yığını, `omsp-cto` sahipliğinde):**
 MODS Specification (ODS-100…600) → Marine Diagram System → Core Operations
@@ -191,9 +200,9 @@ N−1 en az Draft olmadan üretilmez.
 **Üç ufuklu geliştirme vizyonu (Sprint bloklarıyla):**
 
 - **Horizon 1 (Sprint-6):** Temiz taban — WP-0070…0076, v0.5.1 baseline. **Tamamlandı.**
-- **Horizon 2 (Sprint-7…10):** İlk gerçek alan değeri — denizcilik ontolojisi,
-  MODS Spec v0.1, Hanse 460 elektrik golden path, senaryolar + 5 dk demo
-  (v0.6.0), ikinci alan dilimi (v0.6.1).
+- **Horizon 2 (Sprint-7…10):** İlk gerçek alan değeri — denizcilik ontolojisi
+  ve MODS Spec v0.1 (**Sprint-7'de tamamlandı**), Hanse 460 elektrik golden
+  path, senaryolar + 5 dk demo (v0.6.0), ikinci alan dilimi (v0.6.1).
 - **Horizon 3 (Sprint-11+):** Platformlaşma — VDM + ikinci tekne profili
   (v0.7.0), QRH + tasarım-ortağı pilotu (v0.8.0), topluluk (v0.9.0),
   v1.0 stabilizasyon. Ayrıntı: `roadmap/OMSP_ROADMAP.md`.

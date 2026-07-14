@@ -17,7 +17,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-4 | Completed | Digital twin foundation |
 | Sprint-5 | Completed | Production platform readiness |
 | Sprint-6 | Completed | Post-audit product reorientation and clean v0.5.1 baseline |
-| Sprint-7 | Planned | Maritime domain model foundation (v0.6.0, epic #171) |
+| Sprint-7 | Completed | Maritime domain model foundation (v0.6.0, epic #171) |
+| Sprint-8 | Planned | Hanse 460 electrical golden path with sourced data (v0.6.0, epic #172) |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -224,7 +225,44 @@ Closure status:
   milestone v0.6.0) is planned; WP-0077–WP-0089 (#198–#210) are ready in the
   backlog.
 
-## Sprint-7 and Beyond: Domain Value and the MODS Stack
+## Sprint-7: Maritime Domain Model Foundation
+
+Sprint-7 is completed. It built the domain-neutral, machine-verifiable
+maritime model foundation on which the Hanse 460 golden path will be built,
+and it landed the process-delegations-v2 constitution update.
+
+Ordered Work Packages and sprint-scope issues:
+
+1. WP-0077 — maritime core ontology v0.1 (#198);
+2. WP-0078 — vessel and equipment instance schemas v0.1 with the
+   provenance-first value contract and the `instance-schemas` CI gate (#199);
+3. WP-0079 — MODS Specification v0.1 skeleton with ODS-100/300 drafts (#200);
+4. WP-0080 — domain validation rules and the verified sample model package,
+   the sprint's visible output (#201);
+5. #221 — process delegations v2 (AI_GOVERNANCE 1.3.0: pre-implementation
+   test checklists for all work, lightweight CTO gate, PM merge act,
+   PM autonomous issue opening);
+6. #240 — ADR numbering collision fix (PYTHON-VALIDATION renumbered to
+   ADR-0004), opened autonomously under the rule-1 delegation;
+7. #227 — `omsp-cto` charter §4–§5 slimmed to reference the MODS
+   Specification as the canonical home (K4 follow-up).
+
+Closure status:
+
+- All seven Sprint-7 scope issues (#198, #199, #200, #201, #221, #240, #227)
+  were merged into `develop` through the test-gated flow and are closed.
+- The sprint ran 2026-07-13 to 2026-07-15 and closed early by the owner's
+  recorded decision (Cengiz, 2026-07-15): the planned scope completed in two
+  days of the fourteen-day window.
+- Epic #171 remains **open**: exit criteria 1–5 are met with merged evidence
+  (advisory assessment); criterion 6 — "Sprint-8 can take real Hanse 460 data
+  without redesign" — is by definition evaluated during Sprint-8 planning,
+  and the formal exit declaration is a human decision.
+- The v0.6.0 milestone stays open (Sprint-8/9 Work Packages #202–#210
+  pending); Sprint-7 closure is a status record, not a release act.
+- Sprint-7 closure is recorded through issue #243.
+
+## Sprint-8 and Beyond: Domain Value and the MODS Stack
 
 From Sprint-7 onward the program builds maritime domain value on two fused
 tracks: the machine-verifiable vessel model (YAML as the single source of

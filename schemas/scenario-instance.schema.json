@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/scenario-instance.schema.json",
+  "title": "OMSP Maritime Operational-Scenario Instance",
+  "description": "Instance schema for OMSP-CONCEPT-OPERATIONAL-SCENARIO (OMSP-ONTOLOGY-MARITIME-0001 section 2). Enforces the full golden-path scenario shape (OMSP-PLANNING-GOLDEN-PATH-0001 section 8) and the record contract of OMSP-REFERENCE-SCENARIO-0001 sections 4, 6 and 7, including mandatory stop/abort conditions and the conservative human-review branch. Scenario instances are advisory reference material, never approved procedures or operational instructions; no certification claim.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "concept",
+    "class",
+    "title",
+    "applicability",
+    "accountable_authority",
+    "trigger",
+    "preconditions",
+    "affected_systems",
+    "causes",
+    "inspection_sequence",
+    "safety_constraints",
+    "related_equipment",
+    "source_manuals",
+    "unacceptable_outcomes",
+    "stop_abort_conditions",
+    "conservative_human_review_branch"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "provenance.schema.json#/$defs/schema-version"},
+    "id": {"type": "string", "pattern": "^scenario:[a-z0-9][a-z0-9:._-]*$"},
+    "concept": {"const": "OMSP-CONCEPT-OPERATIONAL-SCENARIO"},
+    "class": {"enum": ["normal", "degraded", "emergency", "maintenance", "validation"]},
+    "title": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "applicability": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "accountable_authority": {"type": "string", "minLength": 1},
+    "trigger": {
+      "type": "object",
+      "required": ["description", "source", "timestamp", "confidence"],
+      "properties": {
+        "description": {"type": "string", "minLength": 1},
+        "source": {"enum": ["observed", "reported", "inferred", "simulated"]},
+        "timestamp": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["high", "medium", "low"]},
+        "threshold": {"$ref": "provenance.schema.json#/$defs/provenanced-value"}
+      },
+      "additionalProperties": false
+    },
+    "preconditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "affected_systems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "pattern": "^system:[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    },
+    "causes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/cause"}
+    },
+    "inspection_sequence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/inspection-step"}
+    },
+    "safety_constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "related_equipment": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "pattern": "^equipment:[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    },
+    "source_manuals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "pattern": "^(document|source):[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    },
+    "unacceptable_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "stop_abort_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "conservative_human_review_branch": {"type": "string", "minLength": 1},
+    "assumptions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "cause": {
+      "type": "object",
+      "required": ["description", "implicates", "evidence_requirement"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^cause:[a-z0-9][a-z0-9:._-]*$"},
+        "description": {"type": "string", "minLength": 1},
+        "implicates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "pattern": "^(equipment|interface|connection|port|system):[a-z0-9][a-z0-9:._-]*$"},
+          "uniqueItems": true
+        },
+        "evidence_requirement": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "inspection-step": {
+      "type": "object",
+      "required": [
+        "step_id",
+        "sequence",
+        "responsible_actor",
+        "action",
+        "entry_criteria",
+        "completion_criteria",
+        "expected_observation",
+        "escalation",
+        "human_confirmation_required"
+      ],
+      "properties": {
+        "step_id": {"type": "string", "pattern": "^scenario-step:[a-z0-9][a-z0-9:._-]*$"},
+        "sequence": {"type": "integer", "minimum": 1},
+        "responsible_actor": {"type": "string", "minLength": 1},
+        "action": {"type": "string", "minLength": 1},
+        "entry_criteria": {"type": "string", "minLength": 1},
+        "completion_criteria": {"type": "string", "minLength": 1},
+        "expected_observation": {"type": "string", "minLength": 1},
+        "escalation": {"type": "string", "minLength": 1},
+        "human_confirmation_required": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

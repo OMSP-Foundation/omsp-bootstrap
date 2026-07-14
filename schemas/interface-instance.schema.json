@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/interface-instance.schema.json",
+  "title": "OMSP Maritime Interface Instance",
+  "description": "Instance schema for OMSP-CONCEPT-INTERFACE (OMSP-ONTOLOGY-MARITIME-0001 section 2). Identity follows OMSP-REFERENCE-EQUIPMENT-0001 section 3; family is one of the nine governed interface families of OMSP-REFERENCE-EQUIPMENT-0001 section 6. Media and nominal limits are value-bearing and carry the shared provenanced-value contract. Advisory validation only; no certification claim.",
+  "type": "object",
+  "required": ["schema_version", "id", "concept", "family", "direction", "source_port", "target_port"],
+  "properties": {
+    "schema_version": {"$ref": "provenance.schema.json#/$defs/schema-version"},
+    "id": {"type": "string", "pattern": "^interface:[a-z0-9][a-z0-9:._-]*$"},
+    "concept": {"const": "OMSP-CONCEPT-INTERFACE"},
+    "family": {
+      "enum": ["physical", "mechanical", "electrical-power", "fluid", "data-signal", "human", "procedural", "functional", "safety-protection"]
+    },
+    "direction": {"enum": ["source-to-target", "target-to-source", "bidirectional"]},
+    "source_port": {"type": "string", "pattern": "^port:[a-z0-9][a-z0-9:._-]*$"},
+    "target_port": {"type": "string", "pattern": "^port:[a-z0-9][a-z0-9:._-]*$"},
+    "media": {"$ref": "provenance.schema.json#/$defs/provenanced-value"},
+    "nominal_limits": {"$ref": "provenance.schema.json#/$defs/attribute-map"}
+  },
+  "additionalProperties": false
+}

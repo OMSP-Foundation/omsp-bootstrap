@@ -1,0 +1,114 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+# Exercises the full golden-path §8 scenario shape (TS-6 evidence):
+# trigger, preconditions, affected systems, cause taxonomy, inspection
+# sequence, safety constraints, related equipment, source manuals,
+# unacceptable outcomes, stop/abort conditions, conservative human-review
+# branch. Content is fictional and is not an operational instruction.
+schema_version: "0.1.0"
+id: scenario:fixture:example-yacht:low-stored-energy:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Stored energy critically low (fictional fixture)
+objective: >-
+  Demonstrate that the scenario schema expresses the complete golden-path
+  scenario shape; fixture use only.
+applicability:
+  - vessel-design:fixture:example-yacht
+  - configuration:vessel-design:fixture:example-yacht:reference-0.1.0
+accountable_authority: >-
+  Skipper (human); software role is monitoring and advisory only.
+trigger:
+  description: >-
+    Observed stored-energy level at or below a critical threshold on the
+    fictional monitoring point.
+  source: observed
+  timestamp: >-
+    Recorded at observation time by the reporting human or monitoring
+    point; fixture defines the recording rule, not a real event.
+  confidence: medium
+  threshold:
+    value: 20
+    unit: fixture-unit
+    provenance:
+      source_id: source:fixture:vendor-datasheet:2026-07-14
+      authority_class: sourced-manufacturer
+      confidence: medium
+      retrieval_date: "2026-07-14"
+      applicability: Fictional storage-bank datasheet; fixture use only
+preconditions:
+  - Configuration applicability confirmed against the fixture configuration.
+  - >-
+    Measurement source identified; calibration state may be unknown but
+    must be stated explicitly.
+affected_systems:
+  - system:vessel-design:fixture:example-yacht:energy
+  - system:vessel-design:fixture:example-yacht:freshwater
+causes:
+  - id: cause:fixture:supply-source-failure
+    description: Charging/supply source failure (fictional cause-taxonomy entry).
+    implicates:
+      - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank
+    evidence_requirement: >-
+      Supply-source state observation at the fixture measurement point.
+  - id: cause:fixture:excessive-consumer-load
+    description: Excessive consumer load (fictional cause-taxonomy entry).
+    implicates:
+      - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel
+    evidence_requirement: >-
+      Consumer-load reading compared against the sourced fixture limit.
+inspection_sequence:
+  - step_id: scenario-step:scenario:fixture:example-yacht:low-stored-energy:0.1.0:1
+    sequence: 1
+    responsible_actor: Skipper (human)
+    action: >-
+      Observe the stored-energy reading at the fixture measurement point.
+    entry_criteria: Trigger condition reported or observed.
+    completion_criteria: Reading recorded with its measurement source.
+    expected_observation: >-
+      A stored-energy value at or below the sourced fixture threshold.
+    escalation: >-
+      If the reading conflicts with a second observation, route to the
+      conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:fixture:example-yacht:low-stored-energy:0.1.0:2
+    sequence: 2
+    responsible_actor: Skipper (human)
+    action: >-
+      Inspect the distribution-panel role for open protection or abnormal
+      consumer load (fictional reference order, not a procedure).
+    entry_criteria: Step 1 completed and recorded.
+    completion_criteria: Panel state recorded; anomalies noted explicitly.
+    expected_observation: Protection state and consumer load documented.
+    escalation: >-
+      Any ambiguous or conflicting observation stops the sequence and
+      routes to the conservative human-review branch.
+    human_confirmation_required: true
+safety_constraints:
+  - >-
+    No instruction to bypass any protection device; protection state
+    changes are human decisions only.
+  - >-
+    Load-shedding decisions that affect navigation or pumping capability
+    remain human decisions.
+related_equipment:
+  - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank
+  - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel
+source_manuals:
+  - document:fixture:example-manual:1.0
+unacceptable_outcomes:
+  - >-
+    Continuing consumption until essential fixture consumers become
+    unavailable without a recorded human decision.
+stop_abort_conditions:
+  - >-
+    Stop if any observation conflicts with another source; do not proceed
+    on unresolved conflict.
+  - Abort the sequence if a hazard to people is suspected.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence at any step routes to the accountable
+  human for conservative review; the scenario never resolves such a
+  conflict automatically.
+assumptions:
+  - Fixture assumes the fictional reference configuration is applicable.
+unknowns:
+  - Calibration state of the fixture measurement point is unknown.

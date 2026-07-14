@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/vessel-instance.schema.json",
+  "title": "OMSP Maritime Vessel Instance",
+  "description": "Instance schema for OMSP-CONCEPT-VESSEL (OMSP-ONTOLOGY-MARITIME-0001 section 2). Identity and layer rules follow OMSP-REFERENCE-VESSEL-0001 sections 2-3. Value-bearing characteristics carry the shared provenanced-value contract. Advisory validation only; no certification claim.",
+  "type": "object",
+  "required": ["schema_version", "id", "concept", "layer", "name"],
+  "properties": {
+    "schema_version": {"$ref": "provenance.schema.json#/$defs/schema-version"},
+    "id": {"type": "string", "pattern": "^(vessel-type|vessel-design|vessel):[a-z0-9][a-z0-9:._-]*$"},
+    "concept": {"const": "OMSP-CONCEPT-VESSEL"},
+    "layer": {"enum": ["vessel-type", "vessel-design", "vessel-instance"]},
+    "name": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "configuration": {"type": "string", "pattern": "^configuration:[a-z0-9][a-z0-9:._-]*$"},
+    "systems": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^system:[a-z0-9][a-z0-9:._-]*$"},
+      "uniqueItems": true
+    },
+    "characteristics": {"$ref": "provenance.schema.json#/$defs/attribute-map"}
+  },
+  "additionalProperties": false
+}

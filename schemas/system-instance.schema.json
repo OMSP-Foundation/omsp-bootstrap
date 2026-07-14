@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omsp.foundation/schemas/system-instance.schema.json",
+  "title": "OMSP Maritime Vessel-System Instance",
+  "description": "Instance schema for OMSP-CONCEPT-VESSEL-SYSTEM (OMSP-ONTOLOGY-MARITIME-0001 section 2). Membership uses the core belongs-to relation: a vessel system belongs to a vessel. Advisory validation only; no certification claim.",
+  "type": "object",
+  "required": ["schema_version", "id", "concept", "belongs_to", "purpose"],
+  "properties": {
+    "schema_version": {"$ref": "provenance.schema.json#/$defs/schema-version"},
+    "id": {"type": "string", "pattern": "^system:[a-z0-9][a-z0-9:._-]*$"},
+    "concept": {"const": "OMSP-CONCEPT-VESSEL-SYSTEM"},
+    "belongs_to": {"type": "string", "pattern": "^(vessel-type|vessel-design|vessel):[a-z0-9][a-z0-9:._-]*$"},
+    "name": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "attributes": {"$ref": "provenance.schema.json#/$defs/attribute-map"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,60 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+# Covers: ports, measurement point, protection capability, provenanced
+# attributes, document and dependency references (TS-6 role expressibility).
+schema_version: "0.1.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:energy
+name: Distribution panel role (fictional fixture)
+role: >-
+  Fictional main distribution role that receives stored energy and feeds
+  consumer roles; fixture use only.
+equipment_class: equipment-class:fixture:distribution-panel
+quantity:
+  value: 1
+  provenance:
+    source_id: source:fixture:design-summary:2026-07-14
+    authority_class: reference
+    confidence: low
+    retrieval_date: "2026-07-14"
+    applicability: Fictional example-yacht reference configuration
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel:feed-in
+    concept: OMSP-CONCEPT-PORT
+    name: Feed input
+    description: Fictional inbound feed port.
+  - id: port:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel:consumer-out-1
+    concept: OMSP-CONCEPT-PORT
+    name: Consumer output 1
+measurement_points:
+  - id: measurement-point:equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel:bus-state
+    concept: OMSP-CONCEPT-MEASUREMENT-POINT
+    name: Bus state observation point
+    measures: equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:distribution-panel
+implements:
+  - OMSP-CONCEPT-PROTECTION
+protects:
+  - connection:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:feed-line-1
+attributes:
+  rated-throughput:
+    value: 100
+    unit: fixture-unit
+    provenance:
+      source_id: source:fixture:vendor-datasheet:2026-07-14
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-14"
+      applicability: Fictional vendor datasheet; fixture use only
+installation_location:
+  status: unknown
+  note: Installation location not established by fixture evidence.
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown
+documents:
+  - document:fixture:example-manual:1.0
+depends_on:
+  - equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-storage-bank

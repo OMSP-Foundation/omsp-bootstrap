@@ -1,0 +1,11 @@
+# Fictional NEGATIVE fixture — MUST be rejected by schema validation.
+# See tests/schemas/README.md (D6 declaration). Violation: provenance block entirely missing on a known value (TS-3)
+schema_version: "0.1.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:n1-provenance-block-missing
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:energy
+role: Fictional negative-fixture role; this instance must fail validation.
+attributes:
+  rated-throughput:
+    value: 100
+    unit: fixture-unit

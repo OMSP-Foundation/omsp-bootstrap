@@ -1,0 +1,9 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+schema_version: "0.1.0"
+id: system:vessel-design:fixture:example-yacht:energy
+concept: OMSP-CONCEPT-VESSEL-SYSTEM
+belongs_to: vessel-design:fixture:example-yacht
+name: Energy system (fictional fixture)
+purpose: >-
+  Fictional energy storage and distribution grouping used only for schema
+  self-tests.

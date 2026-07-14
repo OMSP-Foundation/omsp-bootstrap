@@ -1,6 +1,6 @@
 ---
-Artifact-ID: OMSP-GOV-ADR-0003
-Title: ADR-0003 Pinned Python Dependencies for Schema Validation
+Artifact-ID: OMSP-GOV-ADR-0004
+Title: ADR-0004 Pinned Python Dependencies for Schema Validation
 Version: 0.1.0
 Status: Review
 Owner: OMSP Foundation Governance
@@ -9,7 +9,7 @@ Classification: Public
 Related-Issue: WP-0078 / #199
 ---
 
-# ADR-0003: Pinned Python Dependencies for Schema Validation
+# ADR-0004: Pinned Python Dependencies for Schema Validation
 
 ## Status
 

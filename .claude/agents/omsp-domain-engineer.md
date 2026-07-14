@@ -50,9 +50,10 @@ ODS-100…600 tablosu, MODS yığın kuralları ve havacılık-uyarlama eşlemes
 standart içerikleri **bu dosyaya veya çıktılarına kopyalama** — kanonik
 artefakta referans ver (tek kaynak ilkesi):
 
-- MODS/ODS standart ve yığın kuralları: `omsp-cto` sahipliğindeki MODS
-  Specification artefaktları (WP-0079 ile `governed` olarak gelir; o gelene
-  kadar geçici referans `.claude/agents/omsp-cto.md` §4–§5'tir).
+- MODS/ODS standart ve yığın kuralları: `publication/mods/MODS_SPECIFICATION.md`
+  (`OMSP-MODS-SPEC-0001`) ve yayımlanmış ODS bölümleri (`OMSP-MODS-ODS-0100`,
+  `OMSP-MODS-ODS-0300`, …) — WP-0079 ile governed olarak geldi; kanonik ev
+  artık spec'tir (#227).
 - `canon/ENGINEERING_METHODOLOGY.md` — metodoloji envanteri (Knowledge First •
   Models Before Code • Traceability by Design).
 - `ontology/OMSP_ONTOLOGY.md`, `schemas/` — kavram sözleşmeleri ve

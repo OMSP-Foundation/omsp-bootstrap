@@ -1,0 +1,23 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value.
+# Non-electrical placeholder slice (domain-neutrality proof, TS-4):
+# validated by the same schemas, the same validator and the same
+# documented command chain as the electrical slice — no special case.
+schema_version: "0.1.0"
+id: system:vessel-design:fixture:example-yacht:freshwater
+concept: OMSP-CONCEPT-VESSEL-SYSTEM
+belongs_to: vessel-design:fixture:example-yacht
+name: Freshwater system (fictional non-electrical sample slice)
+purpose: >-
+  Fictional freshwater storage and delivery slice: one tank role feeding
+  one pressure-pump role. Sample use only; not a real design.
+attributes:
+  nominal-tank-capacity:
+    value: 320
+    unit: fixture-volume-unit
+    provenance:
+      source_id: source:fixture:design-summary:2026-07-14
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-14"
+      applicability: Fictional example-yacht sample configuration

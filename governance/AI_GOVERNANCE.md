@@ -6,7 +6,7 @@ Status: Active
 Owner: OMSP Foundation Governance
 Baseline: Sprint-6
 Classification: Public
-Related-Issue: WP-0073 / #167, #218, #221
+Related-Issue: WP-0073 / #167, #218, #221, #235
 Traceability:
   - OMSP-CANON-PRINCIPLES-0001
   - OMSP-CANON-PHILOSOPHY-0001
@@ -29,7 +29,7 @@ applications of this artifact, not competing authorities:
 | Validation work | `validation/VALIDATION_FRAMEWORK.md` §11 |
 | Digital-twin work | `reference/DIGITAL_TWIN_AI_ASSISTANCE_BOUNDARIES.md` |
 | Every pull request | `.github/PULL_REQUEST_TEMPLATE.md` — AI Assistance Boundary section |
-| Agent definitions | `.claude/agents/` (omsp-cto, omsp-pm, omsp-domain-engineer, omsp-tester, omsp-auditor) |
+| Agent definitions | `.claude/agents/` (omsp-cto, omsp-pm, omsp-domain-engineer, omsp-tester, omsp-auditor, omsp-web-steward) |
 
 If an application artifact appears to conflict with this artifact, this
 artifact prevails and the conflict must be raised as an issue.
@@ -165,4 +165,7 @@ This version consolidates the placeholder relocated in WP-0072 and closes
 the AI-governance gap recorded in the WP-0070 audit disposition (F7).
 Version 1.2.0 (#218) records the test-gated merge delegation of issue #212
 in §5, and completes the agent list in §1 with `omsp-tester` and the new
-`omsp-domain-engineer`.
+`omsp-domain-engineer`. Version 1.3.0 (WP-0091, #235) registers
+`omsp-web-steward`, the advisory keeper of the public standards website
+(`governance/ADR-0003-PUBLIC-STANDARDS-WEBSITE.md`); it holds no gate or
+publication authority.

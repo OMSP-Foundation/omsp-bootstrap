@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-"""Validate OMSP maritime instance schemas and YAML instances (WP-0078).
+"""Validate OMSP maritime instance schemas and YAML instances (WP-0078, WP-0080).
 
-Three stages, all mechanical and advisory:
+Four stages, all mechanical and advisory:
 
 1. Parse every ``schemas/*.schema.json`` file and check it against the
    JSON Schema Draft 2020-12 meta-schema.
 2. Self-test the schema contracts against the permanent fixtures:
    every file under ``tests/schemas/positive`` must validate, and every
-   file under ``tests/schemas/negative`` must be rejected.
+   file under ``tests/schemas/negative`` must be rejected (either by its
+   schema or by the ontology-conformance rule).
 3. Validate any instance YAML files or directories passed as arguments.
+4. Ontology conformance (WP-0080, rule ``OMSP-ISCHEMA-005``): every
+   ``OMSP-CONCEPT-*`` reference — in ``schemas/*.schema.json`` and in the
+   raw YAML of the argument instances — must resolve to a concept ID
+   registered in ``ontology/omsp-ontology.json``. This rule fires
+   independently of the schema ``concept`` const dispatch.
 
 Output is a JSON findings report consistent with ``omsp_validate.py``.
 Exit code 0 means no findings; 1 means findings; 2 means the tool could
@@ -21,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -43,6 +50,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMAS_DIR = ROOT / "schemas"
 POSITIVE_DIR = ROOT / "tests" / "schemas" / "positive"
 NEGATIVE_DIR = ROOT / "tests" / "schemas" / "negative"
+ONTOLOGY_REGISTRY = ROOT / "ontology" / "omsp-ontology.json"
+CONCEPT_PATTERN = re.compile(r"OMSP-CONCEPT-[A-Z0-9]+(?:-[A-Z0-9]+)*")
 
 
 @dataclass(frozen=True)
@@ -95,6 +104,62 @@ def load_schemas(findings: list[Finding]) -> tuple[dict[str, dict], dict[str, st
     return schemas, schema_files
 
 
+def load_concept_registry(findings: list[Finding]) -> set[str] | None:
+    """Load the ontology concept registry for OMSP-ISCHEMA-005 checks."""
+    try:
+        data = json.loads(ONTOLOGY_REGISTRY.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        findings.append(Finding("OMSP-ISCHEMA-005", "error", rel(ONTOLOGY_REGISTRY), f"cannot load ontology registry: {exc}"))
+        return None
+    concepts = {item.get("id") for item in data.get("concepts", []) if isinstance(item, dict) and isinstance(item.get("id"), str)}
+    if not concepts:
+        findings.append(Finding("OMSP-ISCHEMA-005", "error", rel(ONTOLOGY_REGISTRY), "ontology registry contains no concepts"))
+        return None
+    return concepts
+
+
+def collect_concept_refs(node) -> set[str]:
+    """Collect every OMSP-CONCEPT-* reference from a parsed JSON/YAML tree."""
+    refs: set[str] = set()
+    if isinstance(node, str):
+        refs.update(CONCEPT_PATTERN.findall(node))
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            refs.update(collect_concept_refs(key))
+            refs.update(collect_concept_refs(value))
+    elif isinstance(node, (list, tuple)):
+        for item in node:
+            refs.update(collect_concept_refs(item))
+    return refs
+
+
+def unresolved_concept_refs(node, concepts: set[str] | None) -> list[str]:
+    if concepts is None:
+        return []
+    return sorted(collect_concept_refs(node) - concepts)
+
+
+def validate_schema_concept_refs(concepts: set[str] | None, findings: list[Finding]) -> int:
+    """OMSP-ISCHEMA-005: every concept reference in schema files must resolve."""
+    checked = 0
+    for schema_path in sorted(SCHEMAS_DIR.glob("*.schema.json")):
+        try:
+            schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue  # already reported by OMSP-ISCHEMA-001
+        checked += 1
+        for ref in unresolved_concept_refs(schema, concepts):
+            findings.append(
+                Finding(
+                    "OMSP-ISCHEMA-005",
+                    "error",
+                    rel(schema_path),
+                    f"concept reference does not resolve to the ontology registry ({rel(ONTOLOGY_REGISTRY)}): {ref}",
+                )
+            )
+    return checked
+
+
 def load_instance(path: Path, findings: list[Finding], rule_id: str) -> dict | None:
     try:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -132,7 +197,7 @@ def validate_positive(validators: dict[str, Draft202012Validator], findings: lis
     return count
 
 
-def validate_negative(validators: dict[str, Draft202012Validator], findings: list[Finding]) -> int:
+def validate_negative(validators: dict[str, Draft202012Validator], concepts: set[str] | None, findings: list[Finding]) -> int:
     count = 0
     for path in sorted(NEGATIVE_DIR.glob("*.yaml")):
         count += 1
@@ -140,17 +205,22 @@ def validate_negative(validators: dict[str, Draft202012Validator], findings: lis
         if data is None:
             continue
         concept, validator = dispatch(data, validators)
+        unresolved = unresolved_concept_refs(data, concepts)
         if validator is None:
+            if unresolved:
+                # Rejected by the ontology-conformance rule (OMSP-ISCHEMA-005),
+                # independently of any schema concept const.
+                continue
             findings.append(Finding("OMSP-ISCHEMA-003", "error", rel(path), f"no schema for concept: {concept!r}"))
             continue
-        if validator.is_valid(data):
+        if validator.is_valid(data) and not unresolved:
             findings.append(Finding("OMSP-ISCHEMA-003", "error", rel(path), "negative fixture was ACCEPTED; it must be rejected"))
     if count == 0:
         findings.append(Finding("OMSP-ISCHEMA-003", "error", rel(NEGATIVE_DIR), "no negative fixtures found"))
     return count
 
 
-def validate_targets(targets: list[str], validators: dict[str, Draft202012Validator], findings: list[Finding]) -> int:
+def validate_targets(targets: list[str], validators: dict[str, Draft202012Validator], concepts: set[str] | None, findings: list[Finding]) -> int:
     files: list[Path] = []
     for target in targets:
         candidate = Path(target)
@@ -166,6 +236,17 @@ def validate_targets(targets: list[str], validators: dict[str, Draft202012Valida
         data = load_instance(path, findings, "OMSP-ISCHEMA-004")
         if data is None:
             continue
+        # Ontology conformance (OMSP-ISCHEMA-005) fires on the raw YAML tree,
+        # independently of the schema concept-const dispatch below.
+        for ref in unresolved_concept_refs(data, concepts):
+            findings.append(
+                Finding(
+                    "OMSP-ISCHEMA-005",
+                    "error",
+                    rel(path),
+                    f"concept reference does not resolve to the ontology registry ({rel(ONTOLOGY_REGISTRY)}): {ref}",
+                )
+            )
         concept, validator = dispatch(data, validators)
         if validator is None:
             findings.append(Finding("OMSP-ISCHEMA-004", "error", rel(path), f"no schema for concept: {concept!r}"))
@@ -185,18 +266,23 @@ def main() -> int:
     findings: list[Finding] = []
     validators, schema_files = load_schemas(findings)
     schemas_checked = len(list(SCHEMAS_DIR.glob("*.schema.json")))
+    concepts = load_concept_registry(findings)
+    schema_concept_refs_checked = validate_schema_concept_refs(concepts, findings)
 
     positive = validate_positive(validators, findings)
-    negative = validate_negative(validators, findings)
-    instances = validate_targets(args.targets, validators, findings) if args.targets else 0
+    negative = validate_negative(validators, concepts, findings)
+    instances = validate_targets(args.targets, validators, concepts, findings) if args.targets else 0
 
     findings.sort(key=lambda item: (item.path, item.rule_id, item.message))
     errors = sum(item.severity == "error" for item in findings)
     report = {
-        "tool": {"name": "omsp-instance-schema-validator", "version": "0.1.0"},
+        "tool": {"name": "omsp-instance-schema-validator", "version": "0.2.0"},
         "repository": str(ROOT),
         "summary": {
             "schemas_checked": schemas_checked,
+            "ontology_registry": rel(ONTOLOGY_REGISTRY),
+            "ontology_concepts": len(concepts) if concepts else 0,
+            "schema_concept_refs_checked": schema_concept_refs_checked,
             "instance_schemas": {concept: path for concept, path in sorted(schema_files.items())},
             "positive_fixtures": positive,
             "negative_fixtures": negative,

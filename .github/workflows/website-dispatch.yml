@@ -1,0 +1,37 @@
+---
+# Website content-sync dispatch (ADR-0003, WP-0091 Phase 3).
+# Notifies OMSP-Foundation/omsp-website on every merge to develop and on
+# every release publication so the public site rebuilds automatically.
+# Requires the WEBSITE_DISPATCH_TOKEN secret (fine-grained PAT or GitHub App
+# token with contents:write on omsp-website, following the PROJECT_TOKEN
+# precedent). If the secret is absent the job skips gracefully — the site
+# still refreshes via its weekly cron and manual dispatch safety nets.
+name: Website dispatch
+
+on:
+  push:
+    branches: [develop]
+  release:
+    types: [published]
+
+jobs:
+  dispatch:
+    name: Notify omsp-website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch
+        env:
+          TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::WEBSITE_DISPATCH_TOKEN not set; skipping website dispatch (site falls back to cron/manual rebuild)."
+            exit 0
+          fi
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/OMSP-Foundation/omsp-website/dispatches \
+            -d "{\"event_type\":\"omsp-content-updated\",\"client_payload\":{\"source_event\":\"$EVENT_NAME\",\"source_ref\":\"$REF\"}}"
+          echo "Dispatched omsp-content-updated to omsp-website ($EVENT_NAME, $REF)."

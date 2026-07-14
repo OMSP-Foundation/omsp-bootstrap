@@ -1,0 +1,118 @@
+# Fictional sample — see examples/maritime-sample/README.md (fictionality
+# declaration). No real vessel, manufacturer or technical value. This
+# scenario is advisory reference material only; it is NOT an operational
+# instruction, an approved procedure or any safety/certification claim.
+schema_version: "0.1.0"
+id: scenario:fixture:example-yacht:freshwater-delivery-degraded:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Freshwater delivery degraded (fictional sample)
+objective: >-
+  Demonstrate, on the non-electrical sample slice, that the scenario
+  schema expresses the complete golden-path scenario shape; sample use
+  only.
+applicability:
+  - vessel-design:fixture:example-yacht
+  - configuration:vessel-design:fixture:example-yacht:sample-0.1.0
+accountable_authority: >-
+  Skipper (human); software role is monitoring and advisory only.
+trigger:
+  description: >-
+    Reported loss or noticeable reduction of freshwater delivery at the
+    fictional consumer outlets.
+  source: reported
+  timestamp: >-
+    Recorded at report time by the reporting human; the sample defines
+    the recording rule, not a real event.
+  confidence: medium
+preconditions:
+  - Configuration applicability confirmed against the sample configuration.
+  - >-
+    Report source identified; observation conditions may be unknown but
+    must be stated explicitly.
+affected_systems:
+  - system:vessel-design:fixture:example-yacht:freshwater
+  - system:vessel-design:fixture:example-yacht:electrical
+causes:
+  - id: cause:fixture:tank-empty-or-outlet-blocked
+    description: >-
+      Tank empty or tank outlet blocked (fictional cause-taxonomy entry).
+    implicates:
+      - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-tank
+      - connection:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-suction
+    evidence_requirement: >-
+      Tank-level observation and suction-line state recorded with their
+      measurement source.
+  - id: cause:fixture:pump-supply-failure
+    description: >-
+      Pump not running because its supply from the distribution-panel
+      role is unavailable (fictional cause-taxonomy entry).
+    implicates:
+      - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump
+      - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel
+    evidence_requirement: >-
+      Panel protection state and pump running state observed at the
+      fictional measurement points.
+inspection_sequence:
+  - step_id: scenario-step:scenario:fixture:example-yacht:freshwater-delivery-degraded:0.1.0:1
+    sequence: 1
+    responsible_actor: Skipper (human)
+    action: >-
+      Observe the tank level and the outlet-pressure reading at the
+      fictional measurement point.
+    entry_criteria: Trigger condition reported.
+    completion_criteria: Readings recorded with their measurement sources.
+    expected_observation: >-
+      Tank level and outlet pressure documented; anomalies noted
+      explicitly.
+    escalation: >-
+      If readings conflict with the report or with each other, route to
+      the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:fixture:example-yacht:freshwater-delivery-degraded:0.1.0:2
+    sequence: 2
+    responsible_actor: Skipper (human)
+    action: >-
+      Inspect the distribution-panel role for open protection affecting
+      the pump supply (fictional reference order, not a procedure).
+    entry_criteria: Step 1 completed and recorded.
+    completion_criteria: Panel state recorded; anomalies noted explicitly.
+    expected_observation: Protection state and pump supply state documented.
+    escalation: >-
+      Any ambiguous or conflicting observation stops the sequence and
+      routes to the conservative human-review branch.
+    human_confirmation_required: true
+safety_constraints:
+  - >-
+    No instruction to bypass any protection device; protection state
+    changes are human decisions only.
+  - >-
+    Decisions that affect drinking-water availability or pumping
+    capability remain human decisions.
+related_equipment:
+  - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-tank
+  - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:freshwater-pressure-pump
+  - equipment:configuration:vessel-design:fixture:example-yacht:sample-0.1.0:dc-distribution-panel
+source_manuals:
+  - document:fixture:freshwater-notes:1.0
+unacceptable_outcomes:
+  - >-
+    Running the pump role dry against a blocked or empty suction line
+    without a recorded human decision.
+stop_abort_conditions:
+  - >-
+    Stop if any observation conflicts with another source; do not proceed
+    on unresolved conflict.
+  - Abort the sequence if a hazard to people is suspected.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence at any step routes to the accountable
+  human for conservative review; the scenario never resolves such a
+  conflict automatically.
+assumptions:
+  - The fictional sample configuration is assumed applicable.
+unknowns:
+  - Calibration state of the fictional measurement points is unknown.
+exclusions:
+  - >-
+    Water-quality assessment is out of scope for this fictional sample
+    scenario.

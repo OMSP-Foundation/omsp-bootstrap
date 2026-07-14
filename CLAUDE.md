@@ -145,7 +145,9 @@ içeriği, diyagram kaynakları, senaryolar) üretir,
 `omsp-tester` (`.claude/agents/omsp-tester.md`) tüm işlerin implementasyon
 öncesi test checklist'lerini ve test verdiklerini sahiplenir, `omsp-auditor`
 uygunluğu denetler (tipik kadans: sprint kapanışı ve release-readiness
-öncesi). §4'teki süreç delegasyonları (#212 + #221) dışında hiçbir agent
+öncesi), `omsp-web-steward` (`.claude/agents/omsp-web-steward.md`) halka açık
+standartlar sitesinin editoryal bakımını ve içerik-senkron sağlığını
+sahiplenir. §4'teki süreç delegasyonları (#212 + #221) dışında hiçbir agent
 onay yetkisi taşımaz; karar Cengiz'indir. Orkestrasyon ve genel
 implementasyon **tasarım gereği** ana Claude oturumundadır — ayrı bir
 implementer/orchestrator agent'ı bilinçli olarak yoktur; agent'lar devir

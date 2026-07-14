@@ -9,17 +9,26 @@ name: PR Testing Status
 # organization project read/write). GITHUB_TOKEN cannot access org projects.
 # Without the secret the job FAILS (#220): a gate that silently skips looks
 # green while doing nothing, which hid the missing secret on PR #219.
+#
+# Can also be run manually (workflow_dispatch) with a PR number, to verify
+# the gate end-to-end or to backfill a status move that a broken run missed.
 
 on:
   pull_request:
     types: [opened, ready_for_review, reopened]
     branches: [develop]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "PR number to process (must target develop) — for testing or backfill"
+        required: true
+        type: number
 
 permissions:
   contents: read
 
 concurrency:
-  group: pr-testing-status-${{ github.event.pull_request.number }}
+  group: pr-testing-status-${{ github.event.pull_request.number || inputs.pr }}
   cancel-in-progress: true
 
 jobs:
@@ -31,7 +40,7 @@ jobs:
       ORG: OMSP-Foundation
       PROJECT_NUMBER: "1"
       STATUS_NAME: Testing
-      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr }}
     steps:
       - name: Move linked issues to Testing
         if: env.PROJECT_TOKEN != ''
@@ -79,7 +88,10 @@ jobs:
           fi
 
           for issue in $issues; do
-            item_id=$(gh api graphql -f query='
+            # Fetch first, filter locally: a gh/API failure must fail the job
+            # (set -e), not be mistaken for "issue not on the project" (#220 —
+            # an `|| item_id=""` here masked a gh usage error as a skip on PR #232).
+            items=$(gh api graphql -f query='
               query($org: String!, $repo: String!, $issue: Int!) {
                 repository(owner: $org, name: $repo) {
                   issue(number: $issue) {
@@ -90,9 +102,10 @@ jobs:
                 }
               }' -f org="${GITHUB_REPOSITORY_OWNER}" \
                  -f repo="${GITHUB_REPOSITORY#*/}" \
-                 -F issue="$issue" \
-              --jq ".data.repository.issue.projectItems.nodes[] | select(.project.id == \"${project_id}\") | .id" \
-              | head -n1) || item_id=""
+                 -F issue="$issue")
+            item_id=$(jq -r --arg p "$project_id" \
+              '[.data.repository.issue.projectItems.nodes[] | select(.project.id == $p) | .id] | first // empty' \
+              <<< "$items")
 
             if [ -z "$item_id" ]; then
               echo "::warning::Issue #${issue} is not on the project — skipping."

@@ -18,7 +18,7 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-5 | Completed | Production platform readiness |
 | Sprint-6 | Completed | Post-audit product reorientation and clean v0.5.1 baseline |
 | Sprint-7 | Completed | Maritime domain model foundation (v0.6.0, epic #171) |
-| Sprint-8 | Planned | Hanse 460 electrical golden path with sourced data (v0.6.0, epic #172) |
+| Sprint-8 | Active | Hanse 460 electrical golden path with sourced data (v0.6.0, epic #172) |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -261,6 +261,36 @@ Closure status:
 - The v0.6.0 milestone stays open (Sprint-8/9 Work Packages #202–#210
   pending); Sprint-7 closure is a status record, not a release act.
 - Sprint-7 closure is recorded through issue #243.
+
+## Sprint-8: Hanse 460 Electrical Golden Path
+
+Sprint-8 is active. It models the Hanse 460 electrical energy system with
+real, provenance-labelled data on the Sprint-7 foundation, extends the
+validators, and drafts the remaining ODS series together with the Marine
+Diagram System v0.1.
+
+Ordered Work Packages (epic #172, milestone v0.6.0):
+
+1. WP-0081 — Hanse 460 source capture and register extension (#202);
+2. WP-0082 — Hanse 460 electrical-slice YAML model (#203);
+3. WP-0083 — validator extensions for referential integrity and
+   provenance (#204);
+4. WP-0084 — ODS-200/400/500/600 drafts and Marine Diagram System
+   v0.1 (#205).
+
+Kickoff status:
+
+- The sprint window is 2026-07-15 to 2026-07-28; the board Sprint
+  iteration was aligned to the actual start on opening (issue #231 rule),
+  with all prior Sprint assignments snapshotted and restored.
+- Pre-implementation test-scenario checklists were commented on all four
+  Work Package issues at sprint opening, before implementation (#221 rule).
+- Epic #171 criterion 6 — "Sprint-8 can take real Hanse 460 data without
+  redesign" — was assessed as conditionally met in the CTO advisory review
+  on #171: the identified gaps are additive and fall inside the planned
+  WP-0081/0082/0083 scope; the epic's exit declaration remains a human
+  decision.
+- Sprint-8 kickoff is recorded through issue #245.
 
 ## Sprint-8 and Beyond: Domain Value and the MODS Stack
 

@@ -157,7 +157,7 @@ sınırları: `governance/AI_GOVERNANCE.md` §1/§5.
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
-## 7. Bilinen Durum ve Öncelikler (Sprint-7 kapandı, sırada Sprint-8 / v0.6.0)
+## 7. Bilinen Durum ve Öncelikler (Sprint-8 aktif / v0.6.0)
 
 **Güncel durum (2026-07-15):**
 
@@ -168,9 +168,13 @@ dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
   JSON şemaları + `instance-schemas` CI gate'i, MODS Spec v0.1 iskeleti
   (ODS-100/300 Draft, `publication/mods/`), doğrulanmış örnek model paketi
   (`examples/maritime-sample/`), süreç delegasyonları v2 (§4), ADR-0004.
-  Epic #171 açık — kriter-6 değerlendirmesi Sprint-8 planlamasında.
-- Sprint-8 (epic #172, milestone v0.6.0) planlı; WP-0081…WP-0084 (#202–#205)
-  backlog'da triage'lı ve hazır. Sprint-9 (#206–#210) sırada.
+  Epic #171 açık — kriter-6 CTO danışman değerlendirmesiyle **koşullu
+  karşılandı** (2026-07-15, #171 yorumu): boşluklar additive,
+  WP-0081/0082/0083 kapsamında; exit deklarasyonu Cengiz'in kararı.
+- **Sprint-8 aktif (kickoff #245, 2026-07-15):** pencere 2026-07-15 →
+  2026-07-28; epic #172 In Progress, WP-0081…WP-0084 (#202–#205) panoda
+  Sprint 8 / Ready, dördünde implementasyon-öncesi tester checklist'i var.
+  Sprint-9 (#206–#210) sırada.
 - Resmî roadmap: issue #145 "Post-Audit Product Reorientation" (Cengiz onaylı).
   `planning/SPRINT_6_EXECUTION_PLAN.md` (pilot-readiness) Superseded;
   WP-0060–0068 numaraları emekli, yeniden kullanılamaz.

@@ -193,12 +193,22 @@ From the repository root (dependencies pinned per
 ```bash
 python3 tooling/validate_ontology.py
 python3 tooling/validate_instance_schemas.py reference/hanse460
+python3 tooling/validate_model_integrity.py reference/hanse460 \
+  --register reference/HANSE_460_SOURCE_REGISTER.md
 ```
 
-Both commands must exit `0` with `"findings": 0`. The same chain runs
-in CI (`.github/workflows/instance-schemas.yml`). Referential integrity
-across instances and mechanical `source_id`/`document:` resolution
-against the register are WP-0083 scope.
+All commands must exit `0` with `"findings": 0`. The same chain runs
+in CI (`.github/workflows/instance-schemas.yml`). The third command
+(WP-0083 / #204, `tooling/validate_model_integrity.py`) mechanically
+checks referential integrity across instances and register resolution:
+interface/connection endpoints resolve to package ports
+(`OMSP-INTEGRITY-001`), scenario references resolve to package
+equipment/connections (`OMSP-INTEGRITY-002`; this package has no
+scenario instances yet, so the class runs over zero instances),
+`document:` references resolve through the register §7 mapping and cite
+no inaccessible source (`OMSP-INTEGRITY-003`), and every non-`unknown`
+value carries complete five-field provenance whose `source_id` resolves
+to a register §2.2 entry (`OMSP-INTEGRITY-004`).
 
 ## 8. Safety and authority boundary
 

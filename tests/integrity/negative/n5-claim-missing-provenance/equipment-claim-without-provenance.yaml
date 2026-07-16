@@ -1,0 +1,29 @@
+# Fictional fixture — see tests/integrity/README.md. SINGLE isolated
+# violation (OMSP-INTEGRITY-004, multi-claim branch): the second claim
+# of a claims[] entry carries no provenance block; every claim must be
+# a complete known-value. Must be REJECTED.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:distribution-panel
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:itest:energy
+name: Distribution panel role (fictional fixture)
+role: Fictional main distribution role; fixture use only.
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:distribution-panel:feed-in
+    concept: OMSP-CONCEPT-PORT
+    name: Feed input
+attributes:
+  rated-throughput:
+    claims:
+      - value: 100
+        unit: fixture-unit
+        provenance:
+          source_id: source:fixture:itest:design-summary:2026-07-16
+          authority_class: sourced-secondary
+          confidence: medium
+          retrieval_date: "2026-07-16"
+          applicability: Fictional itest configuration
+      - value: 120
+        unit: fixture-unit
+manufacturer:
+  status: unknown

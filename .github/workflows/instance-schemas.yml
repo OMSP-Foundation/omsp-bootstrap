@@ -26,3 +26,7 @@ jobs:
           python3 tooling/validate_ontology.py
           python3 tooling/validate_instance_schemas.py examples/maritime-sample
           python3 tooling/validate_instance_schemas.py reference/hanse460
+      - name: Validate model integrity and provenance completeness (WP-0083)
+        run: |
+          python3 tooling/validate_model_integrity.py examples/maritime-sample --register examples/maritime-sample/SOURCE_REGISTER.md
+          python3 tooling/validate_model_integrity.py reference/hanse460 --register reference/HANSE_460_SOURCE_REGISTER.md

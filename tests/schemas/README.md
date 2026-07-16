@@ -14,7 +14,10 @@ REDDEDİLMELİDİR).
   üretilmiş yapay kimliklerdir.
 - `source:fixture:...` kaynak kimlikleri **hiçbir kaynak kayıt defterinde
   (`reference/HANSE_460_SOURCE_REGISTER.md` dahil) mevcut değildir** ve
-  kanıt değeri taşımaz; register-çözünürlük doğrulaması WP-0083 kapsamıdır.
+  kanıt değeri taşımaz; register-çözünürlük doğrulaması WP-0083 / #204 ile
+  ayrı validator'dadır (`tooling/validate_model_integrity.py`, fixture'ları
+  `tests/integrity/` altında) ve bu dizindeki şema self-test fixture'larına
+  uygulanmaz.
 - Hiçbir fixture gerçek bir tekneyi, ekipmanı, üreticiyi veya teknik değeri
   temsil etmez. Sayısal değerler ve birimler (`fixture-unit` vb.) uydurma
   yer tutuculardır; Hanse 460 dahil hiçbir gerçek gemi verisi içermez

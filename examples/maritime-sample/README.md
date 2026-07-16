@@ -42,9 +42,13 @@ copy** of any schema or ontology content (single-source rule).
 - No file represents a real vessel, manufacturer, model or technical
   value. In particular the package contains **no Hanse 460 data**; real
   sourced data is WP-0082 scope.
-- `source:fixture:*` identifiers exist in **no source register**
-  (including `reference/HANSE_460_SOURCE_REGISTER.md`) and carry **no
-  evidence value**; source-register resolution is WP-0083 scope.
+- `source:fixture:*` and `document:fixture:*` identifiers resolve only
+  to this package's **fictional** register (`SOURCE_REGISTER.md`,
+  WP-0083: it lets the sample pass the same mechanical
+  register-resolution checks as the real model, with no special-case
+  code). They exist in **no real source register** (including
+  `reference/HANSE_460_SOURCE_REGISTER.md`) and carry **no evidence
+  value**.
 - Nothing in this package is an operational instruction, an approved
   procedure, or a seaworthiness, safety or certification claim.
   Validation results prove structural and provenance-contract
@@ -80,9 +84,11 @@ Run from the repository root:
 ```bash
 python3 tooling/validate_ontology.py
 python3 tooling/validate_instance_schemas.py examples/maritime-sample
+python3 tooling/validate_model_integrity.py examples/maritime-sample \
+  --register examples/maritime-sample/SOURCE_REGISTER.md
 ```
 
-Expected result — both commands exit `0`:
+Expected result — all three commands exit `0`:
 
 1. `validate_ontology.py` prints
    `Ontology validation passed: 25 concepts, 19 relations.`
@@ -93,8 +99,17 @@ Expected result — both commands exit `0`:
    ontology-conformance check (`OMSP-ISCHEMA-005`): every
    `OMSP-CONCEPT-*` reference in the schemas and in this package
    resolves to `ontology/omsp-ontology.json`.
+3. `validate_model_integrity.py` (WP-0083 / #204) prints a JSON report
+   with `"findings": 0`; the summary's `checks` block shows all four
+   integrity classes evaluated (`OMSP-INTEGRITY-001`…`004`): interface/
+   connection endpoints resolve to package ports, scenario references
+   resolve to package equipment/connections, `document:` references and
+   every `source_id` resolve mechanically to `SOURCE_REGISTER.md`, and
+   every non-`unknown` value (including each `claims[]` claim) carries
+   complete five-field provenance.
 
 The same chain runs in CI (`.github/workflows/instance-schemas.yml`).
 Deliberately failing inputs live in `tests/schemas/negative/` (N1–N11,
-see `tests/schemas/README.md`); this package intentionally contains
+see `tests/schemas/README.md`) and `tests/integrity/negative/` (n1–n7,
+see `tests/integrity/README.md`); this package intentionally contains
 none.

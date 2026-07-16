@@ -1,0 +1,27 @@
+# Fictional fixture — see tests/integrity/README.md. SINGLE isolated
+# violation (OMSP-INTEGRITY-004, register resolution): the provenance
+# block is complete (all five fields) but its source_id resolves to no
+# source entry of the register. Must be REJECTED with a message naming
+# the register (TS-4 evidence).
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:itest:energy
+name: Storage bank role (fictional fixture)
+role: Fictional energy-storage role; fixture use only.
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank:supply-out
+    concept: OMSP-CONCEPT-PORT
+    name: Supply output
+attributes:
+  rated-capacity:
+    value: 200
+    unit: fixture-capacity-unit
+    provenance:
+      source_id: source:fixture:itest:not-registered:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: Fictional vendor datasheet; fixture use only
+manufacturer:
+  status: unknown

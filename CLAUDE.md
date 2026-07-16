@@ -157,10 +157,18 @@ sınırları: `governance/AI_GOVERNANCE.md` §1/§5.
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
-## 7. Bilinen Durum ve Öncelikler (Sprint-8 kapandı, sırada Sprint-9 / v0.6.0)
+## 7. Bilinen Durum ve Öncelikler (Sprint-9 aktif / v0.6.0)
 
 **Güncel durum (2026-07-16):**
 
+- **Sprint-9 aktif (kickoff #255; pencere 2026-07-16 → 2026-07-29; epic
+  #173; milestone v0.6.0):** kapsam WP-0085…0089 (#206–#210) + WP-0092/#253
+  (owner-held Hanse 460 doküman seti yakalama → source register v0.3.0;
+  Cengiz'in 2026-07-16 kararıyla kapsama alındı). Pano iteration senkronu
+  (#231) yapıldı; altı WP issue'su + kickoff işinin tümünde
+  implementasyon-öncesi tester checklist'leri mevcut (#221). Epic #172
+  kriter-3'ün birebir kanıtı ilk senaryo yürütmesinde (WP-0085/#206)
+  değerlendirilecek.
 - **Sprint-8 kapandı (#252, erken kapanış — Cengiz kararı 2026-07-16):**
   4/4 WP + kickoff (#245, #202–#205) test-gated akışla merge edildi
   (fiilî pencere 2026-07-15..16). Çıktılar: kaynak register v0.2.0
@@ -174,13 +182,11 @@ dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
   merge'üyle gerçekleşti; owner kararı 2026-07-16). Epic #172 owner
   kararıyla açık — kriter-3'ün birebir kanıtı Sprint-9'un ilk senaryo
   yürütmesinde.
-- **Sprint-9 (#206–#210, epic #173) sırada** — senaryolar, rapor üreteci,
-  5 dk demo. **Owner-held Hanse 460 doküman seti artık mevcut** (Cengiz,
-  2026-07-16, yerel arşiv): register §4.4 yakalama işi #253'te —
-  fabrika elektrik şemaları, Owner's Manual V11, EU Spec 2025, gerçek
-  vendor manüelleri (Victron MultiPlus, ChargeMaster Plus, LiFOS 105Ah,
-  Simarine Pico vb.); telif gereği PDF'ler depoya kopyalanmaz, kimlik +
-  çıkarım kaydedilir.
+- **Owner-held Hanse 460 doküman seti mevcut** (Cengiz, 2026-07-16, yerel
+  arşiv): register §4.4 yakalama işi WP-0092/#253'te — fabrika elektrik
+  şemaları, Owner's Manual V11, EU Spec 2025, gerçek vendor manüelleri
+  (Victron MultiPlus, ChargeMaster Plus, LiFOS 105Ah, Simarine Pico vb.);
+  telif gereği PDF'ler depoya kopyalanmaz, kimlik + çıkarım kaydedilir.
 - Resmî roadmap: issue #145 "Post-Audit Product Reorientation" (Cengiz onaylı).
   `planning/SPRINT_6_EXECUTION_PLAN.md` (pilot-readiness) Superseded;
   WP-0060–0068 numaraları emekli, yeniden kullanılamaz.

@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-REFERENCE-HANSE460-ELECTRICAL-0001
 Title: Hanse 460 Electrical-Slice Reference Model
-Version: 0.1.0
+Version: 0.1.1
 Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-8
@@ -12,6 +12,7 @@ Depends-On:
   - OMSP-REFERENCE-SOURCE-0001
 Traceability:
   - ISSUE-203
+  - ISSUE-205
   - EPIC-172
   - OMSP-PLANNING-GOLDEN-PATH-0001
   - OMSP-PLANNING-REBASELINE-0001
@@ -210,7 +211,19 @@ no inaccessible source (`OMSP-INTEGRITY-003`), and every non-`unknown`
 value carries complete five-field provenance whose `source_id` resolves
 to a register §2.2 entry (`OMSP-INTEGRITY-004`).
 
-## 8. Safety and authority boundary
+## 8. Derived diagram views (WP-0084 addition, v0.1.1)
+
+Structural diagram views derived from this model package live in
+[`diagrams/`](diagrams/), per the Marine Diagram System source convention
+(`publication/mods/MDS-MARINE-DIAGRAM-SYSTEM.md`, `OMSP-MODS-MDS-0001`,
+MDS-R-10). Views are derived artifacts: they add no model content, and
+corrections are made in the model instances, never in a view.
+
+| View | Artifact |
+| --- | --- |
+| Energy-chain view (golden path §7.1) | [`diagrams/ENERGY-CHAIN-VIEW.md`](diagrams/ENERGY-CHAIN-VIEW.md) (`OMSP-REFERENCE-HANSE460-DIAGRAM-0001`) |
+
+## 9. Safety and authority boundary
 
 This model is advisory reference data for a design-family configuration
 (`OMSP-REFERENCE-CONFIG-0001` §2): it represents no specific hull, makes

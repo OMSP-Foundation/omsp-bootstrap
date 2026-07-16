@@ -63,6 +63,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install pinned validation dependencies (ADR-0004)
+        if: steps.version.outputs.proceed == 'true'
+        # The quality gate's unit-tests check discovers
+        # tests/test_model_integrity.py (WP-0083), which needs PyYAML.
+        run: pip install jsonschema==4.26.0 PyYAML==6.0.3
+
       - name: Final verification suite (CTO gate)
         if: steps.version.outputs.proceed == 'true'
         id: verify

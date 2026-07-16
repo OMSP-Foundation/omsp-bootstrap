@@ -20,6 +20,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install pinned validation dependencies (ADR-0004)
+        # The quality gate's unit-tests check discovers
+        # tests/test_model_integrity.py (WP-0083), which needs PyYAML.
+        run: pip install jsonschema==4.26.0 PyYAML==6.0.3
       - name: Run observability tests
         run: python -m unittest tests/test_omsp_observability.py
       - name: Produce integrated quality-gate evidence

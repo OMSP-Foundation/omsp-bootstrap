@@ -21,7 +21,8 @@ jobs:
           python-version: "3.12"
       - name: Install pinned validation dependencies (ADR-0004)
         run: pip install jsonschema==4.26.0 PyYAML==6.0.3
-      - name: Validate ontology, instance schemas and sample package (documented chain)
+      - name: Validate ontology, instance schemas, sample package and Hanse 460 model (documented chain)
         run: |
           python3 tooling/validate_ontology.py
           python3 tooling/validate_instance_schemas.py examples/maritime-sample
+          python3 tooling/validate_instance_schemas.py reference/hanse460

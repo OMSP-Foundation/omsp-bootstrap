@@ -1,0 +1,89 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Service (house) battery bank
+role: >-
+  Service (house) energy-storage role of the golden-path slice: stores DC
+  energy and supplies the main DC distribution. The captured source
+  describes the whole-vessel standard battery set without allocating
+  capacities to service versus other functions; bank-level values are
+  therefore explicit unknowns.
+quantity:
+  status: unknown
+  note: >-
+    The number of batteries in the service bank is not stated; the source
+    describes the whole-vessel battery set only (see
+    vessel-battery-set-composition).
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank:charge-in
+    concept: OMSP-CONCEPT-PORT
+    name: Charging input
+    description: Charging path into the service bank (charger, alternator role).
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank:supply-out
+    concept: OMSP-CONCEPT-PORT
+    name: Supply output
+    description: DC supply path toward the main DC distribution and inverter role.
+attributes:
+  chemistry:
+    value: AGM
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "battery set (standard): AGM, capacity
+        1x 90 Ah + 1x 160 Ah" — the whole standard set is AGM.
+  vessel-battery-set-composition:
+    value: 1x 90 Ah + 1x 160 Ah AGM (whole-vessel standard battery set)
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section. The source does not allocate the two batteries
+        between service and other functions; figures marked approximate by
+        the source document.
+  service-bank-capacity:
+    status: unknown
+    note: >-
+      The captured source states the vessel battery set (1x 90 Ah +
+      1x 160 Ah) without attributing capacities to the service bank;
+      entering an allocation would be an unsourced inference.
+  nominal-voltage:
+    status: unknown
+    note: >-
+      Battery-level nominal voltage is not separately stated; the 12 V
+      system-level claim is recorded on the system instance only.
+  critical-voltage-threshold:
+    status: unknown
+    note: >-
+      Battery-chemistry- and manufacturer-specific; never asserted from
+      general knowledge (golden path section 8); vendor manual pending
+      capture (source register section 4.4).
+installation_location:
+  status: unknown
+  note: Battery compartment location is not stated by any captured source.
+manufacturer:
+  status: unknown
+  note: >-
+    The standard specification names no battery manufacturer (source
+    register section 3.3 applicability note).
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

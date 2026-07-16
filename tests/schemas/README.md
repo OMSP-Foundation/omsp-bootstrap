@@ -25,11 +25,16 @@ REDDEDİLMELİDİR).
 ## Düzen
 
 - `positive/` — her instance tipi için en az bir geçerli örnek; ayrıca
-  açık `unknown` temsili ve elektrik-dışı (tatlı su) nötrlük örneği.
+  açık `unknown` temsili, elektrik-dışı (tatlı su) nötrlük örneği ve
+  çelişen-claim temsili (`equipment-conflicting-claims.yaml`, WP-0082:
+  tek attribute üzerinde iki kaynaklı `claims[]` girdisi yan yana geçer).
 - `negative/` — her biri tek bir ihlali izole eden, ayrı dosyalar hâlinde
-  kalıcı ret örnekleri (N1–N11; test checklist TS-3, TS-4, TS-5, TS-6).
+  kalıcı ret örnekleri (N1–N12; test checklist TS-3, TS-4, TS-5, TS-6).
   N1–N10 şema sözleşmesi ihlalleridir; N11
   (`n11-system-concept-unresolvable.yaml`, WP-0080) ontoloji-uygunluk
   ihlalidir: kavram kimliği `ontology/omsp-ontology.json` registry'sine
   çözünmez ve şema `concept` const kontrolünden bağımsız olarak
-  `OMSP-ISCHEMA-005` kuralıyla reddedilir.
+  `OMSP-ISCHEMA-005` kuralıyla reddedilir. N12
+  (`n12-equipment-conflicting-claims-single.yaml`, WP-0082) tek girdili
+  `claims[]` dizisinin çelişki sayılmadığını ve reddedildiğini kanıtlar
+  (`conflicting-claims` `minItems: 2`).

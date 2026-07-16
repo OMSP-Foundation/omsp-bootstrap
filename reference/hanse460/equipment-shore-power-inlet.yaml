@@ -1,0 +1,61 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Shore power inlet
+role: >-
+  Shore power inlet and AC supply path of the golden-path slice: accepts
+  the 230 V shore supply and feeds the battery charger. AC distribution
+  beyond the shore-inlet-to-charger (and inverter output role) path is
+  out of scope per golden path section 5.2.
+quantity:
+  status: unknown
+  note: Number of shore-power inlets is not stated by any captured source.
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet:shore-supply-in
+    concept: OMSP-CONCEPT-PORT
+    name: Shore supply input
+    description: External 230 V shore-supply entry point of the inlet role.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet:ac-out
+    concept: OMSP-CONCEPT-PORT
+    name: AC output
+    description: Onboard AC supply path toward the battery charger.
+attributes:
+  nominal-supply-voltage:
+    value: 230
+    unit: V
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "230 V shore power".
+  inlet-protection-rating:
+    status: unknown
+    note: >-
+      Inlet protection device and rating are not established by any
+      captured source (golden path section 5.1 marks them to-be-sourced).
+  connector-standard:
+    status: unknown
+    note: Shore-connector standard is not stated by any captured source.
+installation_location:
+  status: unknown
+  note: Inlet location is not stated by any captured source.
+manufacturer:
+  status: unknown
+  note: The standard specification names no manufacturer for this item.
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

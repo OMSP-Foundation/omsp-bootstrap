@@ -1,0 +1,27 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: interface:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+concept: OMSP-CONCEPT-INTERFACE
+family: electrical-power
+direction: source-to-target
+source_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet:ac-out
+target_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger:ac-in
+media:
+  value: 230 V AC shore power
+  provenance:
+    source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-15"
+    applicability: >-
+      Hanse 460 US-market standard specification valid from 2021.11.12;
+      design family only, no hull applicability. Extraction: PDF page 3,
+      EQUIPMENT section, wording "230 V shore power".
+nominal_limits:
+  max-continuous-current:
+    status: unknown
+    note: Shore-feed current limit is not stated by any captured source.

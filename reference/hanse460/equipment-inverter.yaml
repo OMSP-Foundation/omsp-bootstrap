@@ -1,0 +1,82 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:inverter
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Inverter (DC to AC)
+role: >-
+  DC-to-AC inverter role of the golden-path slice (golden path section
+  5.1). Per the captured US-market standard specification the inverter is
+  NOT standard equipment: it is available only as factory option XH2201
+  (inverter/charger, only with battery upgrade XH1001 or XH1005). The
+  role is kept in the model because section 5.1 mandates it; its presence
+  in any built configuration is an explicit unknown.
+quantity:
+  status: unknown
+  note: >-
+    Not standard equipment (factory option XH2201); installed as-built
+    configuration unknown (source register section 3.3 applicability
+    note for named option equipment).
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:inverter:dc-in
+    concept: OMSP-CONCEPT-PORT
+    name: DC input
+    description: DC supply input from the service battery bank.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:inverter:ac-out
+    concept: OMSP-CONCEPT-PORT
+    name: AC output
+    description: >-
+      AC output role of the option package; AC consumer inventory is out
+      of scope per golden path section 5.2.
+attributes:
+  standard-fitment:
+    value: >-
+      not standard equipment; factory option XH2201 (inverter/charger,
+      incl. AC panel), only with XH1001 or XH1005
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market specification/pricelist valid from 2021.11.12;
+        design family only, no hull applicability; optional equipment —
+        installed as-built configuration unknown. Extraction: PDF pages
+        5-6/12, option code XH2201.
+  option-xh2201-rating:
+    value: 12 V / 2600 W - 100 A, incl. AC panel
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market specification/pricelist valid from 2021.11.12;
+        design family only, no hull applicability; optional equipment per
+        the option list (code XH2201) — installed as-built configuration
+        unknown; rating transcribed verbatim without interpreting the
+        100 A figure. Extraction: PDF pages 5-6/12.
+  transfer-behavior:
+    status: unknown
+    note: >-
+      Transfer behavior is not established by any captured source; vendor
+      manual pending capture (source register section 4.4).
+installation_location:
+  status: unknown
+  note: Not established by any captured source.
+manufacturer:
+  status: unknown
+  note: >-
+    The option list names no inverter manufacturer or model (source
+    register section 3.3).
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

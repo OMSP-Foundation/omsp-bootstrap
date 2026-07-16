@@ -1,0 +1,84 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-refrigeration
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: DC consumer — refrigeration
+role: >-
+  Refrigeration consumer role of the golden-path slice, fed from the main
+  DC distribution. Member of the source-fixed dc-consumer set (standard
+  12 V fridge per the captured specification).
+quantity:
+  value: 1
+  provenance:
+    source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-15"
+    applicability: >-
+      Hanse 460 US-market standard specification valid from 2021.11.12;
+      design family only, no hull applicability. Extraction: PDF page 3,
+      EQUIPMENT section, wording "12 V fridge approx. 135 l" (galley,
+      standard) — one standard galley fridge listed.
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-refrigeration:dc-in
+    concept: OMSP-CONCEPT-PORT
+    name: DC supply input
+    description: DC supply input from the main DC distribution.
+attributes:
+  supply-voltage:
+    value: 12
+    unit: V
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "12 V fridge approx. 135 l".
+  gross-volume:
+    value: 135
+    unit: l
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "12 V fridge approx. 135 l"; figure
+        marked approximate by the source document.
+  power-draw:
+    status: unknown
+    note: Electrical power draw is not stated by any captured source.
+installation_location:
+  value: galley
+  provenance:
+    source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-15"
+    applicability: >-
+      Hanse 460 US-market standard specification valid from 2021.11.12;
+      design family only, no hull applicability. Extraction: PDF page 3,
+      EQUIPMENT section — the fridge is listed under the galley standard
+      equipment.
+manufacturer:
+  status: unknown
+  note: >-
+    The standard specification names no fridge manufacturer (source
+    register section 3.3 applicability note).
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

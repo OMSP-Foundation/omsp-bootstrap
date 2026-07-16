@@ -587,7 +587,7 @@ no captured document covers a group, the gap is stated:
 | `equipment-dc-consumer-refrigeration` (4) | `document:hanseyachts:h20b-7215-100-010:03` | Fridge vendor document (`Isotherm Fridge.pdf`) pending capture |
 | `equipment-dc-consumer-bilge-pump` (6) | `document:hanseyachts:h20b-7215-100-010:03`; `document:hanseyachts:owners-manual-460-en:v11` (Ch. 2 §1.2.5 bilge system, printed p. 52) | Pump vendor identity not yet established by any captured document |
 | `equipment-dc-consumer-freshwater-pump` (6) | `document:hanseyachts:h20b-7215-100-010:03`; `document:hanseyachts:owners-manual-460-en:v11` (Ch. 2 §1.2.1 fresh water, printed pp. 41–43) | Pump vendor identity not yet established by any captured document |
-| `interface-*` / `connection-*` (13) | `document:hanseyachts:h20b-7215-100-010:03` (cover-sheet cable-color code and default cross-section; per-circuit sheets); `document:hanseyachts:h20b-7220-100-010:01`; `document:hanseyachts:h20b-7220-200-010:07`; `document:hanseyachts:h20b-7220-200-020:02` | Conductor/routing data from circuit diagram + harness drawings |
+| `interface-*` / `connection-*` (19) | `document:hanseyachts:h20b-7215-100-010:03` (cover-sheet cable-color code and default cross-section; per-circuit sheets); `document:hanseyachts:h20b-7220-100-010:01`; `document:hanseyachts:h20b-7220-200-010:07`; `document:hanseyachts:h20b-7220-200-020:02` | Conductor/routing data from circuit diagram + harness drawings |
 | `system-electrical` (1) | `document:hanseyachts:owners-manual-460-en:v11` (Ch. 2 §1.5); `document:hanseyachts:h460.25-spec-eu:2025-04-03` | System-level 12 V / 230 V description |
 
 Closure of any unknown remains downstream work: it requires value

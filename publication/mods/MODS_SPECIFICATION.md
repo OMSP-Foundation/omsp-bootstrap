@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-MODS-SPEC-0001
 Title: MODS Specification v0.1 — Maritime Operations Documentation Standard
-Version: 0.1.0
+Version: 0.2.0
 Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-7
@@ -9,6 +9,7 @@ Classification: Public
 Related-Issue: WP-0079 / #200
 Traceability:
   - ISSUE-200
+  - ISSUE-205
   - OMSP-PLANNING-GOLDEN-PATH-0001
   - OMSP-REFERENCE-SCENARIO-0001
   - OMSP-PLANNING-REBASELINE-0001
@@ -83,7 +84,9 @@ The MODS product stack and its **mandatory development order** are:
 1. **MODS Specification** (this artifact and its ODS sections) — rules,
    terminology, structure, coding/numbering, revision and quality.
 2. **Marine Diagram System (MDS)** — vector component library and visual
-   language; the concrete implementation of ODS-200/ODS-400 rules.
+   language; the concrete implementation of ODS-200/ODS-400 rules
+   ([`MDS-MARINE-DIAGRAM-SYSTEM.md`](MDS-MARINE-DIAGRAM-SYSTEM.md),
+   `OMSP-MODS-MDS-0001`, Draft since v0.2.0).
 3. **Core Operations Manual** — vessel-agnostic common operational content.
 4. **Vessel Definition Module (VDM)** — model-specific deltas extending or
    overriding Core; the first VDM is Hanse 460.
@@ -129,15 +132,17 @@ specification. Artifact-ID convention: `OMSP-MODS-ODS-<series number>`
 | Series | Scope | Anchored existing foundation | v0.1 status |
 | --- | --- | --- | --- |
 | **ODS-100** Document structure | Document taxonomy, sectioning, numbering, rendered-document metadata, versioning | [`governance/ENGINEERING_ARTIFACT_STANDARD.md`](../../governance/ENGINEERING_ARTIFACT_STANDARD.md), [`governance/METADATA_AND_TRACEABILITY_STANDARD.md`](../../governance/METADATA_AND_TRACEABILITY_STANDARD.md) | **Draft** — [`ODS-100-DOCUMENT-STRUCTURE.md`](ODS-100-DOCUMENT-STRUCTURE.md) |
-| **ODS-200** Graphic standards | Typography, color/icon language, warning levels (Warning/Caution/Note), page layout | [`architecture/PUBLICATION_WORKFLOW.md`](../../architecture/PUBLICATION_WORKFLOW.md) | Reserved — Sprint-8 / WP-0084 (#205) |
+| **ODS-200** Graphic standards | Typography, color/icon language, warning levels (Warning/Caution/Note), page layout | [`architecture/PUBLICATION_WORKFLOW.md`](../../architecture/PUBLICATION_WORKFLOW.md) | **Draft** — [`ODS-200-GRAPHIC-STANDARDS.md`](ODS-200-GRAPHIC-STANDARDS.md) |
 | **ODS-300** Procedure language | Imperative step language, step granularity, challenge–response checklist language, role assignments, condition blocks | [`reference/OPERATIONAL_SCENARIO_MODEL.md`](../../reference/OPERATIONAL_SCENARIO_MODEL.md) §7 | **Draft** — [`ODS-300-PROCEDURE-LANGUAGE.md`](ODS-300-PROCEDURE-LANGUAGE.md) |
-| **ODS-400** Diagram rules | System schematics, flow diagrams, symbol library, machine-readable diagram sources | [`ontology/OMSP_ONTOLOGY.md`](../../ontology/OMSP_ONTOLOGY.md), `schemas/` | Reserved — Sprint-8 / WP-0084 (#205) |
-| **ODS-500** Risk assessment standard | Hazard identification, risk matrix, mitigation, residual-risk acceptance | [`templates/RISK_TEMPLATE.md`](../../templates/RISK_TEMPLATE.md) | Reserved — Sprint-8 / WP-0084 (#205) |
-| **ODS-600** Training and assessment standard | Competency objectives, curriculum structure, assessment criteria | [`validation/VALIDATION_FRAMEWORK.md`](../../validation/VALIDATION_FRAMEWORK.md) | Reserved — Sprint-8 / WP-0084 (#205) |
+| **ODS-400** Diagram rules | System schematics, flow diagrams, symbol library, machine-readable diagram sources | [`ontology/OMSP_ONTOLOGY.md`](../../ontology/OMSP_ONTOLOGY.md), `schemas/` | **Draft** — [`ODS-400-DIAGRAM-RULES.md`](ODS-400-DIAGRAM-RULES.md) |
+| **ODS-500** Risk assessment standard | Hazard identification, risk matrix, mitigation, residual-risk acceptance | [`templates/RISK_TEMPLATE.md`](../../templates/RISK_TEMPLATE.md) | **Draft** — [`ODS-500-RISK-ASSESSMENT.md`](ODS-500-RISK-ASSESSMENT.md) |
+| **ODS-600** Training and assessment standard | Competency objectives, curriculum structure, assessment criteria | [`validation/VALIDATION_FRAMEWORK.md`](../../validation/VALIDATION_FRAMEWORK.md) | **Draft** — [`ODS-600-TRAINING-AND-ASSESSMENT.md`](ODS-600-TRAINING-AND-ASSESSMENT.md) |
 
-Reserved series carry **no normative content** in v0.1; only this map entry
-exists. Drafting them ahead of WP-0084 would break WP scoping, not the stack
-order.
+All six series are Draft as of v0.2.0 (ODS-200/400/500/600 drafted by
+WP-0084 / #205, together with MDS v0.1). Draft status does not equalize
+gating: **only ODS-100/300 gate rendering conformance** (Section 6);
+ODS-200/400/500/600 and MDS are advisory, non-gating skeletons in this
+version and block no content instance.
 
 Extensibility: the series grows in blocks of 100 (e.g., ODS-700+ for new
 needs); opening a new block requires governance review.
@@ -155,6 +160,13 @@ needs); opening a new block requires governance review.
   mandatory component set, fixed text) is at least a **minor** version
   change; removing or breaking a rule is a **major** change.
 
+Change record of this specification:
+
+| Version | Date | Change | Work Package |
+| --- | --- | --- | --- |
+| 0.1.0 | 2026-07-13 | Initial skeleton: scope, stack order, series map, versioning, conformance model; ODS-100/300 drafted | WP-0079 / #200 |
+| 0.2.0 | 2026-07-16 | ODS-200/400/500/600 drafted (new normative rule frameworks); MDS v0.1 added as stack layer 2 artifact; series map updated to Draft | WP-0084 / #205 |
+
 ## 6. Conformance Model
 
 A rendered operational document or a renderer is **MODS-conformant** when it
@@ -164,6 +176,10 @@ demonstrably passes every applicable item of the
 
 - Conformance is claimed per document instance and per checklist version;
   there is no blanket conformance claim.
+- The checklist contains items for **ODS-100 and ODS-300 only**; only
+  those two series gate rendering conformance. ODS-200/400/500/600 and
+  MDS conformance is advisory and non-gating until checklist items are
+  added for them — a human decision taken after first applied instances.
 - In v0.1 the checklist is executed **manually** by a human reviewer;
   passing it is verification evidence only and confers no approval,
   baseline, or release authority.

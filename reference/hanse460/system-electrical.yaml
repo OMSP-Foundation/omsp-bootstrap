@@ -1,0 +1,48 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: system:vessel-design:hanse:460:electrical
+concept: OMSP-CONCEPT-VESSEL-SYSTEM
+belongs_to: vessel-design:hanse:460
+name: Electrical system (golden-path slice)
+purpose: >-
+  Electrical energy supply, charging, storage, distribution, protection
+  and measurement of the Hanse 460 reference configuration. Only the
+  golden-path slice (OMSP-PLANNING-GOLDEN-PATH-0001 section 5.1) is
+  modeled; the section 5.2 exclusion list applies unchanged.
+attributes:
+  nominal-dc-voltage:
+    value: 12
+    unit: V
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "12 V and 230 V electric system with
+        main panels and 230 V shore power and sockets in cabins and heads".
+  nominal-ac-voltage:
+    value: 230
+    unit: V
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "12 V and 230 V electric system with
+        main panels and 230 V shore power and sockets in cabins and heads".
+  system-architecture:
+    status: unknown
+    note: >-
+      Wiring architecture, circuit inventory and voltage-domain layout are
+      not established by any captured source; owner-held wiring diagrams
+      are pending capture (source register section 4.4).

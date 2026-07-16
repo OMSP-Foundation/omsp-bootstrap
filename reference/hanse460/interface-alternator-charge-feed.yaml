@@ -1,0 +1,21 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: interface:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charge-feed
+concept: OMSP-CONCEPT-INTERFACE
+family: electrical-power
+direction: source-to-target
+source_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charging:dc-out
+target_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank:charge-in
+media:
+  status: unknown
+  note: >-
+    The alternator charging source is reference structure (golden path
+    section 5.1); no captured source states its output characteristics.
+nominal_limits:
+  max-charge-current:
+    status: unknown
+    note: Not established by any captured source.

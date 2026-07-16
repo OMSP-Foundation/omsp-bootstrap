@@ -1,0 +1,20 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: connection:configuration:vessel-design:hanse:460:reference-0.1.0:dc-feed-refrigeration
+concept: OMSP-CONCEPT-CONNECTION
+source_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution:out-refrigeration
+target_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-refrigeration:dc-in
+implements: interface:configuration:vessel-design:hanse:460:reference-0.1.0:dc-feed-refrigeration
+belongs_to: configuration:vessel-design:hanse:460:reference-0.1.0
+name: DC branch feed (distribution to refrigeration)
+attributes:
+  conductor-specification:
+    status: unknown
+    note: >-
+      Conductor cross-section, length, routing and branch protection are
+      not stated by any captured source; owner-held wiring diagrams
+      pending capture (source register section 4.4).

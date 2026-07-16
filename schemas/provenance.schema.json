@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://omsp.foundation/schemas/provenance.schema.json",
   "title": "OMSP Shared Provenance Definitions",
-  "description": "Shared $defs for maritime instance schemas (WP-0078). Implements the binding provenance rules of OMSP-PLANNING-GOLDEN-PATH-0001 section 4.3: every non-unknown value carries source ID, authority class, confidence, retrieval date and applicability; unknowns are explicit, never omitted. Advisory validation only; no certification claim.",
+  "description": "Shared $defs for maritime instance schemas (WP-0078). Implements the binding provenance rules of OMSP-PLANNING-GOLDEN-PATH-0001 section 4.3: every non-unknown value carries source ID, authority class, confidence, retrieval date and applicability; unknowns are explicit, never omitted; conflicting source claims stay side by side (WP-0082). Advisory validation only; no certification claim.",
   "$defs": {
     "schema-version": {
       "type": "string",
@@ -51,11 +51,26 @@
       },
       "additionalProperties": false
     },
+    "conflicting-claims": {
+      "type": "object",
+      "description": "Conflicting source values for a single attribute, kept side by side per HANSE_460_SOURCE_REGISTER section 6 and OMSP-PLANNING-GOLDEN-PATH-0001 section 4.3 rule 3: each claim is a complete known-value with its own provenance; the model never resolves a conflict by selecting one claim.",
+      "required": ["claims"],
+      "properties": {
+        "claims": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/known-value"}
+        },
+        "note": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
     "provenanced-value": {
       "type": "object",
       "oneOf": [
         {"$ref": "#/$defs/known-value"},
-        {"$ref": "#/$defs/unknown-marker"}
+        {"$ref": "#/$defs/unknown-marker"},
+        {"$ref": "#/$defs/conflicting-claims"}
       ]
     },
     "attribute-map": {

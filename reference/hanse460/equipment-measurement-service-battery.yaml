@@ -1,0 +1,57 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Service-battery measurement
+role: >-
+  Voltage/current measurement role of the golden-path slice (golden path
+  section 5.1 "measurement-*": battery monitor / panel meters) observing
+  the service battery bank. Measurement points are modeled as points,
+  not as a live data pipeline (golden path section 5.2). This role is
+  OMSP reference structure: no captured source states any monitoring
+  instrument.
+quantity:
+  status: unknown
+  note: >-
+    Instrument inventory (battery monitor, panel meters) is not stated
+    by any captured source.
+measurement_points:
+  - id: measurement-point:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery:battery-voltage
+    concept: OMSP-CONCEPT-MEASUREMENT-POINT
+    name: Service-battery voltage observation point
+    measures: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+  - id: measurement-point:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery:battery-current
+    concept: OMSP-CONCEPT-MEASUREMENT-POINT
+    name: Service-battery current observation point
+    measures: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+attributes:
+  instrument-type:
+    status: unknown
+    note: >-
+      Battery monitor / panel meter identity is not established by any
+      captured source; owner-held documentation pending capture (source
+      register section 4.4).
+  display-location:
+    status: unknown
+    note: Not established by any captured source.
+  calibration-state:
+    status: unknown
+    note: >-
+      Measurement authority and calibration state are explicit unknowns
+      per golden path section 8 preconditions.
+installation_location:
+  status: unknown
+  note: Not established by any captured source.
+manufacturer:
+  status: unknown
+  note: Not established by any captured source.
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.

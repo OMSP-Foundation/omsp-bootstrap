@@ -1,0 +1,46 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:protection-dc-main
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: DC main protection
+role: >-
+  Protection role of the golden-path slice (golden path section 5.1
+  "protection-*": fuses, breakers, main battery switches) covering the
+  modeled DC path from the service battery bank into the main DC
+  distribution. This role is OMSP reference structure: no captured
+  source states any protection device, rating or location. Nothing in
+  this model is an instruction to operate or bypass protection devices.
+quantity:
+  status: unknown
+  note: Protection device inventory is not stated by any captured source.
+implements:
+  - OMSP-CONCEPT-PROTECTION
+protects:
+  - connection:configuration:vessel-design:hanse:460:reference-0.1.0:battery-main-feed
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution
+attributes:
+  device-inventory:
+    status: unknown
+    note: >-
+      Fuse, breaker and main-battery-switch inventory is not established
+      by any captured source; owner-held wiring diagrams pending capture
+      (source register section 4.4).
+  ratings:
+    status: unknown
+    note: Protection ratings are not stated by any captured source.
+installation_location:
+  status: unknown
+  note: Device locations are not stated by any captured source.
+manufacturer:
+  status: unknown
+  note: Not established by any captured source.
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.

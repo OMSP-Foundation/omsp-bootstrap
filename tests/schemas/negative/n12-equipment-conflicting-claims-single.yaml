@@ -1,0 +1,20 @@
+# Fictional NEGATIVE fixture — MUST be rejected by schema validation.
+# See tests/schemas/README.md (D6 declaration). Violation: a claims[] array
+# with a single entry is not a conflict; conflicting-claims requires at
+# least two complete known-values (WP-0082, TS-7).
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:n12-single-claim
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:energy
+role: Fictional negative-fixture role; this instance must fail validation.
+attributes:
+  rated-output:
+    claims:
+      - value: 100
+        unit: fixture-power-unit
+        provenance:
+          source_id: source:fixture:design-summary:2026-07-14
+          authority_class: sourced-secondary
+          confidence: medium
+          retrieval_date: "2026-07-14"
+          applicability: Fictional example-yacht sample configuration

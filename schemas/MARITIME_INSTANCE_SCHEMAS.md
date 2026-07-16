@@ -1,7 +1,7 @@
 ---
 Artifact-ID: OMSP-SCHEMA-MARITIME-0001
-Title: Maritime Instance Schemas v0.1
-Version: 0.1.1
+Title: Maritime Instance Schemas
+Version: 0.2.0
 Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-7
@@ -12,6 +12,7 @@ Depends-On:
 Traceability:
   - ISSUE-199
   - ISSUE-201
+  - ISSUE-203
   - OMSP-PLANNING-GOLDEN-PATH-0001
   - OMSP-PLANNING-REBASELINE-0001
   - OMSP-REFERENCE-EQUIPMENT-0001
@@ -19,7 +20,7 @@ Traceability:
   - OMSP-REFERENCE-SOURCE-0001
 ---
 
-# Maritime Instance Schemas v0.1
+# Maritime Instance Schemas
 
 ## 1. Purpose
 
@@ -87,8 +88,17 @@ value-bearing fields (`provenanced-value`):
 - **Unknown marker** — `{status: unknown}` with an optional `note`.
   Unknowns are first-class and always expressible; hiding an unknown
   behind an unsourced value is mechanically impossible.
+- **Conflicting claims** (v0.2.0, WP-0082) — `{claims: [...]}` with an
+  optional `note`: an array of **at least two** complete known-values
+  (each with its own five-field provenance block) representing
+  conflicting source values for a single attribute side by side, per
+  the conflict discipline of `OMSP-REFERENCE-SOURCE-0001` §6 and
+  `OMSP-PLANNING-GOLDEN-PATH-0001` §4.3 rule 3. The schema cannot and
+  does not select a winning claim; conflict resolution is an
+  accountable human decision.
 - **Bare scalars are rejected** on value-bearing fields
-  (`type: object` + `oneOf`).
+  (`type: object` + `oneOf`; the three branches are mutually
+  exclusive).
 
 Structural fields (identifiers, `concept`, layer/class enums,
 `belongs_to`/parent references, port endpoints, interface family,
@@ -133,10 +143,24 @@ standing smoke test for this rule.
 
 ## 7. Versioning
 
-Each instance carries a required `schema_version` (SemVer). This v0.1
-contract is `0.1.0`; breaking changes to any schema require a version
-change of this artifact and a migration note per the change rules of
-`governance/ENGINEERING_PLAYBOOK.md`.
+Each instance carries a required `schema_version` (SemVer). The current
+contract version is `0.2.0`; breaking changes to any schema require a
+version change of this artifact and a migration note per the change
+rules of `governance/ENGINEERING_PLAYBOOK.md`.
+
+Change record:
+
+- **0.2.0 (WP-0082 / #203)** — additive minor change: new
+  `conflicting-claims` branch (`claims[]` of known-values, `minItems: 2`)
+  in the `provenanced-value` `oneOf` of `provenance.schema.json`,
+  implementing the #171 criterion-6 decision (CTO gap-1). **Backward
+  compatible:** every instance valid under `0.1.0` remains valid
+  unchanged (no existing field or branch was modified); no migration is
+  required. Instances that use the `claims[]` construct must declare
+  `schema_version` `0.2.0` or later. Fixtures: positive
+  `equipment-conflicting-claims.yaml`, negative N12.
+- **0.1.x** — initial WP-0078 contract (`0.1.0`) and its documentation
+  corrections.
 
 ## 8. Safety and Authority Boundary
 

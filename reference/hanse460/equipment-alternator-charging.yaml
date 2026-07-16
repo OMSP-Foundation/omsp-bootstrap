@@ -1,0 +1,45 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charging
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Alternator charging source
+role: >-
+  Engine-driven charging source of the golden-path slice, modeled as a
+  charging-source role only per golden path section 5.1. The engine start
+  battery and engine starting circuit are out of scope per section 5.2.
+  This role is OMSP reference structure (authority class "reference" is
+  allowed for structure, golden path section 4.1); no captured source
+  states its presence or any of its values.
+quantity:
+  status: unknown
+  note: >-
+    Presence and count of engine-driven charging sources are not stated
+    by any captured source.
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charging:dc-out
+    concept: OMSP-CONCEPT-PORT
+    name: DC charging output
+    description: DC charging output toward the service battery bank.
+attributes:
+  rated-output-current:
+    status: unknown
+    note: Not established by any captured source.
+  regulation-type:
+    status: unknown
+    note: Not established by any captured source.
+installation_location:
+  status: unknown
+  note: Not established by any captured source.
+manufacturer:
+  status: unknown
+  note: Not established by any captured source.
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.

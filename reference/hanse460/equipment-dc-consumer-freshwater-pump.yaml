@@ -1,0 +1,68 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-freshwater-pump
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: DC consumer — electric freshwater pump
+role: >-
+  Electric freshwater-pump consumer role of the golden-path slice, fed
+  from the main DC distribution. Member of the source-fixed dc-consumer
+  set. Only the pump's electrical-consumer role is modeled here; the
+  freshwater system itself is a non-electrical system and out of scope
+  per golden path section 5.2.
+quantity:
+  value: 1
+  provenance:
+    source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+    authority_class: sourced-secondary
+    confidence: medium
+    retrieval_date: "2026-07-15"
+    applicability: >-
+      Hanse 460 US-market standard specification valid from 2021.11.12;
+      design family only, no hull applicability. Extraction: PDF page 4,
+      wording "fresh water system with electric pump" — one electric
+      freshwater pump listed as standard.
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-freshwater-pump:dc-in
+    concept: OMSP-CONCEPT-PORT
+    name: DC supply input
+    description: DC supply input from the main DC distribution.
+attributes:
+  drive:
+    value: electric
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 4,
+        wording "fresh water system with electric pump".
+  rated-flow:
+    status: unknown
+    note: Pump rating is not stated by any captured source.
+  supply-voltage:
+    status: unknown
+    note: >-
+      Not separately stated for the freshwater pump; the 12 V
+      system-level claim is recorded on the system instance only.
+installation_location:
+  status: unknown
+  note: Pump location is not stated by any captured source.
+manufacturer:
+  status: unknown
+  note: >-
+    The standard specification names no freshwater-pump manufacturer
+    (source register section 3.3 applicability note).
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

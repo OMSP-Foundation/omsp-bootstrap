@@ -1,0 +1,36 @@
+# Fictional fixture — see tests/schemas/README.md (D6 declaration).
+# Conflicting-claims positive fixture (WP-0082, TS-7): a single attribute
+# carries two conflicting source values side by side via the additive
+# `claims[]` branch of provenance.schema.json and the instance must PASS.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:example-yacht:reference-0.1.0:energy-converter
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:example-yacht:energy
+name: Energy converter role (fictional fixture)
+role: >-
+  Fictional conversion role whose rated output is claimed differently by
+  two fictional sources; fixture use only.
+attributes:
+  rated-output:
+    claims:
+      - value: 100
+        unit: fixture-power-unit
+        provenance:
+          source_id: source:fixture:design-summary:2026-07-14
+          authority_class: sourced-secondary
+          confidence: medium
+          retrieval_date: "2026-07-14"
+          applicability: Fictional example-yacht sample configuration
+      - value: 120
+        unit: fixture-power-unit
+        provenance:
+          source_id: source:fixture:storage-datasheet:2026-07-14
+          authority_class: sourced-manufacturer
+          confidence: high
+          retrieval_date: "2026-07-14"
+          applicability: Fictional storage datasheet; fixture use only
+    note: >-
+      Fictional conflict kept side by side; the model does not select a
+      winning claim (register section 6 discipline).
+manufacturer:
+  status: unknown

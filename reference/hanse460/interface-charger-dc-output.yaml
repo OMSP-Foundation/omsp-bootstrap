@@ -1,0 +1,24 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: interface:configuration:vessel-design:hanse:460:reference-0.1.0:charger-dc-output
+concept: OMSP-CONCEPT-INTERFACE
+family: electrical-power
+direction: source-to-target
+source_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger:dc-out
+target_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank:charge-in
+media:
+  status: unknown
+  note: >-
+    Charger DC output characteristics (voltage, profile) are not stated
+    by any captured source; only the 35 A rating is recorded on the
+    charger role.
+nominal_limits:
+  max-charge-current:
+    status: unknown
+    note: >-
+      Not asserted here; the 35 A charger rating is an equipment claim
+      and inferring it as an interface limit would be unsourced.

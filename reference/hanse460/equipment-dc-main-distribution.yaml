@@ -1,0 +1,72 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Main DC distribution
+role: >-
+  Main DC distribution panel/bus of the golden-path slice: distributes
+  service-bank DC power to the modeled consumer set. Consumer branch
+  ports are modeling structure; the physical circuit layout is unknown.
+quantity:
+  status: unknown
+  note: >-
+    The source states "main panels" without count or per-panel scope; the
+    number of DC distribution panels is not established.
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution:feed-in
+    concept: OMSP-CONCEPT-PORT
+    name: Main DC feed input
+    description: DC feed input from the service battery bank.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution:out-refrigeration
+    concept: OMSP-CONCEPT-PORT
+    name: Refrigeration branch output
+    description: Branch output toward the refrigeration consumer role.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution:out-navigation-lights
+    concept: OMSP-CONCEPT-PORT
+    name: Navigation-lights branch output
+    description: Branch output toward the navigation-lights consumer role.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution:out-bilge-pump
+    concept: OMSP-CONCEPT-PORT
+    name: Bilge-pump branch output
+    description: Branch output toward the electric bilge-pump consumer role.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution:out-freshwater-pump
+    concept: OMSP-CONCEPT-PORT
+    name: Freshwater-pump branch output
+    description: Branch output toward the electric freshwater-pump consumer role.
+attributes:
+  main-panels-fitted:
+    value: true
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "12 V and 230 V electric system with
+        main panels".
+  bus-topology:
+    status: unknown
+    note: >-
+      Bus topology and circuit inventory are not established by any
+      captured source; owner-held wiring diagrams pending capture (source
+      register section 4.4).
+installation_location:
+  status: unknown
+  note: Panel location is not stated by any captured source.
+manufacturer:
+  status: unknown
+  note: The standard specification names no panel manufacturer.
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

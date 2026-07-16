@@ -1,0 +1,62 @@
+# Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# Advisory reference data only — not an operational instruction; no
+# certification, compliance or seaworthiness claim.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:hanse:460:electrical
+name: Battery charger
+role: >-
+  Shore-powered battery charger of the golden-path slice: converts the
+  230 V shore supply into DC charging power for the service battery bank.
+quantity:
+  status: unknown
+  note: Number of chargers is not stated by any captured source.
+ports:
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger:ac-in
+    concept: OMSP-CONCEPT-PORT
+    name: AC input
+    description: AC supply input from the shore-power inlet path.
+  - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger:dc-out
+    concept: OMSP-CONCEPT-PORT
+    name: DC charging output
+    description: DC charging output toward the service battery bank.
+attributes:
+  rated-charge-current:
+    value: 35
+    unit: A
+    provenance:
+      source_id: source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15
+      authority_class: sourced-secondary
+      confidence: medium
+      retrieval_date: "2026-07-15"
+      applicability: >-
+        Hanse 460 US-market standard specification valid from 2021.11.12;
+        design family only, no hull applicability. Extraction: PDF page 3,
+        EQUIPMENT section, wording "battery charger: 35 A"; figures marked
+        approximate by the source document.
+  charge-profile:
+    status: unknown
+    note: >-
+      Charge profile and parameters are not established by any captured
+      source; vendor manual pending capture (source register section 4.4).
+  input-voltage-range:
+    status: unknown
+    note: Charger input specification is not stated by any captured source.
+installation_location:
+  status: unknown
+  note: Charger location is not stated by any captured source.
+manufacturer:
+  status: unknown
+  note: >-
+    The standard specification names no charger manufacturer (source
+    register section 3.3 applicability note).
+model:
+  status: unknown
+serial_number:
+  status: unknown
+  note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12

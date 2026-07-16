@@ -19,7 +19,7 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-6 | Completed | Post-audit product reorientation and clean v0.5.1 baseline |
 | Sprint-7 | Completed | Maritime domain model foundation (v0.6.0, epic #171) |
 | Sprint-8 | Completed | Hanse 460 electrical golden path with sourced data (v0.6.0, epic #172) |
-| Sprint-9 | Planned | Operational scenarios, report generator, five-minute demo (v0.6.0, epic #173) |
+| Sprint-9 | Active | Operational scenarios, report generator, five-minute demo (v0.6.0, epic #173) |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -319,6 +319,43 @@ Closure status:
   scheduled as follow-up work through issue #253, not part of Sprint-8
   scope.
 - Sprint-8 closure is recorded through issue #252.
+
+## Sprint-9: Operational Scenarios and Five-Minute Demo
+
+Sprint-9 is active. It turns the Hanse 460 electrical model into a visible
+product demonstration on the Sprint-8 foundation: operational scenarios
+executed directly from the model, a human-readable report generator, the
+Core Operations Manual skeleton and a reproducible five-minute demo, with
+the owner-held Hanse 460 document set captured into the source register.
+
+Ordered Work Packages (epic #173, milestone v0.6.0):
+
+1. WP-0085 — primary scenario: service-battery critical voltage (#206);
+2. WP-0086 — scenarios: shore-power loss and maintenance-due (#207);
+3. WP-0087 — report generator and human-readable output (#208);
+4. WP-0088 — Core Operations Manual skeleton (#209);
+5. WP-0089 — five-minute demo assembly and v0.6.0 release
+   readiness (#210);
+6. WP-0092 — owner-held Hanse 460 document set capture, source register
+   v0.3.0 (#253).
+
+Kickoff status:
+
+- The sprint window is 2026-07-16 to 2026-07-29; the board Sprint
+  iteration was aligned to the actual start on opening (issue #231 rule),
+  with all 23 prior Sprint assignments snapshotted and restored.
+- WP-0092/#253 was added to the sprint scope by owner decision (Cengiz,
+  2026-07-16): the owner-held document set became available at Sprint-8
+  closure, and its capture per register §4.4 feeds the evidence quality
+  of the WP-0085 scenario work.
+- Pre-implementation test-scenario checklists were commented on all six
+  Work Package issues and the kickoff task at sprint opening, before
+  implementation (#221 rule).
+- Epic #172 criterion 3 — "Sprint-9 can execute operational scenarios
+  directly from the model" — is evaluated literally at Sprint-9's first
+  scenario execution (WP-0085/#206); the epic's exit declaration remains
+  a human decision.
+- Sprint-9 kickoff is recorded through issue #255.
 
 ## Sprint-9 and Beyond: Domain Value and the MODS Stack
 

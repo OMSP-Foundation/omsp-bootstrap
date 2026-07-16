@@ -18,7 +18,8 @@ OMSP evolves from governed knowledge to models, tooling and runtime platform cap
 | Sprint-5 | Completed | Production platform readiness |
 | Sprint-6 | Completed | Post-audit product reorientation and clean v0.5.1 baseline |
 | Sprint-7 | Completed | Maritime domain model foundation (v0.6.0, epic #171) |
-| Sprint-8 | Active | Hanse 460 electrical golden path with sourced data (v0.6.0, epic #172) |
+| Sprint-8 | Completed | Hanse 460 electrical golden path with sourced data (v0.6.0, epic #172) |
+| Sprint-9 | Planned | Operational scenarios, report generator, five-minute demo (v0.6.0, epic #173) |
 
 ## Sprint-0: Bootstrap Foundation
 
@@ -264,10 +265,10 @@ Closure status:
 
 ## Sprint-8: Hanse 460 Electrical Golden Path
 
-Sprint-8 is active. It models the Hanse 460 electrical energy system with
-real, provenance-labelled data on the Sprint-7 foundation, extends the
-validators, and drafts the remaining ODS series together with the Marine
-Diagram System v0.1.
+Sprint-8 is completed. It modelled the Hanse 460 electrical energy system
+with real, provenance-labelled data on the Sprint-7 foundation, extended
+the validators, and drafted the remaining ODS series together with the
+Marine Diagram System v0.1.
 
 Ordered Work Packages (epic #172, milestone v0.6.0):
 
@@ -292,7 +293,34 @@ Kickoff status:
   decision.
 - Sprint-8 kickoff is recorded through issue #245.
 
-## Sprint-8 and Beyond: Domain Value and the MODS Stack
+Closure status:
+
+- All four Sprint-8 Work Packages and the kickoff task were merged into
+  `develop` through the test-gated flow and are closed: #245 (`ac532f4`),
+  WP-0081/#202 (`ef8b66a`), WP-0082/#203 (`a099eb9`), WP-0083/#204
+  (`e997f28`), WP-0084/#205 (`7eda5e3`).
+- The sprint ran 2026-07-15 to 2026-07-16 and closed early by the owner's
+  recorded decision (Cengiz, 2026-07-16): the planned scope completed in
+  two days of the fourteen-day window.
+- The WP-0083 pull request produced the test-gated flow's first real
+  negative verdict (FAIL → `gate:test-failed` → fix → re-test PASS),
+  demonstrating the rejection-and-recovery path end to end.
+- Epic #171 is **closed** (owner decision, 2026-07-16): its criterion-6
+  closure trigger — the first green CI validation of real Hanse 460
+  data — fired with the WP-0082 merge.
+- Epic #172 remains **open** by owner decision: exit criteria 1–2 are met
+  with merged evidence; criterion 3 — "Sprint-9 can execute operational
+  scenarios directly from the model" — is proven literally by Sprint-9's
+  first scenario execution.
+- The v0.6.0 milestone stays open (Sprint-9 Work Packages #206–#210
+  pending); Sprint-8 closure is a status record, not a release act.
+- The owner-held Hanse 460 document set (source register §4.4) became
+  available at closure time (Cengiz, 2026-07-16); its capture is
+  scheduled as follow-up work through issue #253, not part of Sprint-8
+  scope.
+- Sprint-8 closure is recorded through issue #252.
+
+## Sprint-9 and Beyond: Domain Value and the MODS Stack
 
 From Sprint-7 onward the program builds maritime domain value on two fused
 tracks: the machine-verifiable vessel model (YAML as the single source of

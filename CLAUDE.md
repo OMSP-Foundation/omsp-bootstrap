@@ -157,24 +157,30 @@ sınırları: `governance/AI_GOVERNANCE.md` §1/§5.
 **Yapı kuralı:** Her üst düzey dizinin net bir mühendislik amacı olmalıdır. Yeni
 dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
-## 7. Bilinen Durum ve Öncelikler (Sprint-8 aktif / v0.6.0)
+## 7. Bilinen Durum ve Öncelikler (Sprint-8 kapandı, sırada Sprint-9 / v0.6.0)
 
-**Güncel durum (2026-07-15):**
+**Güncel durum (2026-07-16):**
 
-- **Sprint-7 kapandı (#243, erken kapanış — Cengiz kararı 2026-07-15):**
-  7/7 kapsam issue'su tamamlandı (WP-0077…WP-0080 / #198–#201 + #221 + #240 +
-  #227). Çıktılar: denizcilik çekirdek ontolojisi v0.1
-  (`ontology/MARITIME_ONTOLOGY.md`), 6 instance tipi için provenance-first
-  JSON şemaları + `instance-schemas` CI gate'i, MODS Spec v0.1 iskeleti
-  (ODS-100/300 Draft, `publication/mods/`), doğrulanmış örnek model paketi
-  (`examples/maritime-sample/`), süreç delegasyonları v2 (§4), ADR-0004.
-  Epic #171 açık — kriter-6 CTO danışman değerlendirmesiyle **koşullu
-  karşılandı** (2026-07-15, #171 yorumu): boşluklar additive,
-  WP-0081/0082/0083 kapsamında; exit deklarasyonu Cengiz'in kararı.
-- **Sprint-8 aktif (kickoff #245, 2026-07-15):** pencere 2026-07-15 →
-  2026-07-28; epic #172 In Progress, WP-0081…WP-0084 (#202–#205) panoda
-  Sprint 8 / Ready, dördünde implementasyon-öncesi tester checklist'i var.
-  Sprint-9 (#206–#210) sırada.
+- **Sprint-8 kapandı (#252, erken kapanış — Cengiz kararı 2026-07-16):**
+  4/4 WP + kickoff (#245, #202–#205) test-gated akışla merge edildi
+  (fiilî pencere 2026-07-15..16). Çıktılar: kaynak register v0.2.0
+  (4 yakalanmış kamu kaynağı + §7 `document:`↔`source:` eşlemesi), ilk
+  gerçek Hanse 460 elektrik modeli (`reference/hanse460/`, 30 instance,
+  99 açık unknown, `claims[]` çelişen-iddia şema uzantısı),
+  `validate_model_integrity.py` (4 bütünlük sınıfı, quality gate'te),
+  ODS-200/400/500/600 Draft + MDS v0.1 + ilk uygulanmış enerji-zinciri
+  diyagramı. WP-0083 PR'ı akışın ilk gerçek FAIL→fix→PASS döngüsünü
+  üretti. **Epic #171 kapandı** (kriter-6 tetikleyicisi WP-0082
+  merge'üyle gerçekleşti; owner kararı 2026-07-16). Epic #172 owner
+  kararıyla açık — kriter-3'ün birebir kanıtı Sprint-9'un ilk senaryo
+  yürütmesinde.
+- **Sprint-9 (#206–#210, epic #173) sırada** — senaryolar, rapor üreteci,
+  5 dk demo. **Owner-held Hanse 460 doküman seti artık mevcut** (Cengiz,
+  2026-07-16, yerel arşiv): register §4.4 yakalama işi #253'te —
+  fabrika elektrik şemaları, Owner's Manual V11, EU Spec 2025, gerçek
+  vendor manüelleri (Victron MultiPlus, ChargeMaster Plus, LiFOS 105Ah,
+  Simarine Pico vb.); telif gereği PDF'ler depoya kopyalanmaz, kimlik +
+  çıkarım kaydedilir.
 - Resmî roadmap: issue #145 "Post-Audit Product Reorientation" (Cengiz onaylı).
   `planning/SPRINT_6_EXECUTION_PLAN.md` (pilot-readiness) Superseded;
   WP-0060–0068 numaraları emekli, yeniden kullanılamaz.
@@ -187,8 +193,10 @@ dizin, ancak sorumluluğu mevcut bir alanla temsil edilemiyorsa eklenir.
 
 **Açık teknik borç:**
 
-- Hanse 460: hiçbir alan doğrulanmış gerçek veriyle modellenmiş değil —
-  kaynak yakalama ve elektrik dilimi Sprint-8 işi (WP-0081/0082).
+- Hanse 460 elektrik dilimi modellendi ama 99 değer `unknown` — kapanma
+  yolu owner-held doküman setinin register'a işlenmesi (§4.4 yakalama
+  issue'su) + model attribute güncellemeleri; `sourced-secondary` →
+  `sourced-manufacturer`/`verified-design` terfileri Cengiz'in kararı.
 - Residual riskler RR-001…RR-005 açık (#144 kararıyla Sprint-12'ye ertelendi).
 - ADR-0004 (Python doğrulama bağımlılıkları) `Review` statüsünde — `Active`
   terfisi insan kararı bekliyor.

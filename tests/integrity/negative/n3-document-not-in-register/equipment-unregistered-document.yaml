@@ -1,0 +1,22 @@
+# Fictional fixture — see tests/integrity/README.md. SINGLE isolated
+# violation (OMSP-INTEGRITY-003): documents[] cites a document identity
+# that has no row in the register document-reference mapping table.
+# Must be REJECTED.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:itest:energy
+name: Storage bank role (fictional fixture)
+role: Fictional energy-storage role; fixture use only.
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank:supply-out
+    concept: OMSP-CONCEPT-PORT
+    name: Supply output
+attributes:
+  rated-capacity:
+    status: unknown
+    note: Not established by fictional fixture evidence.
+manufacturer:
+  status: unknown
+documents:
+  - document:fixture:itest:unregistered-notes:1.0

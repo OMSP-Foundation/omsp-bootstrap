@@ -1,0 +1,44 @@
+# Fictional fixture — see tests/integrity/README.md. Every equipment/
+# connection reference resolves to a package instance
+# (OMSP-INTEGRITY-002); the source manual resolves through the register
+# mapping (OMSP-INTEGRITY-003). Not an operational instruction.
+schema_version: "0.2.0"
+id: scenario:fixture:itest:low-stored-energy:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Stored energy low (fictional fixture)
+objective: >-
+  Exercise the WP-0083 scenario referential-integrity class; fixture use
+  only.
+accountable_authority: >-
+  Skipper (human); software role is monitoring and advisory only.
+trigger:
+  description: Fictional low stored-energy observation.
+  source: observed
+  confidence: medium
+  threshold:
+    value: 20
+    unit: fixture-unit
+    provenance:
+      source_id: source:fixture:itest:vendor-datasheet:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: medium
+      retrieval_date: "2026-07-16"
+      applicability: Fictional vendor datasheet; fixture use only
+causes:
+  - id: cause:fixture:itest:supply-failure
+    description: Fictional supply-failure cause-taxonomy entry.
+    implicates:
+      - equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+      - connection:configuration:vessel-design:fixture:itest:integrity-0.1.0:main-feed
+    evidence_requirement: Fictional observation requirement.
+related_equipment:
+  - equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+  - equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:distribution-panel
+source_manuals:
+  - document:fixture:itest:design-notes:1.0
+stop_abort_conditions:
+  - Stop on any conflicting observation; do not proceed on unresolved conflict.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence routes to the accountable human for
+  conservative review.

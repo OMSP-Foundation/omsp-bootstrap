@@ -1,0 +1,14 @@
+# Fictional fixture — see tests/integrity/README.md. Both endpoints
+# resolve to ports[] of the package equipment (OMSP-INTEGRITY-001).
+schema_version: "0.2.0"
+id: connection:configuration:vessel-design:fixture:itest:integrity-0.1.0:main-feed
+concept: OMSP-CONCEPT-CONNECTION
+source_port: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank:supply-out
+target_port: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:distribution-panel:feed-in
+implements: interface:configuration:vessel-design:fixture:itest:integrity-0.1.0:main-feed
+belongs_to: configuration:vessel-design:fixture:itest:integrity-0.1.0
+name: Main feed line (fictional fixture)
+attributes:
+  conductor-length:
+    status: unknown
+    note: Not established by fictional fixture evidence.

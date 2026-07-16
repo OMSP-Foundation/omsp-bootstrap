@@ -138,8 +138,12 @@ standing smoke test for this rule.
   command chain (not repeated here).
 - Fixtures are permanent and fictional; see `tests/schemas/README.md`
   (decision D6). Referential integrity across instances and resolution
-  of `source_id` against the source register are WP-0083 scope, not
-  schema scope.
+  of `source_id`/`document:` identities against the source register are
+  not schema scope: they are checked by the companion validator
+  `tooling/validate_model_integrity.py` (WP-0083 / #204, rules
+  `OMSP-INTEGRITY-001`…`004`; fixtures in `tests/integrity/`, unit
+  tests in `tests/test_model_integrity.py`), which runs in the same CI
+  gate with `--register` pointing at the package's source register.
 
 ## 7. Versioning
 

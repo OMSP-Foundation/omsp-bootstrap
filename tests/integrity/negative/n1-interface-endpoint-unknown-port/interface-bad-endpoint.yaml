@@ -1,0 +1,14 @@
+# Fictional fixture — see tests/integrity/README.md. SINGLE isolated
+# violation (OMSP-INTEGRITY-001): target_port references a port that no
+# equipment instance in the package declares. Must be REJECTED.
+schema_version: "0.2.0"
+id: interface:configuration:vessel-design:fixture:itest:integrity-0.1.0:main-feed
+concept: OMSP-CONCEPT-INTERFACE
+family: electrical-power
+direction: source-to-target
+source_port: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank:supply-out
+target_port: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:ghost-panel:feed-in
+nominal_limits:
+  max-continuous-load:
+    status: unknown
+    note: Limit not established by fictional fixture evidence.

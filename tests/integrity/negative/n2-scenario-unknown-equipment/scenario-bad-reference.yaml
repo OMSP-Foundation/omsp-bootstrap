@@ -1,0 +1,30 @@
+# Fictional fixture — see tests/integrity/README.md. SINGLE isolated
+# violation (OMSP-INTEGRITY-002): related_equipment references an
+# equipment role that does not exist in the package. Must be REJECTED.
+# Not an operational instruction.
+schema_version: "0.2.0"
+id: scenario:fixture:itest:low-stored-energy:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Stored energy low (fictional fixture)
+objective: Exercise the scenario referential-integrity class; fixture use only.
+accountable_authority: Skipper (human); software role is advisory only.
+trigger:
+  description: Fictional low stored-energy observation.
+  source: observed
+  confidence: medium
+causes:
+  - id: cause:fixture:itest:supply-failure
+    description: Fictional supply-failure cause-taxonomy entry.
+    implicates:
+      - equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+    evidence_requirement: Fictional observation requirement.
+related_equipment:
+  - equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+  - equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:ghost-consumer
+source_manuals:
+  - document:fixture:itest:design-notes:1.0
+stop_abort_conditions:
+  - Stop on any conflicting observation.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence routes to the accountable human.

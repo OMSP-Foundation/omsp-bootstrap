@@ -1,0 +1,37 @@
+# Fictional fixture — see tests/integrity/README.md. Part of the valid
+# mini package: all four integrity classes must produce 0 findings.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:itest:energy
+name: Storage bank role (fictional fixture)
+role: >-
+  Fictional energy-storage role feeding the distribution-panel role;
+  fixture use only.
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:storage-bank:supply-out
+    concept: OMSP-CONCEPT-PORT
+    name: Supply output
+attributes:
+  rated-capacity:
+    value: 200
+    unit: fixture-capacity-unit
+    provenance:
+      source_id: source:fixture:itest:vendor-datasheet:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: Fictional vendor datasheet; fixture use only
+  state-of-health:
+    status: unknown
+    note: Not established by fictional fixture evidence.
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown
+installation_location:
+  status: unknown
+documents:
+  - document:fixture:itest:design-notes:1.0

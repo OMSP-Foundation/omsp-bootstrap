@@ -1,0 +1,48 @@
+# Fictional fixture — see tests/integrity/README.md. Carries the
+# multi-claim POSITIVE case: a two-claim claims[] entry whose claims are
+# both complete known-values (five-field provenance, register-resolving
+# source_id) and must pass OMSP-INTEGRITY-004.
+schema_version: "0.2.0"
+id: equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:distribution-panel
+concept: OMSP-CONCEPT-EQUIPMENT-ROLE
+belongs_to: system:vessel-design:fixture:itest:energy
+name: Distribution panel role (fictional fixture)
+role: >-
+  Fictional main distribution role receiving stored energy; fixture use
+  only.
+ports:
+  - id: port:equipment:configuration:vessel-design:fixture:itest:integrity-0.1.0:distribution-panel:feed-in
+    concept: OMSP-CONCEPT-PORT
+    name: Feed input
+attributes:
+  rated-throughput:
+    claims:
+      - value: 100
+        unit: fixture-unit
+        provenance:
+          source_id: source:fixture:itest:design-summary:2026-07-16
+          authority_class: sourced-secondary
+          confidence: medium
+          retrieval_date: "2026-07-16"
+          applicability: Fictional itest configuration
+      - value: 120
+        unit: fixture-unit
+        provenance:
+          source_id: source:fixture:itest:vendor-datasheet:2026-07-16
+          authority_class: sourced-manufacturer
+          confidence: high
+          retrieval_date: "2026-07-16"
+          applicability: Fictional vendor datasheet; fixture use only
+    note: >-
+      Fictional conflict kept side by side; the model does not select a
+      winning claim.
+manufacturer:
+  status: unknown
+model:
+  status: unknown
+serial_number:
+  status: unknown
+installation_location:
+  status: unknown
+documents:
+  - document:fixture:itest:design-notes:1.0

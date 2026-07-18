@@ -367,13 +367,13 @@ inspection_sequence:
     sequence: 8
     responsible_actor: Skipper (human), with shore support / qualified service consulted
     action: >-
-      Battery-condition assessment (cause: battery-degradation;
-      equipment role service-battery-bank). This step cannot be
-      completed from the captured document set — explicit unknown
-      marker: the installed battery model is unconfirmed as-built and
-      no manufacturer battery criteria are transcribed (issue #260) —
-      so the assessment is deferred to the accountable human with the
-      confirmed manufacturer documentation.
+      Defer the battery-condition assessment (cause:
+      battery-degradation; equipment role service-battery-bank) to the
+      accountable human with the confirmed manufacturer documentation
+      — explicit unknown marker: this step cannot be completed from
+      the captured document set because the installed battery model is
+      unconfirmed as-built and no manufacturer battery criteria are
+      transcribed (issue #260).
     entry_criteria: >-
       Charge paths and protection state inspected (steps 4-6) without
       identifying a cause.

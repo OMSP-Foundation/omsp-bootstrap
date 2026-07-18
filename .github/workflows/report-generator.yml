@@ -1,0 +1,26 @@
+name: Golden-Path Report Generator
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  generate-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned validation dependencies (ADR-0004)
+        run: pip install PyYAML==6.0.3
+      - name: Verify committed report is byte-identical to regeneration (ODS-100-R-09)
+        run: |
+          python3 tooling/generate_report.py --check

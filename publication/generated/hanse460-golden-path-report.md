@@ -15,7 +15,7 @@
 - Source model: `OMSP-REFERENCE-HANSE460-ELECTRICAL-0001` version `0.4.0` (`reference/hanse460`)
 - Source register: `reference/HANSE_460_SOURCE_REGISTER.md`
 - Generator: `tooling/generate_report.py` version `0.1.0`
-- Generation source reference: input content digest `sha256:8a36f2463b1f3be565f52e2be9695f85e656522387747aeed1e2f9ae3bbc5040` (deterministic digest over the model files and register — commit-equivalent per ODS-100-R-10)
+- Generation source reference: input content digest `sha256:38b92a449c21988732a5b43a94526dfff27cf6231feae4e74267f7a6c84af114` (deterministic digest over the model files and register — commit-equivalent per ODS-100-R-10)
 - Conformance claim: ODS-100 v0.1.0 (Draft), ODS-300 v0.1.0 (Draft)
 - Derived artifact: generated from the YAML model, never edited by hand (ODS-100-R-08/R-09); corrections belong in the source model.
 
@@ -575,7 +575,7 @@ Reference inspection order, not an approved vessel procedure. Steps follow ODS-3
 #### Step 8 — `scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:8` **[HUMAN CONFIRMATION REQUIRED]**
 
 - Responsible actor: Skipper (human), with shore support / qualified service consulted
-- Action: Battery-condition assessment (cause: battery-degradation; equipment role service-battery-bank). This step cannot be completed from the captured document set — explicit unknown marker: the installed battery model is unconfirmed as-built and no manufacturer battery criteria are transcribed (issue #260) — so the assessment is deferred to the accountable human with the confirmed manufacturer documentation.
+- Action: Defer the battery-condition assessment (cause: battery-degradation; equipment role service-battery-bank) to the accountable human with the confirmed manufacturer documentation — explicit unknown marker: this step cannot be completed from the captured document set because the installed battery model is unconfirmed as-built and no manufacturer battery criteria are transcribed (issue #260).
 - Entry criteria: Charge paths and protection state inspected (steps 4-6) without identifying a cause.
 - Completion criteria: Recorded human disposition: degradation suspected/not suspected, and what as-built confirmation is still required.
 - Expected observation: No model-backed observation is defined; any conclusion here is human judgment, explicitly marked as resting on unsourced data.

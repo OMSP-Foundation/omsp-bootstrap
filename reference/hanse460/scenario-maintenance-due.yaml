@@ -1,0 +1,589 @@
+# Hanse 460 electrical-slice reference model — maintenance-due
+# scenario (WP-0086 / #207; WP-0085 pattern; record contract
+# OMSP-REFERENCE-SCENARIO-0001). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
+# Advisory reference material only — not an approved procedure, not an
+# operational instruction and, per OMSP-REFERENCE-SCENARIO-0001
+# section 14, NOT a source of maintenance instructions for live use:
+# this scenario reviews which document-stated maintenance obligations
+# are due; the execution of any maintenance follows the cited source
+# documents and qualified persons, never this scenario. No
+# certification, seaworthiness or navigation-safety claim. The
+# accountable authority is the human skipper.
+#
+# Maintenance-relationship modeling (TS-5, ontology mapping, no
+# ontology extension required): each maintenance item below is a
+# document-stated maintenance constraint — an instance of
+# OMSP-CONCEPT-CONSTRAINT constraining an equipment role or vessel
+# system (relation OMSP-RELATION-CONSTRAINS, Constraint -> Entity),
+# traceable to its captured source record via
+# OMSP-RELATION-SOURCED-FROM (Entity -> OMSP-CONCEPT-SOURCE-RECORD).
+# The scenario itself instantiates OMSP-CONCEPT-OPERATIONAL-SCENARIO
+# with primary class "maintenance" (OMSP-REFERENCE-SCENARIO-0001
+# section 2) and uses (OMSP-RELATION-USES) the constrained equipment
+# roles. See README.md section 9.
+#
+# Derivation note: related_equipment is DOCUMENT-DERIVED, not
+# graph-derived — the seeds are exactly the equipment roles for which
+# a captured register document states a periodic maintenance,
+# inspection or test requirement (service-battery-bank,
+# battery-charger, shore-power-inlet), plus measurement roles whose
+# measurement_points measure a seed (measurement-service-battery,
+# reusing the README section 9 measurement rule). The biennial
+# system-inspection requirement applies to the electrical system as a
+# whole and is carried by affected_systems. Rule and citations:
+# README.md section 9.
+schema_version: "0.2.0"
+id: scenario:hanse:460:maintenance-due:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: maintenance
+title: Document-stated maintenance obligations due on the electrical slice (reference review scenario)
+objective: >-
+  Answer, from the modeled electrical slice with full provenance, the
+  question "which maintenance is due on this boat's electrical
+  slice?": which periodic maintenance, inspection and test
+  obligations the captured documents state for the modeled equipment
+  roles, which of them are due — or cannot be shown not-due — and in
+  which conservative order a human reviews them. This is a reference
+  review order for the design-family configuration; it never provides
+  the maintenance instructions themselves and is never an approved
+  vessel procedure.
+applicability:
+  - vessel-design:hanse:460
+  - configuration:vessel-design:hanse:460:reference-0.1.0
+accountable_authority: >-
+  Skipper (human). The skipper holds command authority for every
+  decision in this scenario, including whether and when any
+  document-stated test or servicing is performed and by whom; the
+  owner's manual assigns installation, alterations and maintenance of
+  the electrical system to a competent marine electrical technician.
+  Software and monitoring equipment may observe, record, warn and
+  recommend only; no command authority is assigned to software
+  (OMSP-REFERENCE-SCENARIO-0001 section 5).
+trigger:
+  description: >-
+    Calendar or record review, or an observation, indicates that a
+    document-stated maintenance obligation on the modeled electrical
+    slice has elapsed or cannot be shown satisfied. The captured
+    item-specific intervals are recorded in the causes below (unused
+    batteries: full charge at least once a month; electrical
+    installation: examination at least once a year; electrical
+    system: inspection at least biennially; GFCI function test:
+    "regularly", no interval stated). No captured document defines a
+    consolidated maintenance schedule for the vessel, and no captured
+    document defines a maintenance log, so the due-state usually
+    rests on incomplete records and is treated conservatively.
+  source: inferred
+  timestamp: >-
+    Recorded at review time by the reviewing human. This reference
+    scenario defines the recording rule, not a real event.
+  confidence: low
+  threshold:
+    status: unknown
+    note: >-
+      No single consolidated maintenance-due threshold exists: the
+      captured documents state item-specific intervals (recorded per
+      cause with their extraction locations), the GFCI test interval
+      is stated only as "regularly", and any battery-model-specific
+      maintenance intervals are blocked pending as-built confirmation
+      of the installed battery model (issue #260; e.g. the Lifos
+      document document:lifos:lifos-105-battery-instructions-8546:undated
+      applies only if the Lifos 105 is confirmed installed).
+preconditions:
+  - >-
+    Configuration applicability confirmed: the vessel corresponds to
+    configuration:vessel-design:hanse:460:reference-0.1.0; fitted
+    options may add maintenance items outside this slice and are not
+    assumed present.
+  - >-
+    The accountable human (skipper) is available; no step of this
+    scenario is executable by software authority alone, and no
+    maintenance execution is part of this scenario.
+  - >-
+    The vessel's maintenance records (if any) are accessible to the
+    reviewer; their format and completeness are explicit unknowns.
+affected_systems:
+  - system:vessel-design:hanse:460:electrical
+causes:
+  - id: cause:hanse:460:maintenance-due:battery-charge-upkeep-interval-elapsed
+    description: >-
+      Battery charge-upkeep obligation elapsed: the owner's manual
+      states the AGM / lithium batteries "require low maintenance and
+      should be well charged at all times", to be checked regularly,
+      and that batteries not used for a long time "should be fully
+      charged at least once a month"; more than a month without a
+      recorded full charge while the bank is unused makes this item
+      due.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery
+    evidence_requirement: >-
+      Owner's manual document:hanseyachts:owners-manual-460-en:v11,
+      Chapter 2 section 1.5.1, "Maintenance" block, printed page 64
+      (PDF page 74), plus the last-full-charge record (step 2) and the
+      present charge-state observation at the shunt display (step 3).
+      Battery-model-specific charge criteria are blocked pending
+      as-built confirmation (issue #260).
+  - id: cause:hanse:460:maintenance-due:installation-examination-interval-elapsed
+    description: >-
+      Annual installation-examination obligation elapsed: the charger
+      family manual requires no specific maintenance of the charger
+      itself but requires examining the electrical installation "on a
+      regular basis, at least once a year", with defects such as loose
+      connections or damaged wiring to be corrected immediately; more
+      than a year without a recorded examination makes this item due.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:charger-dc-output
+    evidence_requirement: >-
+      Family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03,
+      section 5.6 "Maintenance" (PDF page 24), plus the
+      last-examination record (step 2) and the visual condition
+      observation of the charger installation (step 5). The installed
+      charger model is unconfirmed as-built (issue #260);
+      the examination itself belongs to a qualified person, not to
+      this scenario.
+  - id: cause:hanse:460:maintenance-due:gfci-function-test-interval-unknown
+    description: >-
+      GFCI function-test obligation not shown satisfied: the owner's
+      manual states the shore power is protected with a GFCI device
+      and that "this functionality of the switch must be tested
+      regularly by pressing the release button or with the help of an
+      electric tester" — without stating an interval; with no stated
+      interval and no test record, the item cannot be shown not-due
+      and is treated conservatively as due.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+    evidence_requirement: >-
+      Owner's manual document:hanseyachts:owners-manual-460-en:v11,
+      Chapter 2 section 1.5.2 "Shore connection", printed page 66
+      (PDF page 76), plus the last-test record (step 2) — explicit
+      unknown marker: the test interval is unsourced ("regularly").
+      Whether and when the test is performed is a skipper decision
+      following the owner's manual (step 6), never an instruction of
+      this scenario.
+  - id: cause:hanse:460:maintenance-due:system-inspection-interval-elapsed
+    description: >-
+      Biennial system-inspection obligation elapsed: the owner's
+      manual requires that the electrical system be inspected "at
+      least biennially" and that installation, alterations and
+      maintenance be performed by a competent marine electrical
+      technician; more than two years without a recorded inspection
+      makes this item due.
+    implicates:
+      - system:vessel-design:hanse:460:electrical
+    evidence_requirement: >-
+      Owner's manual document:hanseyachts:owners-manual-460-en:v11,
+      Chapter 1 section 1.2.5 "Electrical system", printed page 6
+      (PDF page 16), plus the last-inspection record (step 2). The
+      inspection itself is professional work outside this scenario.
+  - id: cause:hanse:460:maintenance-due:maintenance-record-gap
+    description: >-
+      Record gap: no evidence of last completion exists or can be
+      located for one or more document-stated items. No captured
+      document defines a maintenance log or record format for the
+      vessel, so a missing record is a plausible origin of the
+      due-state and is never interpreted as "not due".
+    implicates:
+      - system:vessel-design:hanse:460:electrical
+    evidence_requirement: >-
+      Outcome of the record review (step 2) — explicit unknown
+      marker: the existence, format and completeness of the vessel's
+      maintenance records are unsourced; the conservative treatment
+      (missing record = due) follows
+      OMSP-REFERENCE-SCENARIO-0001 section 4.
+  - id: cause:hanse:460:maintenance-due:condition-finding
+    description: >-
+      Condition finding: an observed condition indicates maintenance
+      need regardless of calendar — battery poles not clean or not
+      protected against corrosion (the owner's manual requires the
+      poles clean and protected with pole grease), or defects of the
+      installation such as loose connections or damaged wiring (which
+      the charger family manual requires to be corrected
+      immediately).
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:battery-main-feed
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+    evidence_requirement: >-
+      Visual condition observations (steps 4 and 5) recorded against
+      the owner's manual
+      document:hanseyachts:owners-manual-460-en:v11 (Chapter 2
+      section 1.5.1, printed page 64) and the family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03
+      (section 5.6, PDF page 24). Observation only: any correction is
+      routed to the accountable human / qualified service.
+inspection_sequence:
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:1
+    sequence: 1
+    responsible_actor: Skipper (human)
+    action: >-
+      Assemble the document-stated maintenance items applicable to
+      the modeled slice and record each with its source location:
+      battery charge upkeep (equipment role service-battery-bank;
+      owner's manual document:hanseyachts:owners-manual-460-en:v11
+      Chapter 2 section 1.5.1 "Maintenance", printed page 64, PDF
+      page 74), installation examination (equipment role
+      battery-charger; family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03
+      section 5.6, PDF page 24), GFCI function test (equipment role
+      shore-power-inlet; owner's manual Chapter 2 section 1.5.2,
+      printed page 66) and the biennial system inspection
+      (system-level; owner's manual Chapter 1 section 1.2.5, printed
+      page 6). Record explicitly that battery-model-specific items
+      are blocked pending as-built confirmation (issue #260).
+    entry_criteria: >-
+      Trigger condition present; preconditions reviewed by the
+      skipper.
+    completion_criteria: >-
+      Item list with source locations and blocked items recorded.
+    expected_observation: >-
+      Four document-stated items on the modeled slice; any further
+      items belong to documents outside the captured set and are
+      recorded as out of scope.
+    escalation: >-
+      If an item cannot be tied to a captured source location, it is
+      not asserted: record it as unsourced and route to the
+      conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:2
+    sequence: 2
+    responsible_actor: Skipper (human)
+    action: >-
+      Establish last-completion evidence for each item from the
+      vessel's records (equipment roles service-battery-bank,
+      battery-charger, shore-power-inlet) — explicit unknown marker:
+      no captured document defines a maintenance log or record
+      format, so the existence and completeness of such records are
+      unsourced and the search method is left to the skipper. A
+      missing record never becomes "not due"
+      (OMSP-REFERENCE-SCENARIO-0001 section 4).
+    entry_criteria: Step 1 completed and recorded.
+    completion_criteria: >-
+      For each item: last-completion date recorded, or recorded
+      statement that no record exists.
+    expected_observation: >-
+      Item-by-item due assessment against the document-stated
+      intervals; items without record or interval (GFCI test) remain
+      conservatively due.
+    escalation: >-
+      Conflicting records are never resolved by this scenario: route
+      to the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:3
+    sequence: 3
+    responsible_actor: Skipper (human); monitoring display, informed source only
+    action: >-
+      Observe the present charge state of the service bank at the
+      shunt display (equipment roles measurement-service-battery and
+      service-battery-bank; series measurement arrangement per the
+      series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheets 10 and 19)
+      against the owner's-manual requirement that the batteries be
+      well charged at all times (Chapter 2 section 1.5.1, printed
+      page 64). The installed display variant and its calibration
+      state are explicit unknowns (issue #260); a charge-state
+      conclusion from a single uncorroborated reading belongs to the
+      human.
+    entry_criteria: Step 2 completed.
+    completion_criteria: >-
+      Charge-state observation, time and measurement source recorded.
+    expected_observation: >-
+      A well-charged bank (weakens the charge-upkeep cause) or a low
+      state of charge (supports it and may route to the
+      critical-voltage scenario).
+    escalation: >-
+      If the reading indicates a critically low bank, continue under
+      scenario:hanse:460:service-battery-critical-voltage:0.1.0 and
+      record the handover.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:4
+    sequence: 4
+    responsible_actor: Skipper (human)
+    action: >-
+      Visually observe the battery poles and terminal area of the
+      service bank without touching conductors (equipment role
+      service-battery-bank; the connected battery links carry high
+      currents — battery-main-feed): clean poles, corrosion
+      protection with pole grease per the owner's manual
+      document:hanseyachts:owners-manual-460-en:v11 Chapter 2 section
+      1.5.1, printed page 64 (PDF page 74). Observation only: any
+      cleaning or greasing is maintenance execution following the
+      owner's manual, outside this scenario.
+    entry_criteria: Step 3 completed.
+    completion_criteria: >-
+      Pole/terminal condition recorded; anomalies noted explicitly.
+    expected_observation: >-
+      Clean, protected poles (weakens the condition-finding cause) or
+      corrosion/contamination (supports it; routes to human
+      disposition).
+    escalation: >-
+      Any sign of damage, heat, smell or electrolyte hazard means:
+      do not touch, stop the sequence, route to the conservative
+      human-review branch / qualified service.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:5
+    sequence: 5
+    responsible_actor: Skipper (human)
+    action: >-
+      Visually observe the accessible charger installation for the
+      defect classes the family manual names — loose connections,
+      damaged wiring — without opening the charger enclosure or any
+      switchboard (equipment role battery-charger, charger located
+      "sitting corner prt fwd" per the series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheet 10; defect
+      classes per the family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03
+      section 5.6, PDF page 24). Observation only: the manual's
+      requirement that defects "must be corrected immediately" is
+      discharged by routing the finding to the accountable human and
+      qualified service, never by in-scenario intervention.
+    entry_criteria: Step 4 completed.
+    completion_criteria: >-
+      Visible installation condition recorded; findings noted
+      explicitly.
+    expected_observation: >-
+      No visible defect (weakens the condition-finding cause) or a
+      visible defect (supports it and makes the correction an
+      immediate human/service action).
+    escalation: >-
+      Any visible defect or hazard sign (heat, smell, smoke,
+      discolored insulation) means: stop the sequence and route to
+      the conservative human-review branch / qualified service
+      without delay.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:6
+    sequence: 6
+    responsible_actor: Skipper (human), sole decision authority
+    action: >-
+      Decide the disposition of the GFCI function test (equipment
+      role shore-power-inlet): whether and when the owner's-manual
+      test ("pressing the release button or with the help of an
+      electric tester", document:hanseyachts:owners-manual-460-en:v11
+      Chapter 2 section 1.5.2, printed page 66, PDF page 76) is
+      performed, considering that the test
+      de-energizes the shore-supplied AC system. Performing the test
+      follows the owner's manual and the skipper's timing decision;
+      this scenario only records the decision and, if performed, the
+      result.
+    entry_criteria: Step 2 completed; GFCI item conservatively due.
+    completion_criteria: >-
+      Decision (perform now / defer with rationale) recorded; test
+      result recorded if performed.
+    expected_observation: >-
+      A recorded, dated disposition that replaces the unsourced
+      "regularly" interval with an accountable human decision.
+    escalation: >-
+      A failed or ambiguous test result means: leave the shore
+      supply de-energized as found and route to qualified service;
+      this scenario never instructs re-energizing.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:7
+    sequence: 7
+    responsible_actor: Skipper (human), with competent marine electrical technician / qualified service consulted
+    action: >-
+      Record the disposition of every item: due / not due / cannot be
+      shown not-due, and for each due item the intended execution
+      path — the owner's manual assigns installation, alterations and
+      maintenance to a competent marine electrical technician
+      (document:hanseyachts:owners-manual-460-en:v11 Chapter 1
+      section 1.2.5, printed page 6) and OEM instructions govern the
+      work itself (the manual requires observing the operating
+      instructions of all OEM manuals). Scheduling and execution are
+      human decisions outside this scenario (equipment roles
+      service-battery-bank, battery-charger, shore-power-inlet).
+    entry_criteria: Steps 1-6 completed.
+    completion_criteria: >-
+      Item-by-item disposition and execution path recorded.
+    expected_observation: >-
+      A complete disposition list in which no due item is silently
+      dropped and no execution is claimed by this scenario.
+    escalation: >-
+      If a due item cannot be assigned an execution path, it remains
+      recorded as open and routes to the conservative human-review
+      branch; it is never closed by assumption.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:maintenance-due:0.1.0:8
+    sequence: 8
+    responsible_actor: Skipper (human)
+    action: >-
+      Close the scenario: record the outcome class (expected /
+      degraded-but-controlled / aborted / unacceptable / unknown per
+      OMSP-REFERENCE-SCENARIO-0001 section 9), the evidence gathered
+      at each step, and every value that remained unknown (equipment
+      roles service-battery-bank, battery-charger and
+      shore-power-inlet as the reviewed elements; recording rule
+      defined by this scenario, no captured document prescribes a log
+      format — explicit unknown marker).
+    entry_criteria: >-
+      Sequence ended by completed disposition, by skipper decision,
+      or by a stop/abort condition.
+    completion_criteria: >-
+      Outcome, evidence list and open unknowns recorded.
+    expected_observation: >-
+      A closed record whose every claim carries its source or an
+      explicit unknown, consistent with the provenance rules of the
+      model package.
+    escalation: >-
+      If the closing record would contain a claim without source or
+      unknown marking, the record is incomplete: route to the
+      conservative human-review branch instead of closing.
+    human_confirmation_required: true
+safety_constraints:
+  - >-
+    This scenario never provides maintenance instructions for live
+    use (OMSP-REFERENCE-SCENARIO-0001 section 14): it reviews
+    which document-stated obligations are due; execution follows the
+    cited source documents, the competent marine electrical
+    technician requirement of the owner's manual, and the skipper's
+    decision.
+  - >-
+    Electrical hazard: the service bank and its links carry high
+    currents (500 A shunt path, 150 mm2 battery links per the series
+    circuit diagram); all observations are contact-free, no step
+    authorizes work on live conductors, battery terminals, opened
+    switchboards or the charger enclosure.
+  - >-
+    The GFCI function test de-energizes the shore-supplied AC system;
+    whether and when it is performed is a skipper decision in full
+    operational context, following the owner's manual only.
+  - >-
+    No instruction to bypass, defeat or force any protection device
+    exists in this scenario, and none may be derived from it.
+  - >-
+    Battery-model-specific maintenance (including any lithium-battery
+    instruction of the Lifos document set) is blocked pending
+    as-built confirmation of the installed battery model
+    (issue #260); the owner's manual itself requires observing the
+    manufacturer's instructions for the fitted batteries.
+  - >-
+    Conservative stop: at any ambiguity, conflicting evidence or
+    suspected hazard, the sequence stops and the situation routes to
+    the accountable human; proceeding on unresolved conflict is
+    prohibited.
+  - >-
+    Advisory boundary: this scenario is reference material derived
+    from a design-family model; it is not an approved procedure,
+    carries no seaworthiness or navigation-safety claim, and approved
+    vessel instructions and the skipper's judgment always prevail
+    (OMSP-REFERENCE-SCENARIO-0001 section 14).
+related_equipment:
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery
+source_manuals:
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11
+  - document:mastervolt:chargemaster-plus-manual-10000016594:03
+  - document:lifos:lifos-105-battery-instructions-8546:undated
+unacceptable_outcomes:
+  - >-
+    Any maintenance execution performed from this scenario's text
+    instead of the cited source documents and qualified persons.
+  - >-
+    A missing record or an unstated interval silently treated as
+    "not due" or "satisfied".
+  - >-
+    Battery-model-specific maintenance applied while the installed
+    battery model is unconfirmed as-built.
+  - >-
+    A visible installation defect (loose connection, damaged wiring)
+    recorded but not routed to the accountable human and qualified
+    service.
+  - >-
+    Any protection device bypassed, defeated or re-energized without
+    understanding its state.
+  - >-
+    Software or this scenario acting as command authority for any
+    decision.
+stop_abort_conditions:
+  - >-
+    Abort immediately on any sign of electrical hazard (heat, smell,
+    smoke, discolored insulation, damaged battery casing) during any
+    observation; do not continue and route to qualified service.
+  - >-
+    Stop at any visible installation defect: the family manual
+    requires immediate correction, which is a human/service action;
+    the review sequence does not continue past an uncorrected
+    hazard-relevant defect.
+  - >-
+    Stop if maintenance records conflict and the conflict cannot be
+    resolved by observation; do not proceed on unresolved conflict.
+  - >-
+    Stop at any step whose required evidence is blocked by an
+    as-built unknown (installed battery model, charger model,
+    display variant — issue #260); never substitute a guessed value.
+  - >-
+    Hand over to scenario:hanse:460:service-battery-critical-voltage:0.1.0
+    when its trigger condition is observed; the handover is recorded.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence at any step — missing records,
+  unstated intervals, blocked battery-model-specific items — routes
+  to the accountable human skipper for conservative review
+  (consulting a competent marine electrical technician or the
+  suppliers of the cited OEM documents as the skipper decides); the
+  scenario never resolves such a conflict automatically, and values
+  blocked pending as-built confirmation (installed battery model,
+  charger model, display variant — issue #260) remain unknowns until
+  closed through the source register, never through in-scenario
+  assumption.
+assumptions:
+  - >-
+    The standard reference configuration applies; fitted options and
+    their maintenance items (generator, thrusters, HVAC and other
+    §4.4 pending-capture document sets) are outside this slice and
+    not assumed present.
+  - >-
+    Affected-set derivation rule (document-derived, not
+    graph-derived): related_equipment is exactly the set of equipment
+    roles for which a captured register document states a periodic
+    maintenance, inspection or test requirement, plus measurement
+    roles whose measurement_points measure such a role; the biennial
+    system-level inspection is carried by affected_systems. Rule and
+    citations: README.md section 9.
+  - >-
+    The four maintenance items reflect the captured document set of
+    register v0.3.0 only; documents pending capture (§4.4 inventory)
+    may add items and do not narrow the recorded ones.
+unknowns:
+  - >-
+    No consolidated maintenance schedule, maintenance log or record
+    format is defined by any captured document; last-completion
+    evidence for every item is unsourced until vessel records are
+    reviewed.
+  - >-
+    The GFCI function-test interval is stated only as "regularly";
+    no captured document quantifies it.
+  - >-
+    Installed battery model, charger model and display variant are
+    unconfirmed as-built (issue #260); every battery-model-specific
+    maintenance item (including the Lifos instructions) is blocked
+    until confirmation.
+  - >-
+    The calibration state of the service-battery measurement role is
+    unknown; charge-state observations are single-source unless the
+    skipper adds an independent reading.
+exclusions:
+  - >-
+    The execution of any maintenance, test or repair, and any
+    instruction for it: this scenario is a review/disposition
+    reference only; execution follows the cited documents and
+    qualified persons.
+  - >-
+    Maintenance items of equipment outside the golden-path electrical
+    slice (engine/propulsion set, generator, navigation electronics,
+    windlass, pumps' vendor-specific service items and all §4.4
+    pending-capture sets).
+  - >-
+    Inverter role and AC consumers (option XH2201; no realized
+    connection instance in the standard reference configuration) and
+    the alternator's engine-side service items (propulsion document
+    set pending capture).
+  - >-
+    Seasonal/winter storage procedures (the owner's manual winter
+    note is recorded as context; the storage activity itself is
+    outside this review scenario).

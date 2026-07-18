@@ -1,18 +1,19 @@
 ---
 Artifact-ID: OMSP-REFERENCE-HANSE460-ELECTRICAL-0001
 Title: Hanse 460 Electrical-Slice Reference Model
-Version: 0.2.0
+Version: 0.3.0
 Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-9
 Classification: Public
-Related-Issue: WP-0093 / #258 (value transcription; model created by WP-0082 / #203)
+Related-Issue: WP-0085 / #206 (primary scenario; value transcription WP-0093 / #258; model created by WP-0082 / #203)
 Depends-On:
   - OMSP-SCHEMA-MARITIME-0001
   - OMSP-REFERENCE-SOURCE-0001
 Traceability:
   - ISSUE-203
   - ISSUE-205
+  - ISSUE-206
   - ISSUE-258
   - EPIC-172
   - OMSP-PLANNING-GOLDEN-PATH-0001
@@ -177,8 +178,9 @@ cd reference/hanse460 && for f in *.yaml; do echo "$f: $(grep -c 'status: unknow
 | `interface-dc-feed-refrigeration.yaml` | 0 |
 | `interface-inverter-dc-feed.yaml` | 1 |
 | `interface-shore-power-feed.yaml` | 0 |
+| `scenario-service-battery-critical-voltage.yaml` | 1 |
 | `system-electrical.yaml` | 0 |
-| **Total** | **65** |
+| **Total** | **66** |
 
 WP-0093 / #258 transcribed the owner-held document set captured by
 register v0.3.0 into the model: **34 of the 99** WP-0082 unknowns were
@@ -204,6 +206,13 @@ and circuit inventory). Per unknown group:
 - **Otherwise open:** values no captured document states (e.g.
   freshwater-pump rating, connector standard, calibration state,
   regulation type, serial numbers).
+
+The WP-0085 scenario instance contributes exactly one structured
+unknown: the trigger `threshold` of
+`scenario-service-battery-critical-voltage.yaml` (critical-low voltage,
+blocked pending as-built battery-model confirmation, issue #260). All
+other scenario-level unknown markers are textual step/field markers,
+not `status: unknown` values.
 
 The remaining unknown count is the honest state of the evidence:
 unknowns are first-class data, never hidden (golden path §10.2
@@ -248,8 +257,9 @@ in CI (`.github/workflows/instance-schemas.yml`). The third command
 checks referential integrity across instances and register resolution:
 interface/connection endpoints resolve to package ports
 (`OMSP-INTEGRITY-001`), scenario references resolve to package
-equipment/connections (`OMSP-INTEGRITY-002`; this package has no
-scenario instances yet, so the class runs over zero instances),
+equipment/connections (`OMSP-INTEGRITY-002`; since WP-0085 the package
+contains one scenario instance, so the class runs over its
+`related_equipment[]` and `causes[].implicates[]` references),
 `document:` references resolve through the register §7 mapping and cite
 no inaccessible source (`OMSP-INTEGRITY-003`), and every non-`unknown`
 value carries complete five-field provenance whose `source_id` resolves
@@ -267,7 +277,75 @@ corrections are made in the model instances, never in a view.
 | --- | --- |
 | Energy-chain view (golden path §7.1) | [`diagrams/ENERGY-CHAIN-VIEW.md`](diagrams/ENERGY-CHAIN-VIEW.md) (`OMSP-REFERENCE-HANSE460-DIAGRAM-0001`) |
 
-## 9. Safety and authority boundary
+## 9. Scenario instances (WP-0085 addition, v0.3.0)
+
+| Scenario | File | Class |
+| --- | --- | --- |
+| `scenario:hanse:460:service-battery-critical-voltage:0.1.0` | [`scenario-service-battery-critical-voltage.yaml`](scenario-service-battery-critical-voltage.yaml) | `degraded` |
+
+The scenario conforms to `OMSP-REFERENCE-SCENARIO-0001` and the
+golden-path §8 shape, validated by
+`schemas/scenario-instance.schema.json` and `OMSP-INTEGRITY-002/003/004`.
+Its trigger threshold is an explicit unknown (no captured document
+states a critical-low voltage; issue #260) — never a value asserted
+from general knowledge.
+
+**Graph-derived affected set (not hand-listed).** The scenario's
+`related_equipment[]` and the connections cited in `causes[]` are
+derived from the package connection graph: seed
+`service-battery-bank`; downstream reachability via connection
+instances (supply direction), upstream reachability (charge paths),
+plus the protection role protecting a derived element and the
+measurement role measuring a derived element. The inverter role is
+excluded mechanically: the standard configuration realizes no inverter
+connection instance (§4). Reproducible derivation (from the repository
+root, prints 11 equipment + 8 connections + the inverter exclusion):
+
+```bash
+python3 - reference/hanse460 <<'PY'
+import sys, yaml
+from pathlib import Path
+pkg = Path(sys.argv[1]); eq, cn, own = {}, {}, {}
+for f in sorted(pkg.glob("*.yaml")):
+    d = yaml.safe_load(f.read_text())
+    if not isinstance(d, dict): continue
+    i = d.get("id", "")
+    if i.startswith("equipment:"):
+        eq[i] = d
+        for p in d.get("ports", []): own[p["id"]] = i
+    elif i.startswith("connection:"): cn[i] = d
+seed = next(i for i in eq if i.endswith(":service-battery-bank"))
+edges = [(own[c["source_port"]], own[c["target_port"]], k)
+         for k, c in cn.items()]
+def bfs(start, down):
+    seen, fr = set(), {start}
+    while fr:
+        nx = {(b if down else a) for a, b, _ in edges
+              if (a if down else b) in fr} - seen - {start}
+        seen |= fr; fr = nx
+    return seen - {start}
+der = {seed} | bfs(seed, True) | bfs(seed, False)
+used = {k for a, b, k in edges if a in der and b in der}
+for i, d in eq.items():
+    if any(r in der or r in used for r in d.get("protects", []) or []):
+        der.add(i)
+    if any(m.get("measures") in der
+           for m in d.get("measurement_points", []) or []):
+        der.add(i)
+print("derived equipment (%d):" % len(der))
+[print(" ", i) for i in sorted(der)]
+print("traversed connections (%d):" % len(used))
+[print(" ", i) for i in sorted(used)]
+print("excluded:", *sorted(set(eq) - der))
+PY
+```
+
+Scenario instances are advisory reference material for the
+design-family configuration: reference inspection order, never an
+approved procedure; every decision (load shedding, protection state,
+engine start) belongs to the accountable human skipper.
+
+## 10. Safety and authority boundary
 
 This model is advisory reference data for a design-family configuration
 (`OMSP-REFERENCE-CONFIG-0001` §2): it represents no specific hull, makes

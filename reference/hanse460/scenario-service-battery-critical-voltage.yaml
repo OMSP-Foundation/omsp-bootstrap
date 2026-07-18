@@ -1,0 +1,543 @@
+# Hanse 460 electrical-slice reference model — primary operational
+# scenario (WP-0085 / #206; golden path OMSP-PLANNING-GOLDEN-PATH-0001
+# section 8; record contract OMSP-REFERENCE-SCENARIO-0001). Sourced
+# values resolve to reference/HANSE_460_SOURCE_REGISTER.md v0.3.0;
+# unknowns are explicit. Advisory reference material only — not an
+# approved procedure, not an operational instruction; no certification,
+# seaworthiness or navigation-safety claim. The accountable authority is
+# the human skipper; software observes and advises only.
+#
+# Derivation note (TS-4): affected_systems, related_equipment and the
+# connections cited in causes[] are DERIVED from the package connection
+# graph, not hand-listed. Derivation rule: seed = service-battery-bank;
+# downstream = equipment reachable from the seed via connection
+# instances in source->target (supply) direction; upstream = equipment
+# from which the seed is reachable via connection instances (charge
+# paths); plus protection roles whose protects[] names a derived
+# element and measurement roles whose measurement_points measure a
+# derived element. Reproducible command: README.md section 9. The
+# inverter role contributes nothing because the standard reference
+# configuration realizes no inverter connection instance (option path
+# XH2201, README section 4) — see exclusions.
+schema_version: "0.2.0"
+id: scenario:hanse:460:service-battery-critical-voltage:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Service-battery voltage critically low (reference inspection scenario)
+objective: >-
+  Answer, from the modeled electrical slice with full provenance, the
+  golden-path question "service-battery voltage is critical — what does
+  that mean on this boat?": which systems and equipment roles are
+  affected, which causes are plausible and what evidence each requires,
+  and in which conservative order a human can inspect them. This is a
+  reference inspection order for the design-family configuration, never
+  an approved vessel procedure.
+applicability:
+  - vessel-design:hanse:460
+  - configuration:vessel-design:hanse:460:reference-0.1.0
+accountable_authority: >-
+  Skipper (human). The skipper holds command authority for every
+  decision in this scenario, including load shedding and any protection
+  or charging state change. Software and monitoring equipment
+  (measurement role, panel displays) may observe, record, warn and
+  recommend only; no command authority is assigned to software
+  (OMSP-REFERENCE-SCENARIO-0001 section 5).
+trigger:
+  description: >-
+    Observed or reported service-battery voltage at or below a critical
+    threshold, at the service-battery measurement role (series
+    arrangement: 500 A shunt in the bank negative path with the battery
+    voltage/shunt inputs terminating on the SIMARINE SCP 220 H unit,
+    input "battery service", with an information display — series
+    circuit diagram sheets 10 and 19). The numeric threshold is
+    deliberately not asserted: it is battery-chemistry- and
+    manufacturer-specific, no captured register document states a
+    critical-low value for the reference AGM set, the installed battery
+    model is unconfirmed as-built, and the display variant-specific
+    alarm values are blocked pending as-built confirmation
+    (issue #260). Confidence of a real trigger event starts at medium
+    at best, because the calibration state of the measurement role is
+    an explicit unknown; an independent cross-check (inspection step 2)
+    is required before treating the reading as confirmed.
+  source: observed
+  timestamp: >-
+    Recorded at observation time by the observing human or from the
+    monitoring display log. This reference scenario defines the
+    recording rule, not a real event.
+  confidence: medium
+  threshold:
+    status: unknown
+    note: >-
+      Critical-low voltage threshold for the service bank: no captured
+      source register document states it; never asserted from general
+      knowledge (golden path section 8). Closure path: as-built
+      confirmation of the installed battery model, then transcription
+      from the confirmed manufacturer document (issue #260; source
+      register section 4.4). Display variant-specific alarm values are
+      likewise blocked (issue #260).
+preconditions:
+  - >-
+    Configuration applicability confirmed: the vessel corresponds to
+    configuration:vessel-design:hanse:460:reference-0.1.0 (standard AGM
+    battery set; fitted options may change charge paths — series
+    circuit diagram sheet 10 option notes).
+  - >-
+    Measurement source identified: which instrument produced the
+    reading. The series measurement arrangement is the 500 A shunt /
+    SCP 220 H chain; the installed display variant and its calibration
+    state are explicit unknowns (issue #260) and must be stated, not
+    assumed.
+  - >-
+    The accountable human (skipper) is available; no step of this
+    scenario is executable by software authority alone.
+affected_systems:
+  - system:vessel-design:hanse:460:electrical
+causes:
+  - id: cause:hanse:460:service-battery-critical-voltage:charge-path-shore-failure
+    description: >-
+      Shore charging path not delivering: shore supply absent or
+      disconnected, inlet protection open, or battery charger not
+      producing DC output. Derived charge path: shore-power-inlet ->
+      (shore-power-feed) -> battery-charger -> (charger-dc-output) ->
+      service-battery-bank.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:charger-dc-output
+    evidence_requirement: >-
+      Observation of shore-supply presence and charger operating state
+      (inspection step 4), and of charging current at the shunt display
+      while the shore path should be active. Charger status indications
+      are family-common values from the ChargeMaster Plus manual; the
+      installed charger model is unconfirmed as-built (issue #260).
+  - id: cause:hanse:460:service-battery-critical-voltage:charge-path-alternator-failure
+    description: >-
+      Engine-driven charging path not delivering while under way:
+      alternator, charge-relay/battery-combiner path or charge wire not
+      charging the service bank. Derived charge path:
+      alternator-charging -> (alternator-charge-feed) ->
+      service-battery-bank; the realized path depends on the fitted
+      battery variant (series circuit diagram sheets 10, 20, 21).
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charging
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charge-feed
+    evidence_requirement: >-
+      Charging-current observation at the shunt display with the engine
+      running (inspection step 5, engine start is a skipper decision).
+      Alternator regulation data is an explicit unknown pending the
+      propulsion document set (source register section 4.4).
+  - id: cause:hanse:460:service-battery-critical-voltage:excessive-consumer-load
+    description: >-
+      Genuine deep discharge from consumer load exceeding charging
+      input over time, through the main DC distribution to the derived
+      consumer set (refrigeration, navigation lights, bilge pump,
+      freshwater pump).
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:battery-main-feed
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-refrigeration
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-navigation-lights
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-bilge-pump
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-freshwater-pump
+    evidence_requirement: >-
+      Present discharge current at the 500 A shunt reading compared
+      against which consumers are switched on (inspection step 3).
+      Expected per-consumer draw is largely unsourced in the model
+      (explicit unknowns), so this comparison is qualitative and its
+      conclusion belongs to the human.
+  - id: cause:hanse:460:service-battery-critical-voltage:protection-open
+    description: >-
+      A protection device in the charge or supply path is open (main
+      switch, strip fuse, latching relay / battery-protection
+      controller per the series device inventory), isolating a charge
+      source or misrepresenting the bank state at the panel.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:protection-dc-main
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:battery-main-feed
+    evidence_requirement: >-
+      Visual state observation of main switches and fuse positions per
+      the owner's manual fuse overview (inspection step 6). Observation
+      only: this scenario contains no instruction to operate, reset or
+      bypass any protection device.
+  - id: cause:hanse:460:service-battery-critical-voltage:battery-degradation
+    description: >-
+      Battery ageing or cell damage: the bank reaches the critical
+      voltage under normal load because its usable capacity is
+      degraded.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+    evidence_requirement: >-
+      Manufacturer acceptance criteria for the installed battery model
+      — currently blocked: the installed model is unconfirmed as-built
+      and no manufacturer battery value is transcribed (issue #260).
+      Until sourced, degradation cannot be confirmed or excluded from
+      the model; assessment routes to the conservative human-review
+      branch (inspection step 8).
+  - id: cause:hanse:460:service-battery-critical-voltage:measurement-error
+    description: >-
+      Measurement error: the displayed voltage is wrong (shunt wiring,
+      display fault, configuration or calibration), and the bank is not
+      actually at a critical level.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery
+    evidence_requirement: >-
+      An independent second voltage reading compared against the panel
+      value (inspection step 2). The calibration state of the
+      measurement role is an explicit unknown; a single uncorroborated
+      reading is never treated as confirmed.
+inspection_sequence:
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:1
+    sequence: 1
+    responsible_actor: Skipper (human), responsible; monitoring display, informed source only
+    action: >-
+      Observe and record the service-battery voltage and its instrument:
+      equipment role measurement-service-battery (500 A shunt / SCP
+      220 H chain, series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheets 10 and 19).
+      Record which display produced the value; the installed display
+      variant is an explicit unknown (issue #260).
+    entry_criteria: >-
+      Trigger condition observed or reported; preconditions reviewed by
+      the skipper.
+    completion_criteria: >-
+      Voltage value, time and measurement source recorded.
+    expected_observation: >-
+      A voltage reading at or below the (unsourced, explicitly unknown)
+      critical threshold; the reading itself is the evidence under
+      test, not yet a confirmed bank state.
+    escalation: >-
+      If no reading can be obtained, or the display state is anomalous,
+      stop and route to the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:2
+    sequence: 2
+    responsible_actor: Skipper (human)
+    action: >-
+      Cross-check the reading against an independent second source
+      before acting on it (cause: measurement-error; equipment role
+      measurement-service-battery). No captured register document
+      defines a cross-check procedure or a second installed voltage
+      source — explicit unknown marker: the method and instrument for
+      the independent reading are unsourced and left to the skipper.
+    entry_criteria: Step 1 completed and recorded.
+    completion_criteria: >-
+      Second reading recorded, or recorded decision that no independent
+      source is available.
+    expected_observation: >-
+      Agreement of the two readings (supports a genuine low-voltage
+      state) or disagreement (supports measurement error).
+    escalation: >-
+      Conflicting readings are never resolved by this scenario: route
+      to the conservative human-review branch and treat the bank state
+      as unconfirmed.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:3
+    sequence: 3
+    responsible_actor: Skipper (human)
+    action: >-
+      Observe the present service-bank current at the shunt display and
+      note which consumers are switched on at the main DC distribution
+      (equipment roles measurement-service-battery and
+      dc-main-distribution; switched consumer circuits per the series
+      circuit diagram document:hanseyachts:h20b-7215-100-010:03
+      sheets 10 and 16-19 and the owner's manual
+      document:hanseyachts:owners-manual-460-en:v11 chapter 2
+      section 1.5.1, printed pages 61-63).
+    entry_criteria: Step 2 completed; bank state provisionally treated as genuine.
+    completion_criteria: >-
+      Discharge/charge current and active consumer set recorded.
+    expected_observation: >-
+      Either a discharge current consistent with the active consumer
+      set (supports excessive-consumer-load or charge-path causes) or
+      a charging current (weakens both).
+    escalation: >-
+      A current reading inconsistent with the switch states (e.g.
+      large discharge with all consumers off) is ambiguous evidence:
+      stop and route to the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:4
+    sequence: 4
+    responsible_actor: Skipper (human)
+    action: >-
+      If on shore power: observe the shore charging path — shore supply
+      present at the inlet and charger operating state (equipment roles
+      shore-power-inlet and battery-charger; shore/charger arrangement
+      per the series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheet 10; charger
+      status indications per the family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03 —
+      family-common values only, installed model unconfirmed as-built,
+      issue #260).
+    entry_criteria: >-
+      Step 3 completed; vessel is, or is expected to be, on the shore
+      charging path.
+    completion_criteria: >-
+      Shore-supply presence and charger state recorded (observation
+      only; no reset or reconfiguration is instructed here).
+    expected_observation: >-
+      Charger delivering charge current (weakens the shore-path cause)
+      or visibly not delivering (supports it).
+    escalation: >-
+      Any charger fault indication or hazard sign (heat, smell, smoke)
+      means: do not intervene, stop the sequence, route to the
+      conservative human-review branch / shore service.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:5
+    sequence: 5
+    responsible_actor: Skipper (human)
+    action: >-
+      If under way or shore power unavailable: decide whether to run
+      the engine, and if running, observe whether the service bank
+      receives charging current at the shunt display (equipment role
+      alternator-charging; engine charge path per the series circuit
+      diagram document:hanseyachts:h20b-7215-100-010:03 sheets 10, 20
+      and 21; the realized path depends on the fitted battery variant).
+      Starting the engine is a navigation/safety decision of the
+      skipper, not an instruction of this scenario.
+    entry_criteria: >-
+      Step 3 completed; skipper has decided engine operation is safe
+      and appropriate.
+    completion_criteria: >-
+      Charging-current observation with engine running recorded, or
+      recorded skipper decision not to run the engine.
+    expected_observation: >-
+      Charging current into the bank with engine running (weakens the
+      alternator-path cause) or none (supports it).
+    escalation: >-
+      No charging current with engine running is charge-path evidence,
+      not an instruction to intervene: record and continue; any
+      ambiguity routes to the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:6
+    sequence: 6
+    responsible_actor: Skipper (human)
+    action: >-
+      Visually inspect the state of the service-side protection
+      devices: main battery switches and fuse positions (equipment role
+      protection-dc-main; device inventory per the series circuit
+      diagram document:hanseyachts:h20b-7215-100-010:03 sheet 10;
+      locations and fuse overview per the owner's manual
+      document:hanseyachts:owners-manual-460-en:v11, printed pages
+      57-59 and 64). Observation only: this scenario never instructs
+      operating, resetting or bypassing a protection device.
+    entry_criteria: >-
+      Steps 4/5 (as applicable) completed without resolving the cause.
+    completion_criteria: >-
+      Switch and visible fuse states recorded; anomalies noted
+      explicitly.
+    expected_observation: >-
+      All expected devices closed/intact (weakens the protection-open
+      cause) or an open/tripped device found (supports it).
+    escalation: >-
+      An open protection device is a finding for human judgment: the
+      decision whether and how to restore it belongs to the skipper or
+      qualified service, outside this scenario; if the reason for the
+      open device is unknown, treat re-energizing as unsafe and route
+      to the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:7
+    sequence: 7
+    responsible_actor: Skipper (human), sole decision authority
+    action: >-
+      Decide load prioritization (load shedding) while the bank state
+      remains critical. This decision is reserved to the human skipper
+      and must weigh navigation safety and bilge capability: the
+      derived consumer set includes the navigation lights and the
+      electric bilge pump (69 l/min per the owner's manual
+      document:hanseyachts:owners-manual-460-en:v11 chapter 2
+      section 1.2.5, printed page 52; equipment roles
+      dc-main-distribution, dc-consumer-bilge-pump,
+      dc-consumer-navigation-lights, dc-consumer-refrigeration,
+      dc-consumer-freshwater-pump).
+    entry_criteria: >-
+      Steps 1-3 completed; bank state treated as genuinely critical.
+    completion_criteria: >-
+      Skipper's load decision and its rationale recorded, including the
+      effect on navigation-light and bilge-pump availability.
+    expected_observation: >-
+      Reduced discharge current after the human decision, observed at
+      the shunt display.
+    escalation: >-
+      If reducing load does not change the observed discharge current,
+      the evidence is inconsistent: stop and route to the conservative
+      human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:8
+    sequence: 8
+    responsible_actor: Skipper (human), with shore support / qualified service consulted
+    action: >-
+      Battery-condition assessment (cause: battery-degradation;
+      equipment role service-battery-bank). This step cannot be
+      completed from the captured document set — explicit unknown
+      marker: the installed battery model is unconfirmed as-built and
+      no manufacturer battery criteria are transcribed (issue #260) —
+      so the assessment is deferred to the accountable human with the
+      confirmed manufacturer documentation.
+    entry_criteria: >-
+      Charge paths and protection state inspected (steps 4-6) without
+      identifying a cause.
+    completion_criteria: >-
+      Recorded human disposition: degradation suspected/not suspected,
+      and what as-built confirmation is still required.
+    expected_observation: >-
+      No model-backed observation is defined; any conclusion here is
+      human judgment, explicitly marked as resting on unsourced data.
+    escalation: >-
+      This step is itself the conservative branch for battery
+      condition: unknown data never becomes an assumed-good state
+      (OMSP-REFERENCE-SCENARIO-0001 section 4).
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:service-battery-critical-voltage:0.1.0:9
+    sequence: 9
+    responsible_actor: Skipper (human)
+    action: >-
+      Close the scenario: record the outcome class (expected /
+      degraded-but-controlled / aborted / unacceptable / unknown per
+      OMSP-REFERENCE-SCENARIO-0001 section 9), the evidence gathered at
+      each step, and every value that remained unknown (equipment roles
+      service-battery-bank and measurement-service-battery as the
+      observed elements; recording rule defined by this scenario, no
+      captured document prescribes a log format — explicit unknown
+      marker).
+    entry_criteria: >-
+      Sequence ended by cause identification, by skipper decision, or
+      by a stop/abort condition.
+    completion_criteria: >-
+      Outcome, evidence list and open unknowns recorded.
+    expected_observation: >-
+      A closed record whose every claim carries its source or an
+      explicit unknown, consistent with the provenance rules of the
+      model package.
+    escalation: >-
+      If the closing record would contain a claim without source or
+      unknown marking, the record is incomplete: route to the
+      conservative human-review branch instead of closing.
+    human_confirmation_required: true
+safety_constraints:
+  - >-
+    Electrical hazard: the service bank and its links carry high
+    currents (500 A shunt path, 150 mm2 battery links per the series
+    circuit diagram); inspection is observation-only, and no step
+    authorizes working on live conductors or battery terminals.
+  - >-
+    Load-shedding decisions that affect navigation capability
+    (navigation lights) or bilge capability (electric bilge pump,
+    69 l/min) are reserved to the human skipper in full navigation
+    context; software and this scenario may only present the derived
+    consumer set and observations.
+  - >-
+    No instruction to bypass, defeat or force any protection device
+    exists in this scenario, and none may be derived from it;
+    protection state changes are human decisions outside this
+    scenario's authority.
+  - >-
+    Conservative stop: at any ambiguity, conflicting evidence or
+    suspected hazard (heat, smell, smoke, anomalous display), the
+    sequence stops and the situation routes to the accountable human;
+    proceeding on unresolved conflict is prohibited.
+  - >-
+    Advisory boundary: this scenario is reference material derived
+    from a design-family model; it is not an approved procedure,
+    carries no seaworthiness or navigation-safety claim, and approved
+    vessel instructions and the skipper's judgment always prevail
+    (OMSP-REFERENCE-SCENARIO-0001 section 14).
+related_equipment:
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-refrigeration
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-navigation-lights
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-bilge-pump
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-freshwater-pump
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:alternator-charging
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:protection-dc-main
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery
+source_manuals:
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11
+  - document:mastervolt:chargemaster-plus-manual-10000016594:03
+  - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+unacceptable_outcomes:
+  - >-
+    Loss of bilge-pumping or navigation-light capability caused by load
+    shedding without a recorded human decision.
+  - >-
+    Continued discharge until essential consumers become unavailable
+    without a recorded human decision.
+  - >-
+    Any protection device bypassed, defeated or re-energized without
+    understanding why it opened.
+  - >-
+    An unknown value (threshold, battery model, calibration state)
+    silently treated as a known or safe value.
+  - >-
+    Software or this scenario acting as command authority for any
+    decision.
+stop_abort_conditions:
+  - >-
+    Stop if the panel reading and an independent reading conflict and
+    the conflict cannot be resolved by observation; do not proceed on
+    unresolved conflict.
+  - >-
+    Abort immediately on any sign of electrical hazard (heat, smell,
+    smoke, discolored insulation) or suspected hazard to people; do not
+    continue inspection.
+  - >-
+    Stop if voltage continues to fall although an inspected charging
+    path appears active — the evidence is inconsistent and the
+    situation exceeds this reference scenario.
+  - >-
+    Stop at any step whose required evidence is blocked by an as-built
+    unknown (issue #260); never substitute a guessed value.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence at any step routes to the accountable
+  human skipper for conservative review (consulting qualified service
+  or shore support as the skipper decides); the scenario never resolves
+  such a conflict automatically, and values blocked pending as-built
+  confirmation (critical threshold, installed battery model, display
+  variant and calibration state — issue #260) remain unknowns until
+  closed through the source register, never through in-scenario
+  assumption.
+assumptions:
+  - >-
+    The standard reference configuration applies (AGM standard battery
+    set); fitted options (XH1001, XH1005, XH2201) may change charge
+    paths and are not assumed present.
+  - >-
+    Affected-set derivation rule (graph-derived, not hand-listed):
+    related_equipment and the connections cited in causes[] are the
+    equipment reachable from service-battery-bank via connection
+    instances downstream (supply direction) and upstream (charge
+    paths), plus the protection role protecting a derived element and
+    the measurement role measuring a derived element; reproducible
+    command in README.md section 9.
+unknowns:
+  - >-
+    Critical-low voltage threshold of the service bank (trigger
+    threshold): no captured document states it; closure requires
+    as-built battery-model confirmation (issue #260).
+  - >-
+    Installed battery model, charger model and display variant are
+    unconfirmed as-built (issue #260); all family-level citations are
+    marked as such.
+  - >-
+    Calibration state and measurement authority of the service-battery
+    measurement role are unknown.
+  - >-
+    Per-consumer expected current draw is largely unsourced; the
+    step-3 load comparison is qualitative.
+exclusions:
+  - >-
+    Inverter role and AC consumers: the standard reference
+    configuration realizes no inverter connection instance (option
+    XH2201; README section 4), so the graph derivation excludes the
+    inverter; AC-side consumers are outside the golden-path slice
+    (golden path section 5.2).
+  - >-
+    Engine start battery and engine starting circuit (golden path
+    section 5.2).
+  - >-
+    Any repair, reset or reconfiguration procedure: this scenario is
+    inspection/observation reference only.

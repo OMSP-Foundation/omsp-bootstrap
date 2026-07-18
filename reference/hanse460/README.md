@@ -1,12 +1,12 @@
 ---
 Artifact-ID: OMSP-REFERENCE-HANSE460-ELECTRICAL-0001
 Title: Hanse 460 Electrical-Slice Reference Model
-Version: 0.3.0
+Version: 0.4.0
 Status: Draft
 Owner: toss-cengiz
 Baseline: Sprint-9
 Classification: Public
-Related-Issue: WP-0085 / #206 (primary scenario; value transcription WP-0093 / #258; model created by WP-0082 / #203)
+Related-Issue: WP-0086 / #207 (additional scenarios; primary scenario WP-0085 / #206; value transcription WP-0093 / #258; model created by WP-0082 / #203)
 Depends-On:
   - OMSP-SCHEMA-MARITIME-0001
   - OMSP-REFERENCE-SOURCE-0001
@@ -14,6 +14,7 @@ Traceability:
   - ISSUE-203
   - ISSUE-205
   - ISSUE-206
+  - ISSUE-207
   - ISSUE-258
   - EPIC-172
   - OMSP-PLANNING-GOLDEN-PATH-0001
@@ -178,9 +179,11 @@ cd reference/hanse460 && for f in *.yaml; do echo "$f: $(grep -c 'status: unknow
 | `interface-dc-feed-refrigeration.yaml` | 0 |
 | `interface-inverter-dc-feed.yaml` | 1 |
 | `interface-shore-power-feed.yaml` | 0 |
+| `scenario-maintenance-due.yaml` | 1 |
 | `scenario-service-battery-critical-voltage.yaml` | 1 |
+| `scenario-shore-power-loss.yaml` | 0 |
 | `system-electrical.yaml` | 0 |
-| **Total** | **66** |
+| **Total** | **67** |
 
 WP-0093 / #258 transcribed the owner-held document set captured by
 register v0.3.0 into the model: **34 of the 99** WP-0082 unknowns were
@@ -207,12 +210,19 @@ and circuit inventory). Per unknown group:
   freshwater-pump rating, connector standard, calibration state,
   regulation type, serial numbers).
 
-The WP-0085 scenario instance contributes exactly one structured
-unknown: the trigger `threshold` of
+The scenario instances contribute exactly two structured unknowns:
+the trigger `threshold` of
 `scenario-service-battery-critical-voltage.yaml` (critical-low voltage,
-blocked pending as-built battery-model confirmation, issue #260). All
-other scenario-level unknown markers are textual step/field markers,
-not `status: unknown` values.
+blocked pending as-built battery-model confirmation, issue #260) and
+the trigger `threshold` of `scenario-maintenance-due.yaml` (no
+consolidated maintenance-due threshold: item-specific intervals are
+recorded per cause, the GFCI test interval is unstated, and
+battery-model-specific intervals are blocked pending as-built
+confirmation, issue #260). The `scenario-shore-power-loss.yaml`
+trigger threshold is a sourced value (charger AC-error condition and
+the family manual's "< 75 V AC" troubleshooting bound), so that file
+carries zero structured unknowns. All other scenario-level unknown
+markers are textual step/field markers, not `status: unknown` values.
 
 The remaining unknown count is the honest state of the evidence:
 unknowns are first-class data, never hidden (golden path §10.2
@@ -257,8 +267,8 @@ in CI (`.github/workflows/instance-schemas.yml`). The third command
 checks referential integrity across instances and register resolution:
 interface/connection endpoints resolve to package ports
 (`OMSP-INTEGRITY-001`), scenario references resolve to package
-equipment/connections (`OMSP-INTEGRITY-002`; since WP-0085 the package
-contains one scenario instance, so the class runs over its
+equipment/connections (`OMSP-INTEGRITY-002`; since WP-0086 the package
+contains three scenario instances, so the class runs over their
 `related_equipment[]` and `causes[].implicates[]` references),
 `document:` references resolve through the register §7 mapping and cite
 no inaccessible source (`OMSP-INTEGRITY-003`), and every non-`unknown`
@@ -277,32 +287,84 @@ corrections are made in the model instances, never in a view.
 | --- | --- |
 | Energy-chain view (golden path §7.1) | [`diagrams/ENERGY-CHAIN-VIEW.md`](diagrams/ENERGY-CHAIN-VIEW.md) (`OMSP-REFERENCE-HANSE460-DIAGRAM-0001`) |
 
-## 9. Scenario instances (WP-0085 addition, v0.3.0)
+## 9. Scenario instances (WP-0085 / WP-0086, v0.4.0)
 
 | Scenario | File | Class |
 | --- | --- | --- |
 | `scenario:hanse:460:service-battery-critical-voltage:0.1.0` | [`scenario-service-battery-critical-voltage.yaml`](scenario-service-battery-critical-voltage.yaml) | `degraded` |
+| `scenario:hanse:460:shore-power-loss:0.1.0` | [`scenario-shore-power-loss.yaml`](scenario-shore-power-loss.yaml) | `degraded` |
+| `scenario:hanse:460:maintenance-due:0.1.0` | [`scenario-maintenance-due.yaml`](scenario-maintenance-due.yaml) | `maintenance` |
 
-The scenario conforms to `OMSP-REFERENCE-SCENARIO-0001` and the
+Every scenario conforms to `OMSP-REFERENCE-SCENARIO-0001` and the
 golden-path §8 shape, validated by
 `schemas/scenario-instance.schema.json` and `OMSP-INTEGRITY-002/003/004`.
-Its trigger threshold is an explicit unknown (no captured document
-states a critical-low voltage; issue #260) — never a value asserted
-from general knowledge.
+No trigger threshold is asserted from general knowledge: the
+critical-voltage and maintenance-due thresholds are explicit unknowns
+(issue #260; see §5), and the shore-power-loss threshold is
+transcribed from the captured charger family manual.
 
-**Graph-derived affected set (not hand-listed).** The scenario's
-`related_equipment[]` and the connections cited in `causes[]` are
-derived from the package connection graph: seed
-`service-battery-bank`; downstream reachability via connection
-instances (supply direction), upstream reachability (charge paths),
-plus the protection role protecting a derived element and the
-measurement role measuring a derived element. The inverter role is
-excluded mechanically: the standard configuration realizes no inverter
-connection instance (§4). Reproducible derivation (from the repository
-root, prints 11 equipment + 8 connections + the inverter exclusion):
+**Shared cause taxonomy (WP-0086).** Cause-taxonomy entries are minted
+once, by the first scenario that introduces them, and afterwards
+**reused by identity**: a shared entry appears in a later scenario
+with the identical cause `id`, `description` and `implicates[]` —
+never as a re-worded near-copy — while `evidence_requirement` stays
+scenario-local because it names local inspection steps. Currently one
+entry is shared:
+`cause:hanse:460:service-battery-critical-voltage:charge-path-shore-failure`
+(minted by the critical-voltage scenario, reused as the family-level
+entry of the shore-power-loss scenario, whose scenario-specific causes
+refine it). All other causes are scenario-specific; the AC-side
+`inlet-protection-open` (shore scenario, FI/LS 2F1) is deliberately
+distinct from the DC-side `protection-open` (critical-voltage
+scenario, protection-dc-main role) — different protection domains,
+not a duplicated entry.
+
+**Maintenance-relationship mapping (WP-0086, TS-5).** The
+maintenance-due scenario models each document-stated maintenance item
+as a maintenance constraint on a model element, mapped to the
+existing ontology without extension: the item is an instance of
+`OMSP-CONCEPT-CONSTRAINT` constraining an equipment role or vessel
+system (`OMSP-RELATION-CONSTRAINS`), traceable to its captured source
+record (`OMSP-RELATION-SOURCED-FROM` → `OMSP-CONCEPT-SOURCE-RECORD`),
+inside a scenario of primary class `maintenance`
+(`OMSP-CONCEPT-OPERATIONAL-SCENARIO`, `OMSP-REFERENCE-SCENARIO-0001`
+§2) that uses (`OMSP-RELATION-USES`) the constrained roles. The four
+captured items and their extraction locations are recorded in the
+scenario's `causes[]`.
+
+**Graph-derived affected set (not hand-listed).** The
+`related_equipment[]` and the connections cited in `causes[]` of the
+`degraded` scenarios are derived from the package connection graph:
+seed equipment role; downstream reachability via connection instances
+(supply direction), upstream reachability (charge paths), plus the
+protection role protecting a derived element and the measurement role
+measuring a derived element. The inverter role is excluded
+mechanically: the standard configuration realizes no inverter
+connection instance (§4). Reproducible derivation (from the
+repository root; the seed local ID is the second argument):
+
+- seed `service-battery-bank` (critical-voltage scenario): prints
+  11 equipment + 8 connections, excluded `inverter`;
+- seed `shore-power-inlet` (shore-power-loss scenario): prints
+  10 equipment + 7 connections, excluded `alternator-charging` (not
+  reachable from the inlet seed — unaffected by a shore-supply loss)
+  and `inverter`.
+
+The maintenance-due scenario's affected set is **document-derived,
+not graph-derived**: its `related_equipment[]` is exactly the set of
+equipment roles for which a captured register document states a
+periodic maintenance, inspection or test requirement
+(`service-battery-bank` — owner's manual Ch. 2 §1.5.1 "Maintenance",
+printed p. 64; `battery-charger` — ChargeMaster Plus family manual
+§5.6, PDF p. 24; `shore-power-inlet` — owner's manual Ch. 2 §1.5.2
+GFCI test, printed p. 66), plus measurement roles whose
+`measurement_points` measure such a role
+(`measurement-service-battery`); the biennial system-level
+inspection (owner's manual Ch. 1 §1.2.5, printed p. 6) is carried by
+`affected_systems`.
 
 ```bash
-python3 - reference/hanse460 <<'PY'
+python3 - reference/hanse460 service-battery-bank <<'PY'
 import sys, yaml
 from pathlib import Path
 pkg = Path(sys.argv[1]); eq, cn, own = {}, {}, {}
@@ -314,7 +376,7 @@ for f in sorted(pkg.glob("*.yaml")):
         eq[i] = d
         for p in d.get("ports", []): own[p["id"]] = i
     elif i.startswith("connection:"): cn[i] = d
-seed = next(i for i in eq if i.endswith(":service-battery-bank"))
+seed = next(i for i in eq if i.endswith(":" + sys.argv[2]))
 edges = [(own[c["source_port"]], own[c["target_port"]], k)
          for k, c in cn.items()]
 def bfs(start, down):

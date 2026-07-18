@@ -1,0 +1,624 @@
+# Hanse 460 electrical-slice reference model — shore-power-loss
+# scenario (WP-0086 / #207; WP-0085 pattern; record contract
+# OMSP-REFERENCE-SCENARIO-0001). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
+# Advisory reference material only — not an approved procedure, not an
+# operational instruction; no certification, seaworthiness or
+# navigation-safety claim. The accountable authority is the human
+# skipper; software observes and advises only.
+#
+# Derivation note: affected_systems, related_equipment and the
+# connections cited in causes[] are DERIVED from the package connection
+# graph with the README section 9 rule, seed = shore-power-inlet
+# (downstream supply reachability; upstream none; plus protection roles
+# whose protects[] names a derived element and measurement roles whose
+# measurement_points measure a derived element). Reproducible command:
+# README.md section 9 (prints 10 equipment + 7 connections). The
+# alternator role is excluded mechanically (not reachable from the
+# inlet seed — it is unaffected by a shore-supply loss and enters only
+# as a skipper decision about alternative charging, step 6); the
+# inverter role is excluded because the standard reference
+# configuration realizes no inverter connection instance (option path
+# XH2201, README section 4).
+#
+# Shared cause taxonomy (TS-4): the family-level entry
+# cause:hanse:460:service-battery-critical-voltage:charge-path-shore-failure
+# was minted by the WP-0085 scenario and is REUSED here by identity —
+# identical cause id, description and implicates[]; only
+# evidence_requirement is scenario-local (it names local inspection
+# steps). The scenario-specific causes below refine that shared entry;
+# none re-describes it. See README.md section 9, shared-taxonomy note.
+schema_version: "0.2.0"
+id: scenario:hanse:460:shore-power-loss:0.1.0
+concept: OMSP-CONCEPT-OPERATIONAL-SCENARIO
+class: degraded
+title: Shore-power supply loss on the shore connection (reference inspection scenario)
+objective: >-
+  Answer, from the modeled electrical slice with full provenance, the
+  question "shore power is lost — what does that mean on this boat?":
+  which systems and equipment roles are affected through the derived
+  shore-power-inlet -> charger -> service-bank -> DC-consumer chain,
+  which causes are plausible and what evidence each requires, and in
+  which conservative order a human can inspect them. This is a
+  reference inspection order for the design-family configuration,
+  never an approved vessel procedure.
+applicability:
+  - vessel-design:hanse:460
+  - configuration:vessel-design:hanse:460:reference-0.1.0
+accountable_authority: >-
+  Skipper (human). The skipper holds command authority for every
+  decision in this scenario, including any reconnection, protection
+  state change, load prioritization and the decision to use an
+  alternative charging path. Software and monitoring equipment
+  (charger status display, measurement role, panel displays) may
+  observe, record, warn and recommend only; no command authority is
+  assigned to software (OMSP-REFERENCE-SCENARIO-0001 section 5).
+trigger:
+  description: >-
+    Observed loss of the 230 V shore supply while the vessel is on the
+    shore connection: the battery charger stops delivering ("No output
+    voltage and/or current — No AC input" per the family manual
+    troubleshooting table; alarm "AC error — AC input (mains) out of
+    range" and error-menu LED indication per the status display), and/or
+    the service-battery measurement role (500 A shunt / SCP 220 H chain,
+    series circuit diagram sheets 10 and 19) shows discharge while the
+    shore charging path should be active. A single indication is not
+    treated as a confirmed supply loss: the installed charger model and
+    display variant are unconfirmed as-built (issue #260), so
+    independent confirmation at the inlet and breaker box (inspection
+    step 2) is required.
+  source: observed
+  timestamp: >-
+    Recorded at observation time by the observing human or from the
+    monitoring display log. This reference scenario defines the
+    recording rule, not a real event.
+  confidence: medium
+  threshold:
+    value: >-
+      Charger AC-error condition "AC input (mains) out of range"; the
+      family manual's troubleshooting table treats AC input voltage
+      below 75 V AC as too low. No vessel-specific alarm threshold is
+      captured.
+    provenance:
+      source_id: source:manufacturer:owner-held:mastervolt-chargemaster-plus-manual-10000016594-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Vendor manual
+        document:mastervolt:chargemaster-plus-manual-10000016594:03,
+        section 4.2.2 Alarms (PDF page 17), row "AC error — AC input
+        (mains) out of range", and chapter 6 troubleshooting table
+        (PDF page 26), row "AC input voltage too low (< 75VAC)".
+        Family-common values of the charger family documented in the
+        owner-held delivery set; the installed charger model is not
+        confirmed as-built (issue #260).
+preconditions:
+  - >-
+    Configuration applicability confirmed: the vessel corresponds to
+    configuration:vessel-design:hanse:460:reference-0.1.0 (shore 1 feed
+    is the standard drawing path; shore 2 and generator paths are
+    provisioned options — series circuit diagram sheet 2 — and are not
+    assumed present).
+  - >-
+    The vessel is, or was, connected to shore power through the shore
+    connection socket; the shore charging path is expected to be
+    active.
+  - >-
+    The accountable human (skipper) is available; no step of this
+    scenario is executable by software authority alone.
+affected_systems:
+  - system:vessel-design:hanse:460:electrical
+causes:
+  - id: cause:hanse:460:service-battery-critical-voltage:charge-path-shore-failure
+    description: >-
+      Shore charging path not delivering: shore supply absent or
+      disconnected, inlet protection open, or battery charger not
+      producing DC output. Derived charge path: shore-power-inlet ->
+      (shore-power-feed) -> battery-charger -> (charger-dc-output) ->
+      service-battery-bank.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:charger-dc-output
+    evidence_requirement: >-
+      Family-level shared taxonomy entry, minted by
+      scenario:hanse:460:service-battery-critical-voltage:0.1.0 and
+      reused here by identity (same cause id and description). In this
+      scenario it is the condition under inspection; the
+      scenario-specific causes below decompose it into path segments,
+      and its evidence is the union of the segment observations
+      (inspection steps 1-5).
+  - id: cause:hanse:460:shore-power-loss:shore-side-supply-failure
+    description: >-
+      Supply failure on the shore side of the connection: the marina
+      pedestal or shore-side protection no longer delivers, so no
+      supply reaches the vessel inlet although the vessel-side path is
+      intact. The shore-side installation is outside the model
+      boundary; aboard it is observable only as absence of supply at
+      the inlet with intact vessel-side devices.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+    evidence_requirement: >-
+      Observation at the inlet and breaker box (step 2) showing intact
+      vessel-side devices, plus shore-side observation (step 3). No
+      captured register document describes the shore-side installation
+      — explicit unknown marker: shore-pedestal evidence is unsourced
+      and its assessment belongs to the human and the marina operator.
+  - id: cause:hanse:460:shore-power-loss:shore-cable-disconnected-or-damaged
+    description: >-
+      The shore-connecting cable is physically disconnected, unevenly
+      plugged or damaged: the owner's manual requires the cap opening
+      angle of the shore power cable to be at least 180 degrees to
+      prevent tilting or uneven plugging, requires a compatible
+      shore-connecting line, and warns that the cable and connectors
+      must have no contact with the water.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+    evidence_requirement: >-
+      Visual observation of the cable seating, cap and connectors at
+      both ends (step 3; owner's manual
+      document:hanseyachts:owners-manual-460-en:v11 Chapter 2 section
+      1.5.2 "Shore connection", printed page 66, PDF page 76). Any
+      re-plugging follows the owner's-manual order and is a skipper
+      action outside this scenario's authority.
+  - id: cause:hanse:460:shore-power-loss:inlet-protection-open
+    description: >-
+      The shore-feed protection is open: the combined RCD/breaker
+      "FI/LS 32A" (2F1) of the shore 1 feed in the breaker box has
+      tripped or been switched off — including a legitimate GFCI trip,
+      since the owner's manual states the shore power is protected
+      with a GFCI device "switching off the system immediately at a
+      malfunction".
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+    evidence_requirement: >-
+      Visual position observation of the 2F1 FI/LS device in the
+      breaker box ("technic room aft prt", series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheet 2; GFCI statement
+      per owner's manual document:hanseyachts:owners-manual-460-en:v11
+      Chapter 2 section 1.5.2, printed page 66). Observation only: an
+      open protection device is a finding for human judgment, and
+      re-energizing after an unexplained trip is treated as unsafe.
+  - id: cause:hanse:460:shore-power-loss:isolation-device-fault
+    description: >-
+      The galvanic-isolation device in the shore feed interrupts or
+      degrades the supply: the series drawing places a 32 A galvanic
+      isolator in the shore 1 feed and the owner's manual device list
+      names a galvanic isolator; the owner-held delivery set holds
+      manuals for both a Victron 7000 W isolation transformer and a
+      WhisperPower WP-GI galvanic isolation transformer, and which
+      isolation device (if either transformer) is installed is not
+      confirmed as-built (issue #260).
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+    evidence_requirement: >-
+      Indication observation per the applicable vendor manual
+      (document:victron:isolation-transformer-7000w-manual:03 or
+      document:whisperpower:wp-gi-3600-manual:undated) — blocked
+      pending as-built confirmation of the installed unit (issue
+      #260); until confirmed, assessment routes to the conservative
+      human-review branch. Bypassing or defeating galvanic isolation
+      is prohibited and no evidence step may require it.
+  - id: cause:hanse:460:shore-power-loss:charger-ac-stage-failure
+    description: >-
+      The battery charger itself does not accept or process the
+      available AC supply: device fault, charger switched off, or AC
+      input out of the accepted range at the charger, while shore
+      supply is present upstream.
+    implicates:
+      - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+      - connection:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-feed
+    evidence_requirement: >-
+      Charger status observation (step 1): status-display LED states
+      and error menu (Battery 2 error LED = "AC error — check AC
+      voltage/frequency") per the family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03,
+      section 5.3 Status display (PDF pages 22-23) and chapter 6
+      troubleshooting (PDF page 26); auto-resume observation after
+      supply restoration (step 5, section 5.2, PDF page 22).
+      Family-common indications only; the installed charger model is
+      unconfirmed as-built (issue #260). The charger enclosure is
+      never opened; any repair belongs to qualified service.
+inspection_sequence:
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:1
+    sequence: 1
+    responsible_actor: Skipper (human), responsible; charger status display and monitoring display, informed sources only
+    action: >-
+      Observe and record the charger state and the service-bank state:
+      charger status-display LED states and any error-menu indication
+      (equipment role battery-charger; family manual
+      document:mastervolt:chargemaster-plus-manual-10000016594:03,
+      section 5.3 Status display, PDF pages 22-23) and the
+      charge/discharge current and voltage at the shunt display
+      (equipment role measurement-service-battery, series circuit
+      diagram document:hanseyachts:h20b-7215-100-010:03 sheets 10 and
+      19). Record which instruments produced the values; the installed
+      charger model and display variant are explicit unknowns
+      (issue #260).
+    entry_criteria: >-
+      Trigger condition observed or reported; preconditions reviewed by
+      the skipper.
+    completion_criteria: >-
+      Charger indication, shunt reading, time and measurement sources
+      recorded.
+    expected_observation: >-
+      Charger not delivering (off, stand-by or AC-error indication)
+      and/or discharge current at the shunt while on the shore
+      connection; the indications are the evidence under test, not yet
+      a confirmed supply loss.
+    escalation: >-
+      If indications conflict (e.g. charger shows charging while the
+      shunt shows discharge), stop and route to the conservative
+      human-review branch; do not proceed on unresolved conflict.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:2
+    sequence: 2
+    responsible_actor: Skipper (human)
+    action: >-
+      Confirm the loss at the vessel-side supply path by observation
+      only: state of the shore-feed protection "FI/LS 32A" (2F1) in
+      the breaker box ("technic room aft prt") and the inlet
+      connection (equipment role shore-power-inlet; series circuit
+      diagram document:hanseyachts:h20b-7215-100-010:03 sheet 2). No
+      switchboard is opened and no live AC work is performed: the
+      owner's manual document:hanseyachts:owners-manual-460-en:v11
+      (Chapter 1 section 1.2.5, printed page 6, PDF page 16) prohibits
+      work on a live alternating-current system and warns of electric
+      shock at switchboards.
+    entry_criteria: Step 1 completed and recorded.
+    completion_criteria: >-
+      2F1 position and inlet connection state recorded; anomalies
+      noted explicitly.
+    expected_observation: >-
+      Either an open/tripped 2F1 (supports inlet-protection-open) or
+      an intact vessel-side path (shifts evidence toward the shore
+      side, the cable or the charger).
+    escalation: >-
+      An open protection device is a finding for human judgment:
+      re-energizing after an unexplained trip is treated as unsafe;
+      route to the conservative human-review branch / qualified
+      service.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:3
+    sequence: 3
+    responsible_actor: Skipper (human)
+    action: >-
+      Observe the shore-connecting cable and the shore side: cable
+      seating and cap at the vessel inlet, connector condition at both
+      ends, water contact, and the shore pedestal state (equipment
+      role shore-power-inlet; owner's manual
+      document:hanseyachts:owners-manual-460-en:v11 Chapter 2 section
+      1.5.2 "Shore connection", printed page 66, PDF page 76). The
+      shore-side installation is outside the model boundary — explicit
+      unknown marker: no captured document describes it. Any
+      unplugging or re-plugging is a skipper action following the
+      owner's-manual order (switch the shore connection switch off
+      first; connect aboard first, separate ashore first), not an
+      instruction of this scenario.
+    entry_criteria: Step 2 completed; vessel-side protection state recorded.
+    completion_criteria: >-
+      Cable, connector and shore-side observations recorded, including
+      any decision to involve the marina operator.
+    expected_observation: >-
+      Either a visible cable/connector fault or shore-side outage
+      (supports the respective cause) or an intact connection
+      (shifts evidence toward the isolation device or the charger).
+    escalation: >-
+      Wet, damaged or heat-marked connectors mean: do not reconnect;
+      stop and route to the conservative human-review branch /
+      qualified service.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:4
+    sequence: 4
+    responsible_actor: Skipper (human)
+    action: >-
+      Observe the galvanic-isolation device in the shore feed for
+      available indications (equipment role shore-power-inlet;
+      isolator per series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheet 2 and owner's
+      manual device list item 34, printed page 60, PDF page 70).
+      Which isolation device is installed is unconfirmed as-built
+      (issue #260) — explicit unknown marker: the applicable vendor
+      indication set (document:victron:isolation-transformer-7000w-manual:03
+      or document:whisperpower:wp-gi-3600-manual:undated) cannot be
+      selected until the installed unit is confirmed. Observation
+      only; galvanic isolation is never bypassed or defeated.
+    entry_criteria: >-
+      Steps 2-3 completed without identifying the cause.
+    completion_criteria: >-
+      Available isolation-device observations recorded, or recorded
+      statement that no indication is accessible/selectable.
+    expected_observation: >-
+      No model-backed observation is defined while the installed unit
+      is unconfirmed; any conclusion here is human judgment resting on
+      explicitly unsourced device identity.
+    escalation: >-
+      This step routes to the conservative human-review branch
+      whenever the device identity or indication meaning is unknown;
+      unknown data never becomes an assumed-good state
+      (OMSP-REFERENCE-SCENARIO-0001 section 4).
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:5
+    sequence: 5
+    responsible_actor: Skipper (human)
+    action: >-
+      If the supply is restored (shore side or protection closed by a
+      justified human decision): observe whether the charger resumes
+      charging — the family manual states the charger automatically
+      resumes operation after a temporary AC disconnection (equipment
+      roles battery-charger and measurement-service-battery; family
+      manual document:mastervolt:chargemaster-plus-manual-10000016594:03,
+      section 5.2, PDF page 22) — and confirm charging current at the
+      shunt display.
+    entry_criteria: >-
+      Supply restoration observed or decided by the skipper; steps 1-4
+      recorded.
+    completion_criteria: >-
+      Post-restoration charger state and shunt charging current
+      recorded, or recorded decision that restoration is not possible.
+    expected_observation: >-
+      Charger returns to a charging stage (bulk/absorption/float LED
+      states) and the shunt shows charging current (closes the
+      scenario as resolved) or it does not (supports
+      charger-ac-stage-failure; qualified service).
+    escalation: >-
+      Any charger fault indication or hazard sign (heat, smell, smoke)
+      means: do not intervene, stop the sequence, route to the
+      conservative human-review branch / qualified service.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:6
+    sequence: 6
+    responsible_actor: Skipper (human), sole decision authority
+    action: >-
+      While shore power remains lost, assess the consequence on the
+      derived downstream chain: the service bank is the sole source
+      for the DC consumers (equipment roles service-battery-bank,
+      dc-main-distribution and the derived consumer set including the
+      navigation lights and the electric bilge pump, 69 l/min per the
+      owner's manual document:hanseyachts:owners-manual-460-en:v11
+      Chapter 2 section 1.2.5, printed page 52). Decide load
+      prioritization and whether to use an alternative charging path
+      (engine-driven charging per
+      scenario:hanse:460:service-battery-critical-voltage:0.1.0
+      step 5); both are navigation/safety decisions reserved to the
+      skipper, not instructions of this scenario.
+    entry_criteria: >-
+      Steps 1-4 completed; supply restoration not achieved or not yet
+      decided.
+    completion_criteria: >-
+      Skipper's load and alternative-charging decisions and their
+      rationale recorded, including the effect on navigation-light
+      and bilge-pump availability.
+    expected_observation: >-
+      Discharge current at the shunt display consistent with the
+      decided consumer set.
+    escalation: >-
+      If the observed discharge is inconsistent with the decided
+      consumer set, the evidence is inconsistent: stop and route to
+      the conservative human-review branch.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:7
+    sequence: 7
+    responsible_actor: Skipper (human)
+    action: >-
+      Monitor the service-bank voltage while the loss persists
+      (equipment roles service-battery-bank and
+      measurement-service-battery). If the voltage approaches a
+      critical level, continue under
+      scenario:hanse:460:service-battery-critical-voltage:0.1.0 —
+      whose critical-low threshold is itself an explicit unknown
+      pending as-built battery-model confirmation (issue #260).
+    entry_criteria: Step 6 completed; shore supply still lost.
+    completion_criteria: >-
+      Monitoring rule recorded (which display, which interval — the
+      interval is a skipper decision; no captured document prescribes
+      one — explicit unknown marker) and any handover to the
+      critical-voltage scenario recorded.
+    expected_observation: >-
+      Bank voltage stable or declining; a declining trend routes
+      toward the critical-voltage scenario.
+    escalation: >-
+      Trigger conditions of the critical-voltage scenario observed:
+      hand over to that scenario and record the handover.
+    human_confirmation_required: true
+  - step_id: scenario-step:scenario:hanse:460:shore-power-loss:0.1.0:8
+    sequence: 8
+    responsible_actor: Skipper (human)
+    action: >-
+      Close the scenario: record the outcome class (expected /
+      degraded-but-controlled / aborted / unacceptable / unknown per
+      OMSP-REFERENCE-SCENARIO-0001 section 9), the evidence gathered
+      at each step, and every value that remained unknown (equipment
+      roles shore-power-inlet and battery-charger as the primary
+      observed elements; recording rule defined by this scenario, no
+      captured document prescribes a log format — explicit unknown
+      marker).
+    entry_criteria: >-
+      Sequence ended by cause identification, by supply restoration,
+      by handover to the critical-voltage scenario, by skipper
+      decision, or by a stop/abort condition.
+    completion_criteria: >-
+      Outcome, evidence list and open unknowns recorded.
+    expected_observation: >-
+      A closed record whose every claim carries its source or an
+      explicit unknown, consistent with the provenance rules of the
+      model package.
+    escalation: >-
+      If the closing record would contain a claim without source or
+      unknown marking, the record is incomplete: route to the
+      conservative human-review branch instead of closing.
+    human_confirmation_required: true
+safety_constraints:
+  - >-
+    230 V AC hazard: no step of this scenario authorizes work on a
+    live alternating-current system, opening switchboards or the
+    charger enclosure, or contact with shore-cable conductors; the
+    owner's manual warns of fire, explosion and electric-shock risk
+    (Chapter 1 section 1.2.5, printed page 6) and inspection here is
+    observation-only.
+  - >-
+    Swimming hazard: the owner's manual warns that swimming near a
+    boat operating on an AC electrical system can lead to severe
+    shock and death; no swimming while the AC system is in use.
+  - >-
+    Shore-cable handling follows the owner's-manual order only
+    (switch the shore connection switch off first before plugging or
+    unplugging; connect aboard first; separate ashore first; no
+    water contact of cable and connectors); this scenario never
+    instructs the handling itself.
+  - >-
+    No instruction to bypass, defeat or force any protection or
+    galvanic-isolation device (FI/LS 2F1, galvanic isolator,
+    isolation transformer) exists in this scenario, and none may be
+    derived from it; protection state changes are human decisions
+    outside this scenario's authority.
+  - >-
+    Load and alternative-charging decisions that affect navigation
+    capability (navigation lights) or bilge capability (electric
+    bilge pump, 69 l/min) are reserved to the human skipper in full
+    navigation context.
+  - >-
+    Conservative stop: at any ambiguity, conflicting evidence or
+    suspected hazard (heat, smell, smoke, wet or damaged connectors,
+    anomalous display), the sequence stops and the situation routes
+    to the accountable human; proceeding on unresolved conflict is
+    prohibited.
+  - >-
+    Advisory boundary: this scenario is reference material derived
+    from a design-family model; it is not an approved procedure,
+    carries no seaworthiness or navigation-safety claim, and approved
+    vessel instructions and the skipper's judgment always prevail
+    (OMSP-REFERENCE-SCENARIO-0001 section 14).
+related_equipment:
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:shore-power-inlet
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-refrigeration
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-navigation-lights
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-bilge-pump
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-consumer-freshwater-pump
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:protection-dc-main
+  - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:measurement-service-battery
+source_manuals:
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11
+  - document:mastervolt:chargemaster-plus-manual-10000016594:03
+  - document:victron:isolation-transformer-7000w-manual:03
+  - document:whisperpower:wp-gi-3600-manual:undated
+unacceptable_outcomes:
+  - >-
+    Any work on a live AC system, any opened switchboard or charger
+    enclosure, or any shore-cable handling outside the
+    owner's-manual order.
+  - >-
+    Any protection or galvanic-isolation device bypassed, defeated or
+    re-energized without understanding why it opened.
+  - >-
+    Swimming near the vessel while the AC system is energized.
+  - >-
+    Continued discharge until essential consumers (navigation lights,
+    bilge pump) become unavailable without a recorded human decision.
+  - >-
+    An unknown value (installed charger model, isolation-device
+    identity, display variant) silently treated as a known or safe
+    value.
+  - >-
+    Software or this scenario acting as command authority for any
+    decision.
+stop_abort_conditions:
+  - >-
+    Abort immediately on any sign of electrical hazard (heat, smell,
+    smoke, discolored insulation, wet connectors) at the inlet,
+    breaker box, isolation device or charger; do not continue
+    inspection and do not reconnect.
+  - >-
+    Stop if the shore-feed protection (2F1) has tripped and the
+    reason is unknown; re-energizing is treated as unsafe and the
+    situation routes to qualified service.
+  - >-
+    Stop if charger and shunt indications conflict and the conflict
+    cannot be resolved by observation; do not proceed on unresolved
+    conflict.
+  - >-
+    Stop at any step whose required evidence is blocked by an
+    as-built unknown (installed charger model, isolation-device
+    identity — issue #260); never substitute a guessed value.
+  - >-
+    Hand over to scenario:hanse:460:service-battery-critical-voltage:0.1.0
+    when its trigger condition is observed; the handover is recorded.
+conservative_human_review_branch: >-
+  Unknown or conflicting evidence at any step routes to the
+  accountable human skipper for conservative review (consulting the
+  marina operator, qualified service or shore support as the skipper
+  decides); the scenario never resolves such a conflict
+  automatically, and values blocked pending as-built confirmation
+  (installed charger model, isolation-device identity, display
+  variant — issue #260) remain unknowns until closed through the
+  source register, never through in-scenario assumption.
+assumptions:
+  - >-
+    The standard reference configuration applies: the shore 1 feed is
+    the standard drawing path; shore 2 and AC-generator paths are
+    provisioned options (series circuit diagram sheet 2) and are not
+    assumed present.
+  - >-
+    Affected-set derivation rule (graph-derived, not hand-listed):
+    related_equipment and the connections cited in causes[] are the
+    equipment reachable from shore-power-inlet via connection
+    instances in supply direction, plus the protection role
+    protecting a derived element and the measurement role measuring a
+    derived element; reproducible command in README.md section 9
+    (seed shore-power-inlet: 10 equipment, 7 connections).
+  - >-
+    Shared cause taxonomy: the family-level entry
+    cause:hanse:460:service-battery-critical-voltage:charge-path-shore-failure
+    is reused by identity from the WP-0085 scenario (identical id,
+    description and implicates; scenario-local evidence_requirement);
+    the scenario-specific causes refine it without re-describing it
+    (README.md section 9, shared-taxonomy note).
+unknowns:
+  - >-
+    Installed charger model within the documented family, installed
+    display variant and the installed galvanic-isolation device
+    identity (galvanic isolator alone vs. Victron or WhisperPower
+    isolation transformer) are unconfirmed as-built (issue #260); all
+    family-level citations are marked as such.
+  - >-
+    The shore-side installation (pedestal, shore-side protection,
+    connecting-power limitation) is outside the model boundary and
+    described by no captured document.
+  - >-
+    Shore-connector standard and inlet position on deck are not
+    stated by any captured source (equipment-shore-power-inlet
+    unknowns).
+  - >-
+    No captured document prescribes a monitoring interval or log
+    format for the loss condition; the recording rule is defined by
+    this scenario.
+exclusions:
+  - >-
+    Shore 2 and AC-generator option paths (provisioned option paths
+    of the series drawing, not realized in the standard reference
+    configuration) and all shore-side infrastructure beyond the
+    inlet.
+  - >-
+    Inverter role and AC consumers: the standard reference
+    configuration realizes no inverter connection instance (option
+    XH2201; README section 4), so the graph derivation excludes the
+    inverter; AC-side consumers are outside the golden-path slice
+    (golden path section 5.2).
+  - >-
+    Alternator role and engine charging path: mechanically excluded
+    by the seed derivation (unaffected by a shore-supply loss);
+    engine-driven charging enters only as a skipper decision in
+    step 6, handled by the critical-voltage scenario.
+  - >-
+    Any repair, reset or reconfiguration procedure: this scenario is
+    inspection/observation reference only.

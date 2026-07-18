@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -38,25 +39,90 @@ attributes:
         EQUIPMENT section, wording "battery charger: 35 A"; figures marked
         approximate by the source document.
   charge-profile:
-    status: unknown
-    note: >-
-      Charge profile and parameters are not established by any captured
-      source; vendor manual pending capture (source register section 4.4).
+    value: >-
+      IUoUo, automatic, 3-step+ (12 V models: charge voltage bulk 14.4 V,
+      absorption 14.25 V, float 13.25 V; adjustable; battery type
+      settings Flooded (default), GEL, AGM, Lithium-ion (MLI), constant
+      voltage)
+    provenance:
+      source_id: source:manufacturer:owner-held:mastervolt-chargemaster-plus-manual-10000016594-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Vendor manual
+        document:mastervolt:chargemaster-plus-manual-10000016594:03,
+        chapter 7.1 "Specifications 12V models" (PDF page 28). Value
+        common to both 12 V family models 12/35-3 and 12/50-3 of the
+        charger family documented in the owner-held delivery set; which
+        family model is installed is not confirmed as-built (issue #260),
+        so no model-specific value is transcribed.
   input-voltage-range:
-    status: unknown
-    note: Charger input specification is not stated by any captured source.
+    value: nominal input 120/240 V, 50/60 Hz
+    provenance:
+      source_id: source:manufacturer:owner-held:mastervolt-chargemaster-plus-manual-10000016594-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Vendor manual
+        document:mastervolt:chargemaster-plus-manual-10000016594:03,
+        chapter 7.1 "Specifications 12V models" (PDF page 28), rows
+        "Nominal input voltage 120/240V" and "Nominal input frequency
+        50/60Hz". Value common to family models 12/35-3 and 12/50-3;
+        installed model not confirmed as-built (issue #260). The series
+        circuit diagram document:hanseyachts:h20b-7215-100-010:03
+        sheet 10 shows the charger fed at 230 V.
+  standard-and-option-charger-ratings:
+    value: >-
+      35A charger standard (1xAGM); 50A charger option (2xAGM); 75A
+      charger option (6xLi-Ion)
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability; installed
+        variant unconfirmed as-built (issue #260). Extraction: sheet 10,
+        red note "35A charger standard (1xAGM) / 50A charger option
+        (2xAGM) / 75A charger option (6xLi-Ion)" with DIP-switch tables
+        "Charger 35A/50A" and "Charger 75A". Consistent with the 35 A
+        standard figure of the 2021 US specification (rated-charge-current
+        above) — corroboration, not a conflict.
 installation_location:
-  status: unknown
-  note: Charger location is not stated by any captured source.
+  value: sitting corner port, forward (per series circuit diagram zone label)
+  provenance:
+    source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+    authority_class: sourced-manufacturer
+    confidence: high
+    retrieval_date: "2026-07-16"
+    applicability: >-
+      Hanse 460 series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+      drawing, design family only, no hull applicability. Extraction:
+      sheet 10, dashed location border "sitting corner prt fwd" around
+      the charger block.
 manufacturer:
   status: unknown
   note: >-
-    The standard specification names no charger manufacturer (source
-    register section 3.3 applicability note).
+    No captured document names the installed charger's manufacturer as
+    built. The owner-held delivery set contains the Mastervolt
+    ChargeMaster Plus family manual and the series diagram places the
+    charger on a Masterbus network (sheet 54), but asserting the
+    installed unit identity requires as-built confirmation (issue #260).
 model:
   status: unknown
+  note: >-
+    Installed model within the ChargeMaster Plus family (12/35-3 vs.
+    12/50-3 per the fitted battery set) not confirmed as-built
+    (issue #260).
 serial_number:
   status: unknown
   note: Design-family reference configuration; no vessel-instance evidence.
 documents:
   - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:mastervolt:chargemaster-plus-manual-10000016594:03

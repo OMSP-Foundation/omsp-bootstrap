@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -12,9 +13,10 @@ role: >-
   Voltage/current measurement role of the golden-path slice (golden path
   section 5.1 "measurement-*": battery monitor / panel meters) observing
   the service battery bank. Measurement points are modeled as points,
-  not as a live data pipeline (golden path section 5.2). This role is
-  OMSP reference structure: no captured source states any monitoring
-  instrument.
+  not as a live data pipeline (golden path section 5.2). The series
+  measurement arrangement is transcribed from the owner-held circuit
+  diagram (WP-0093); the installed display variant remains unconfirmed
+  as-built.
 quantity:
   status: unknown
   note: >-
@@ -31,14 +33,34 @@ measurement_points:
     measures: equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank
 attributes:
   instrument-type:
-    status: unknown
-    note: >-
-      Battery monitor / panel meter identity is not established by any
-      captured source; owner-held documentation pending capture (source
-      register section 4.4).
+    value: >-
+      500 A DC shunt in the service-bank negative path ("shunt 500A
+      installed"), Masterbus-connected, with a battery temperature
+      sensor; battery voltage/shunt inputs terminate on the SIMARINE
+      SCP 220 H unit (DC panel part 4, input "battery service") with an
+      information display
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 10 ("shunt 500A installed", masterbus shunt), sheet 11
+        (temperature sensor shunt), sheet 19 (DC Panel Part 4 SIMARINE
+        SCP 220 H, "battery service" input, "Information Display"),
+        sheet 54 (masterbus overview: shunt, display). The installed
+        display variant (Simarine PICO vs. PICOone) and the as-built
+        shunt configuration are NOT asserted (issue #260); no value from
+        the Simarine Pico manual is transcribed.
   display-location:
     status: unknown
-    note: Not established by any captured source.
+    note: >-
+      The as-built display variant and its location are not confirmed
+      (Simarine PICO vs. PICOone, source register section 4.4;
+      issue #260).
   calibration-state:
     status: unknown
     note: >-
@@ -49,9 +71,14 @@ installation_location:
   note: Not established by any captured source.
 manufacturer:
   status: unknown
-  note: Not established by any captured source.
+  note: >-
+    The installed monitor/display variant is not confirmed as-built
+    (Simarine PICO vs. PICOone; shunt vendor documents pending capture,
+    source register section 4.4; issue #260).
 model:
   status: unknown
 serial_number:
   status: unknown
   note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:h20b-7215-100-010:03

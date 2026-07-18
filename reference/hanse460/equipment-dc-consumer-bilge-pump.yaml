@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -43,16 +44,62 @@ attributes:
         design family only, no hull applicability. Extraction: PDF page 4,
         wording "electric and manual bilge pump".
   rated-flow:
-    status: unknown
-    note: Pump rating is not stated by any captured source.
+    value: 69
+    unit: l/min
+    provenance:
+      source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+        (May 2024, model-generic), Chapter 2 section 1.2.5 "Bilge
+        system", printed page 52 (PDF page 62), wording "an electrical
+        bilge pump (69 l/min)"; the manual notes the performance data
+        are pump-manufacturer specifications. Design family only, no
+        hull applicability.
   supply-voltage:
     status: unknown
     note: >-
       Not separately stated for the bilge pump; the 12 V system-level
       claim is recorded on the system instance only.
+  control-arrangement:
+    value: >-
+      automatic (float switch) or manual operation via the bilge-pump
+      panel (auto/manual switch with red/green LEDs, drawing location
+      "pantry stb"); bilge-alarm buzzer in the cockpit (added at drawing
+      rev. 03, "bp alarm added")
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 22 (bilge pump 22M1, float switch 22S1, bilge pump panel,
+        buzzer "bp alarm" in "cockpit"; rev. 03 change entry). Two-mode
+        operation corroborated by owner's manual
+        document:hanseyachts:owners-manual-460-en:v11 Chapter 2 section
+        1.2.5, printed page 52 (PDF page 62).
 installation_location:
-  status: unknown
-  note: Pump location is not stated by any captured source.
+  value: >-
+    saloon under floor (series drawing zone); accessible through the
+    floor hatch of the companionway per the owner's manual
+  provenance:
+    source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+    authority_class: sourced-manufacturer
+    confidence: high
+    retrieval_date: "2026-07-16"
+    applicability: >-
+      Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+      (May 2024, model-generic), Chapter 2 section 1.2.5, printed
+      page 52 (PDF page 62), wording "The electrical bilge pump is
+      accessible through the floor hatch of the companionway"; drawing
+      zone label "saloon under floor" from series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheet 22. Design family
+      only, no hull applicability.
 manufacturer:
   status: unknown
   note: >-
@@ -65,3 +112,5 @@ serial_number:
   note: Design-family reference configuration; no vessel-instance evidence.
 documents:
   - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11

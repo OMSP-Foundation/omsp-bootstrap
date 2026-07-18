@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -24,5 +25,19 @@ media:
       with main panels".
 nominal_limits:
   branch-circuit-rating:
-    status: unknown
-    note: Branch protection and rating are not stated by any captured source.
+    value: 15
+    unit: A
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 18 (DC Panel Part 3, fuse "F16 fresh water pump 15A",
+        outlet X3.3); corroborated by owner's manual
+        document:hanseyachts:owners-manual-460-en:v11 DC-panel fuse
+        table, printed page 62 (PDF page 72), row "F16 - 15A (MIBF)
+        fresh water pump".

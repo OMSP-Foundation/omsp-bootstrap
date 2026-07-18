@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -41,8 +42,34 @@ attributes:
         EQUIPMENT section, wording "12 V and 230 V electric system with
         main panels and 230 V shore power and sockets in cabins and heads".
   system-architecture:
-    status: unknown
-    note: >-
-      Wiring architecture, circuit inventory and voltage-domain layout are
-      not established by any captured source; owner-held wiring diagrams
-      are pending capture (source register section 4.4).
+    value: >-
+      Two voltage domains per the series circuit diagram. DC 12 V: service
+      battery bank on a service busbar (main switch service, main switch
+      dc distribution aft), charged by battery charger, engine alternator
+      path and solar charger option; negative path through a 500 A shunt;
+      distribution from the busbar to a powerboard (fuse boards X8/X9/X12),
+      to the DC panel (SIMARINE SPU 303 parts 1-3 and SIMARINE SCP 220 H
+      part 4) and to a dc distribution aft. AC 230 V: shore inlet 1
+      (standard path) plus shore inlet 2 and AC generator option paths,
+      each through a breaker box (FI/LS 32 A) and galvanic isolator into
+      the AC panel (standard part 1-2; big option panel parts 1-5).
+      Charger, inverter option, solar charger, shunt, display and MPC
+      battery protection communicate on a Masterbus network.
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: medium
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03, 54 sheets);
+        series drawing, design family only, no hull applicability;
+        as-built configuration of option paths unconfirmed (issue #260).
+        Extraction: sheets 2-3 (AC shore/generator, breaker boxes 2F1-2F3
+        FI/LS 32 A), sheet 10 (DC busbar, charger, shunt, main switches
+        10S1/10S2), sheets 12-15 (powerboard), sheets 16-19 (DC panel
+        SIMARINE SPU 303 / SCP 220 H), sheet 54 (masterbus overview).
+        Summary description of the drawn architecture, not a verbatim
+        single-sheet quotation; corroborated by the owner's manual
+        document:hanseyachts:owners-manual-460-en:v11 Chapter 2
+        section 1.5 (printed pp. 57-66).

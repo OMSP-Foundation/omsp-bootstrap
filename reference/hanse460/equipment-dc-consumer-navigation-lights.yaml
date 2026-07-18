@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -41,13 +42,47 @@ attributes:
       system-level claim is recorded on the system instance only.
   power-draw:
     status: unknown
-    note: Electrical power draw is not stated by any captured source.
+    note: >-
+      Electrical power draw is not transcribed: per-light consumption
+      figures exist only in the Aqua Signal vendor manuals, and the
+      installed light series/positions are not confirmed as-built
+      (issue #260).
+  circuit-inventory:
+    value: >-
+      four switched navigation-light circuit groups on DC panel part 2:
+      navi lts 1/2 (fuse F23, 5 A), tricolor lts (F22, 5 A), steaming
+      lts (F21, 5 A), anchor lts (F20, 5 A); light functions per the
+      owner's manual: side, stern, masthead and anchor lights in fixed
+      positions
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability; installed
+        light series/positions not confirmed as-built (issue #260).
+        Extraction: sheet 17 (DC Panel Part 2, fuse designators
+        F20-F23 with 5A ratings) and sheet 35 (nav lts wiring via
+        dashboard transfer point). Fuse assignments corroborated by
+        owner's manual document:hanseyachts:owners-manual-460-en:v11
+        DC-panel fuse table, printed page 62 (PDF page 72); light
+        functions from the same manual, Chapter 2 section 1.5.3,
+        printed page 66 (PDF page 76).
 installation_location:
   status: unknown
-  note: Light positions are not stated by any captured source.
+  note: >-
+    Installed light positions are not confirmed as-built (issue #260);
+    the owner's manual states only that all navigation lights are in
+    fixed positions.
 manufacturer:
   status: unknown
-  note: The standard specification names no navigation-light manufacturer.
+  note: >-
+    Installed navigation-light series is not confirmed as-built (Aqua
+    Signal manuals are in the delivery set but series/positions require
+    as-built confirmation, source register section 4.4; issue #260).
 model:
   status: unknown
 serial_number:
@@ -55,3 +90,5 @@ serial_number:
   note: Design-family reference configuration; no vessel-instance evidence.
 documents:
   - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11

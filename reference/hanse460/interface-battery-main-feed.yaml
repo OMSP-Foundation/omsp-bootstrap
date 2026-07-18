@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -24,5 +25,18 @@ media:
       with main panels".
 nominal_limits:
   max-continuous-load:
-    status: unknown
-    note: Main-feed load limit is not stated by any captured source.
+    value: protected at 250 A (main service-batteries strip fuse with main switch)
+    provenance:
+      source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+        (May 2024, model-generic), "Overview fuses" list item 4, printed
+        page 59 (PDF page 69): "250 A (SF) main service-batteries (main
+        switch)"; same rating printed on the series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 sheet 10 (fuse 10F7
+        "service 250A"). The value is the protection rating of the feed,
+        not a measured load capacity. Design family only, no hull
+        applicability.

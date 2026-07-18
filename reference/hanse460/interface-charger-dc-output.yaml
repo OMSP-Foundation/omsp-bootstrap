@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -11,11 +12,18 @@ direction: source-to-target
 source_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:battery-charger:dc-out
 target_port: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank:charge-in
 media:
-  status: unknown
-  note: >-
-    Charger DC output characteristics (voltage, profile) are not stated
-    by any captured source; only the 35 A rating is recorded on the
-    charger role.
+  value: 12 V DC charging power
+  provenance:
+    source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+    authority_class: sourced-manufacturer
+    confidence: high
+    retrieval_date: "2026-07-16"
+    applicability: >-
+      Hanse 460 series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+      drawing, design family only, no hull applicability. Extraction:
+      sheet 10 — charger block marked "230V" on the AC side and "12V"
+      with "+ 12V / - 12V" terminals on the DC output side.
 nominal_limits:
   max-charge-current:
     status: unknown

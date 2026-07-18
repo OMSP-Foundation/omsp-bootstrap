@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -24,5 +25,20 @@ media:
       with main panels".
 nominal_limits:
   branch-circuit-rating:
-    status: unknown
-    note: Branch protection and rating are not stated by any captured source.
+    value: 10
+    unit: A
+    provenance:
+      source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+        (May 2024, model-generic), "Fuse assignment Powerboard" table,
+        printed page 58 (PDF page 68), row "X9.1.3 bilge pump 10A
+        (RBF)"; design family only, no hull applicability. The as-drawn
+        feed runs from the powerboard through the bilge-pump panel
+        (series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 sheets 13 and 22); a
+        separate "bilge pump with hose" circuit (DC panel, F11 20 A) is
+        outside this modeled branch.

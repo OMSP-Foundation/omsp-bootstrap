@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -52,17 +53,74 @@ attributes:
         EQUIPMENT section, wording "12 V and 230 V electric system with
         main panels".
   bus-topology:
-    status: unknown
-    note: >-
-      Bus topology and circuit inventory are not established by any
-      captured source; owner-held wiring diagrams pending capture (source
-      register section 4.4).
+    value: >-
+      service busbar fed by the service battery bank; fused main paths
+      off the busbar: service main 250 A with main switch (10F7/10S1),
+      dc distribution aft 300 A with main switch (10F9/10S2), powerboard
+      permanent 100 A (10F5), charge relay service 125 A (10F4), solar
+      charger 80 A (10F6); the powerboard carries fuse boards X8/X9/X12
+      for high-power and relay-switched consumers; the DC panel carries
+      the switched consumer circuits (interior lighting, refrigeration,
+      navigation electronics, pumps, navigation lights, maneuvering,
+      bathing platform) on SIMARINE SPU 303 units (parts 1-3) with a
+      SIMARINE SCP 220 H monitoring unit (part 4)
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: medium
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 10 (busbar and fuse/main-switch designators), sheets 12-15
+        (powerboard parts 1-4), sheets 16-19 (DC panel parts 1-4).
+        Summary of the drawn topology, not a verbatim single-sheet
+        quotation; circuit list corroborated by the owner's manual
+        document:hanseyachts:owners-manual-460-en:v11 Chapter 2
+        section 1.5.1 (printed pp. 61-62, PDF pp. 71-72).
+  dc-panel-unit-identity:
+    value: >-
+      DC panel parts 1-3: SIMARINE SPU 303; DC panel part 4: SIMARINE
+      SCP 220 H (tank/battery monitoring inputs)
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability; as-built
+        panel fitment unconfirmed (issue #260). Extraction: sheets 16-18
+        header "DC Panel, Part 1/2/3 — SIMARINE SPU 303" and sheet 19
+        header "DC Panel, Part 4 — SIMARINE SCP 220 H".
 installation_location:
-  status: unknown
-  note: Panel location is not stated by any captured source.
+  value: >-
+    saloon, port side, behind/in the seat bench (power unit and
+    powerboard); drawing zone labels: busbar "sitting corner prt middle",
+    powerboard and DC panel "sitting corner prt aft"
+  provenance:
+    source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+    authority_class: sourced-manufacturer
+    confidence: high
+    retrieval_date: "2026-07-16"
+    applicability: >-
+      Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+      (May 2024, model-generic), Chapter 2 section 1.5.1, printed page 63
+      (PDF page 73), wording "In the saloon on the port side behind the
+      seat bench is the power unit and the power board"; drawing zone
+      labels from series circuit diagram
+      document:hanseyachts:h20b-7215-100-010:03 sheets 10, 12-19. Design
+      family only, no hull applicability.
 manufacturer:
   status: unknown
-  note: The standard specification names no panel manufacturer.
+  note: >-
+    The distribution role spans busbar, powerboard and DC panel
+    assemblies; no captured document names a single manufacturer for the
+    role as built (DC-panel unit identity is recorded as an attribute;
+    the Wuerth DC-panel vendor document remains pending capture, source
+    register section 4.4).
 model:
   status: unknown
 serial_number:
@@ -70,3 +128,5 @@ serial_number:
   note: Design-family reference configuration; no vessel-instance evidence.
 documents:
   - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11

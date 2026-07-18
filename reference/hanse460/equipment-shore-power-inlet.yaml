@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -39,19 +40,64 @@ attributes:
         design family only, no hull applicability. Extraction: PDF page 3,
         EQUIPMENT section, wording "230 V shore power".
   inlet-protection-rating:
-    status: unknown
-    note: >-
-      Inlet protection device and rating are not established by any
-      captured source (golden path section 5.1 marks them to-be-sourced).
+    value: >-
+      shore inlet marked 230 V / 32 A; protected by a combined
+      RCD/breaker "FI/LS 32A" (2F1) in the breaker box, with a 32 A
+      galvanic isolator in the shore-1 feed; the owner's manual states
+      the shore connection is fuse-protected with a GFCI device
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 2 — inlet "shore 1 230V 32A", breaker box "2F1 FI/LS 32A",
+        isolator symbol "32A shore 1". Corroborated by owner's manual
+        document:hanseyachts:owners-manual-460-en:v11 Chapter 2 section
+        1.5.2 "Shore connection", printed page 66 (PDF page 76), and
+        device list item 34 "galvanic isolator", printed page 60
+        (PDF page 70).
+  provisioned-circuits:
+    value: >-
+      shore 1 feed (standard drawing path, inlet 230 V / 32 A, breaker
+      box 2F1 FI/LS 32 A, 32 A isolator); shore 2 option path (inlet
+      230 V / 32 A, breaker box 2F2 FI/LS 32 A, 32 A isolator); AC
+      generator option path (2G1 generator 8000i/10000i with converter,
+      breaker box 2F3 LS 32 A); breaker boxes located "technic room
+      aft prt"
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: medium
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability; which of the
+        provisioned paths beyond shore 1 is fitted on any built vessel is
+        not confirmed as-built (issue #260). Extraction: sheet 2 (shore 1
+        / shore 2 inlets "230V 32A", breaker boxes "2F1 FI/LS 32A",
+        "2F2 FI/LS 32A", "2F3 LS 32A", isolator symbols "32A shore 1/2",
+        generator "2G1 8000i/10000i", location label "technic room
+        aft prt").
   connector-standard:
     status: unknown
-    note: Shore-connector standard is not stated by any captured source.
+    note: >-
+      Shore-connector standard is not stated by any captured source;
+      the owner's manual describes only a "compatible shore-connecting
+      line" without a connector standard.
 installation_location:
   status: unknown
-  note: Inlet location is not stated by any captured source.
+  note: >-
+    The inlet position on deck/hull is not stated by any captured
+    source; the series diagram locates only the breaker boxes ("technic
+    room aft prt").
 manufacturer:
   status: unknown
-  note: The standard specification names no manufacturer for this item.
+  note: The captured documents name no inlet manufacturer.
 model:
   status: unknown
 serial_number:
@@ -59,3 +105,5 @@ serial_number:
   note: Design-family reference configuration; no vessel-instance evidence.
 documents:
   - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11

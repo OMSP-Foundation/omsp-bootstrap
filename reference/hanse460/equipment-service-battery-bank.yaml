@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -17,9 +18,10 @@ role: >-
 quantity:
   status: unknown
   note: >-
-    The number of batteries in the service bank is not stated; the source
-    describes the whole-vessel battery set only (see
-    vessel-battery-set-composition).
+    The battery count depends on the fitted variant (1 or 2 AGM, or 6
+    Li-Ion per the series circuit diagram, see service-bank-capacity);
+    the installed as-built bank composition is not confirmed
+    (issue #260), so no single count is asserted.
 ports:
   - id: port:equipment:configuration:vessel-design:hanse:460:reference-0.1.0:service-battery-bank:charge-in
     concept: OMSP-CONCEPT-PORT
@@ -56,11 +58,46 @@ attributes:
         between service and other functions; figures marked approximate by
         the source document.
   service-bank-capacity:
-    status: unknown
-    note: >-
-      The captured source states the vessel battery set (1x 90 Ah +
-      1x 160 Ah) without attributing capacities to the service bank;
-      entering an allocation would be an unsourced inference.
+    value: >-
+      standard: 1x AGM 160 Ah (11G1); option XH1001: 2x AGM 160 Ah
+      (11G1 + 11G2); option XH1005: 6x Li-Ion 105 Ah (11G3-11G8)
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 11 "service batterys" — battery symbols labeled "11G1 AGM
+        160Ah" (standard), "11G2 AGM 160Ah option XH1001 2xAGM" and
+        "11G3..11G8 Li-Ion 105Ah option XH1005 6xLi-Ion". This resolves
+        the service-side allocation of the specification battery set: the
+        90 Ah battery is the engine starter battery (sheet 20, 20G2
+        "90Ah", outside this slice). Which variant is installed on any
+        built vessel is not confirmed as-built (issue #260); no value
+        from the Lifos battery manual is transcribed.
+  bank-topology:
+    value: >-
+      single service bank on the service busbar; all bank variants connect
+      through common positive/negative battery links with the negative
+      path through a 500 A shunt; battery temperature sensors (drawing
+      symbols "MASTERVOLT battery temperature sensor" for charger,
+      inverter and shunt) at the bank; drawing note: "All positive
+      and negative battery wires must have the same length and must not
+      be shortened! With shunt!"
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 11 (bank wiring, red warning note, temperature sensors)
+        and sheet 10 (busbar, "shunt 500A installed", masterbus shunt).
   nominal-voltage:
     status: unknown
     note: >-
@@ -73,17 +110,35 @@ attributes:
       general knowledge (golden path section 8); vendor manual pending
       capture (source register section 4.4).
 installation_location:
-  status: unknown
-  note: Battery compartment location is not stated by any captured source.
+  value: saloon, under the seat bench on port side
+  provenance:
+    source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+    authority_class: sourced-manufacturer
+    confidence: high
+    retrieval_date: "2026-07-16"
+    applicability: >-
+      Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+      (May 2024, model-generic); design family only, no hull
+      applicability. Extraction: Chapter 2 section 1.5.1 "Batteries",
+      printed page 63 (PDF page 73), wording "the service batteries are
+      in the saloon under the seat bench on port side".
 manufacturer:
   status: unknown
   note: >-
-    The standard specification names no battery manufacturer (source
-    register section 3.3 applicability note).
+    No captured document establishes the installed service-battery
+    manufacturer for a built vessel; the vendor manuals in the owner-held
+    delivery set (Lifos) are not transcribed pending as-built
+    confirmation of the installed battery model (issue #260).
 model:
   status: unknown
+  note: >-
+    Installed battery model unconfirmed as-built (Lifos 105 vs. Lifos Go
+    105Ah, source register section 4.4; issue #260); no value from the
+    Lifos manual is transcribed.
 serial_number:
   status: unknown
   note: Design-family reference configuration; no vessel-instance evidence.
 documents:
   - document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11

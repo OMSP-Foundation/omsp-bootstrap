@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -12,12 +13,15 @@ role: >-
   Protection role of the golden-path slice (golden path section 5.1
   "protection-*": fuses, breakers, main battery switches) covering the
   modeled DC path from the service battery bank into the main DC
-  distribution. This role is OMSP reference structure: no captured
-  source states any protection device, rating or location. Nothing in
-  this model is an instruction to operate or bypass protection devices.
+  distribution. Device inventory and ratings are transcribed from the
+  owner-held series documents (WP-0093). Nothing in this model is an
+  instruction to operate or bypass protection devices.
 quantity:
   status: unknown
-  note: Protection device inventory is not stated by any captured source.
+  note: >-
+    The series device inventory is recorded in the device-inventory
+    attribute; the as-built device count depends on fitted options and
+    is not confirmed for any built vessel (issue #260).
 implements:
   - OMSP-CONCEPT-PROTECTION
 protects:
@@ -25,22 +29,83 @@ protects:
   - equipment:configuration:vessel-design:hanse:460:reference-0.1.0:dc-main-distribution
 attributes:
   device-inventory:
-    status: unknown
-    note: >-
-      Fuse, breaker and main-battery-switch inventory is not established
-      by any captured source; owner-held wiring diagrams pending capture
-      (source register section 4.4).
+    value: >-
+      service-side devices per the series circuit diagram, sheet 10:
+      main switch service (10S1), main switch dc distribution aft (10S2),
+      strip fuses 10F1-10F9 (charger supply, mac+ 1/2, charge mate pro,
+      charge relay service, powerboard permanent, solar charger, service
+      main, battery combiner control, dc distribution aft), 500 A
+      latching relay with MPC battery-protection controller, battery
+      combiner (10K1, not applicable with Li-Ion batteries); downstream
+      branch protection on the powerboard (strip/blade fuse boards
+      X8/X9/X12) and DC panel power unit (blade fuses F1-F31)
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 10 (device designators 10S1/10S2, 10F1-10F9, latching
+        relay 500A, MPC, 10K1), sheets 12-15 (powerboard fuse boards),
+        sheets 16-19 (DC panel). Downstream fuse-board inventory
+        corroborated by owner's manual
+        document:hanseyachts:owners-manual-460-en:v11 fuse tables,
+        printed pp. 58-59, 62 (PDF pp. 68-69, 72).
   ratings:
-    status: unknown
-    note: Protection ratings are not stated by any captured source.
+    value: >-
+      main service batteries (main switch) 250 A; dc distribution aft
+      300 A; service batteries permanent+ 100 A; charge relay service
+      (charger wire service-engine battery) 125 A; mac plus 100 A;
+      charge mate pro relay 40 A; solar charger 80 A; charger supply
+      40 A standard / 63 A (2xAGM) / 80 A (Li-Ion); inverter/charger
+      combination 250 A; battery combiner control fuse 3 A
+    provenance:
+      source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+        (May 2024, model-generic), "Overview fuses" list, printed page 59
+        (PDF page 69), items 4-12; design family only, no hull
+        applicability. Identical ratings printed on the series circuit
+        diagram document:hanseyachts:h20b-7215-100-010:03 sheet 10
+        (10F1-10F9 designators) — the two documents corroborate each
+        other; no conflict.
 installation_location:
-  status: unknown
-  note: Device locations are not stated by any captured source.
+  value: >-
+    main fuses in the seat bench in the saloon on port side, in the
+    forward cabin under the bench and in the port aft cabin under the
+    bench; service battery switch and dc-stern-distribution main switch
+    in the seat bench in the saloon on port side (drawing zone: "storage
+    compartment sitting corner prt")
+  provenance:
+    source_id: source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16
+    authority_class: sourced-manufacturer
+    confidence: high
+    retrieval_date: "2026-07-16"
+    applicability: >-
+      Owner's Manual document:hanseyachts:owners-manual-460-en:v11
+      (May 2024, model-generic), Chapter 2 section 1.5, printed page 57
+      (PDF page 67) and section 1.5.1 "Battery main switch", printed
+      page 64 (PDF page 74); drawing zone label from series circuit
+      diagram document:hanseyachts:h20b-7215-100-010:03 sheet 10. Design
+      family only, no hull applicability.
 manufacturer:
   status: unknown
-  note: Not established by any captured source.
+  note: >-
+    No captured document names the protection-device manufacturers as
+    built (owner's manual fuse tables use generic strip/blade fuse
+    classes; a Blue Sea circuit breaker is named only for the
+    out-of-slice bathing-platform circuit).
 model:
   status: unknown
 serial_number:
   status: unknown
   note: Design-family reference configuration; no vessel-instance evidence.
+documents:
+  - document:hanseyachts:h20b-7215-100-010:03
+  - document:hanseyachts:owners-manual-460-en:v11

@@ -1,18 +1,19 @@
 ---
 Artifact-ID: OMSP-REFERENCE-HANSE460-ELECTRICAL-0001
 Title: Hanse 460 Electrical-Slice Reference Model
-Version: 0.1.1
+Version: 0.2.0
 Status: Draft
 Owner: toss-cengiz
-Baseline: Sprint-8
+Baseline: Sprint-9
 Classification: Public
-Related-Issue: WP-0082 / #203
+Related-Issue: WP-0093 / #258 (value transcription; model created by WP-0082 / #203)
 Depends-On:
   - OMSP-SCHEMA-MARITIME-0001
   - OMSP-REFERENCE-SOURCE-0001
 Traceability:
   - ISSUE-203
   - ISSUE-205
+  - ISSUE-258
   - EPIC-172
   - OMSP-PLANNING-GOLDEN-PATH-0001
   - OMSP-PLANNING-REBASELINE-0001
@@ -47,20 +48,32 @@ families permitted by golden path §5.1 (this slice: `electrical-power`).
 Every value in this model is either sourced or an explicit
 `{status: unknown}` marker (`OMSP-PLANNING-GOLDEN-PATH-0001` §4.3, made
 mechanical by `OMSP-SCHEMA-MARITIME-0001`). All sourced values resolve
-to a single register entry of
-`reference/HANSE_460_SOURCE_REGISTER.md` **v0.2.0**:
+to register entries of `reference/HANSE_460_SOURCE_REGISTER.md`
+**v0.3.0**:
 
 - `source:secondary:newwaveyachts:hanse-460-spec-pricelist-2021-11-12:2026-07-15`
-  (class `sourced-secondary`, confidence `medium`, applicability
-  "US-market standard specification valid from 2021.11.12; design family
-  only, no hull applicability").
+  (class `sourced-secondary`, confidence `medium`) — the WP-0082
+  baseline evidence; its values are retained unchanged;
+- `source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16`
+  (series circuit diagram H20B-7215-100-010 rev. 03, 54 sheets),
+- `source:manufacturer:owner-held:owners-manual-460-en-v11:2026-07-16`
+  (Owner's Manual EN V11, May 2024), and
+- `source:manufacturer:owner-held:mastervolt-chargemaster-plus-manual-10000016594-03:2026-07-16`
+  (ChargeMaster Plus family manual; family-common values only) —
+  the WP-0093 / #258 value transcription at class
+  `sourced-manufacturer`, per the register §4.5 closure paths.
 
-Document references use the register §7 mapping row
-`document:hanseyachts:hanse-460-specification-pricelist-us:2021-11-12`;
-no inaccessible source (register §4.3) is cited. No electrical value
-(voltage threshold, capacity allocation, protection rating, charge
-parameter, conductor specification) was entered from memory; everything
-the register does not support is an explicit unknown.
+Document references resolve through register §7; no inaccessible
+source (register §4.3) is cited. Every WP-0093 provenance block names
+its `document:` identity and extraction location (sheet or page) in the
+`applicability` field. No electrical value was entered from memory;
+everything the captured documents do not support — including every
+group blocked by the as-built confirmation preconditions of issue #258
+(service-battery model/cells, MultiPlus inverter values, isolation
+transformer, hull identity, Simarine Pico variant/shunt configuration,
+Aqua Signal installed series/positions; follow-up issue #260) — remains
+an explicit unknown. No authority-class promotion was performed
+(`verified-*` is absent from the package).
 
 ## 3. Role-to-file mapping (golden path §5.1 — 100% coverage)
 
@@ -89,12 +102,14 @@ freshwater pump. The candidate items "navigation instruments" and
 navigation instruments only as optional vendor equipment (option
 package, as-built unknown) and contains no cabin-lighting claim.
 
-**Protection and measurement roles.** No captured source states any
-protection device, rating, location or monitoring instrument; both
-roles are OMSP reference structure (authority class `reference` is
-allowed for structure, golden path §4.1) with all values explicitly
-unknown. Finer decomposition awaits the owner-held wiring diagrams
-(register §4.4).
+**Protection and measurement roles.** Since WP-0093, both roles carry
+transcribed series data: the protection role records the sheet-10
+device inventory and the fuse-rating list corroborated by the owner's
+manual "Overview fuses" page, and the measurement role records the
+500 A shunt / SCP 220 H arrangement of the series drawing. The
+installed display variant (Simarine PICO vs. PICOone), shunt
+configuration and all as-built device identities remain explicit
+unknowns (issue #260).
 
 ## 4. Other model files
 
@@ -133,57 +148,86 @@ cd reference/hanse460 && for f in *.yaml; do echo "$f: $(grep -c 'status: unknow
 
 | File | Unknowns |
 | --- | --- |
-| `connection-alternator-charge-feed.yaml` | 1 |
-| `connection-battery-main-feed.yaml` | 1 |
-| `connection-charger-dc-output.yaml` | 1 |
-| `connection-dc-feed-bilge-pump.yaml` | 1 |
-| `connection-dc-feed-freshwater-pump.yaml` | 1 |
-| `connection-dc-feed-navigation-lights.yaml` | 1 |
-| `connection-dc-feed-refrigeration.yaml` | 1 |
-| `connection-shore-power-feed.yaml` | 1 |
-| `equipment-alternator-charging.yaml` | 7 |
-| `equipment-battery-charger.yaml` | 7 |
-| `equipment-dc-consumer-bilge-pump.yaml` | 6 |
+| `connection-alternator-charge-feed.yaml` | 0 |
+| `connection-battery-main-feed.yaml` | 0 |
+| `connection-charger-dc-output.yaml` | 0 |
+| `connection-dc-feed-bilge-pump.yaml` | 0 |
+| `connection-dc-feed-freshwater-pump.yaml` | 0 |
+| `connection-dc-feed-navigation-lights.yaml` | 0 |
+| `connection-dc-feed-refrigeration.yaml` | 0 |
+| `connection-shore-power-feed.yaml` | 0 |
+| `equipment-alternator-charging.yaml` | 4 |
+| `equipment-battery-charger.yaml` | 4 |
+| `equipment-dc-consumer-bilge-pump.yaml` | 4 |
 | `equipment-dc-consumer-freshwater-pump.yaml` | 6 |
 | `equipment-dc-consumer-navigation-lights.yaml` | 7 |
 | `equipment-dc-consumer-refrigeration.yaml` | 4 |
-| `equipment-dc-main-distribution.yaml` | 6 |
+| `equipment-dc-main-distribution.yaml` | 4 |
 | `equipment-inverter.yaml` | 6 |
-| `equipment-measurement-service-battery.yaml` | 8 |
-| `equipment-protection-dc-main.yaml` | 7 |
-| `equipment-service-battery-bank.yaml` | 8 |
-| `equipment-shore-power-inlet.yaml` | 7 |
-| `interface-alternator-charge-feed.yaml` | 2 |
-| `interface-battery-main-feed.yaml` | 1 |
-| `interface-charger-dc-output.yaml` | 2 |
-| `interface-dc-feed-bilge-pump.yaml` | 1 |
-| `interface-dc-feed-freshwater-pump.yaml` | 1 |
-| `interface-dc-feed-navigation-lights.yaml` | 1 |
-| `interface-dc-feed-refrigeration.yaml` | 1 |
+| `equipment-measurement-service-battery.yaml` | 7 |
+| `equipment-protection-dc-main.yaml` | 4 |
+| `equipment-service-battery-bank.yaml` | 6 |
+| `equipment-shore-power-inlet.yaml` | 6 |
+| `interface-alternator-charge-feed.yaml` | 1 |
+| `interface-battery-main-feed.yaml` | 0 |
+| `interface-charger-dc-output.yaml` | 1 |
+| `interface-dc-feed-bilge-pump.yaml` | 0 |
+| `interface-dc-feed-freshwater-pump.yaml` | 0 |
+| `interface-dc-feed-navigation-lights.yaml` | 0 |
+| `interface-dc-feed-refrigeration.yaml` | 0 |
 | `interface-inverter-dc-feed.yaml` | 1 |
-| `interface-shore-power-feed.yaml` | 1 |
-| `system-electrical.yaml` | 1 |
-| **Total** | **99** |
+| `interface-shore-power-feed.yaml` | 0 |
+| `system-electrical.yaml` | 0 |
+| **Total** | **65** |
 
-The high unknown count is the intended, honest state of the model: the
-owner-held document set — the primary evidence base for this slice — is
-pending capture (register §4.4/§8), and unknowns are first-class data,
-never hidden (golden path §10.2 assumption 1).
+WP-0093 / #258 transcribed the owner-held document set captured by
+register v0.3.0 into the model: **34 of the 99** WP-0082 unknowns were
+closed at class `sourced-manufacturer` (41 new sourced values in total,
+including 7 new attributes such as bank topology, protection inventory
+and circuit inventory). Per unknown group:
+
+- **Closed (34):** system architecture (1); service-bank capacity and
+  location (2); charger profile, input range and location (3);
+  DC-distribution topology and location (2); protection inventory,
+  ratings and locations (3); measurement instrument type (1);
+  alternator presence, rating and location (3); shore-inlet protection
+  rating (1); bilge-pump flow rating and location (2); all eight
+  connection conductor specifications (8); eight interface limits/media
+  (8).
+- **Blocked, deliberately still unknown (per issue #258 preconditions,
+  follow-up #260):** service-battery model/manufacturer/bank
+  composition (Lifos 105 vs. Go); every MultiPlus/inverter value
+  (`equipment-inverter.yaml` unchanged, 6 unknowns); isolation
+  transformer values; hull identity (all applicability statements stay
+  design-family); Simarine Pico variant/shunt configuration and display
+  location; Aqua Signal installed light series/positions/power draw.
+- **Otherwise open:** values no captured document states (e.g.
+  freshwater-pump rating, connector standard, calibration state,
+  regulation type, serial numbers).
+
+The remaining unknown count is the honest state of the evidence:
+unknowns are first-class data, never hidden (golden path §10.2
+assumption 1), and closing the blocked groups requires the accountable
+maintainer's as-built confirmations (register §4.4/§5, issue #260).
 
 ## 6. Conflicting-claims record
 
 Schema contract v0.2.0 (`OMSP-SCHEMA-MARITIME-0001` §4/§7) provides the
 `claims[]` construct for representing conflicting source values side by
-side. **No conflicting electrical claims exist in source register
-v0.2.0**: the register's §3.3 conflict assessment records only the
-displacement comparison (consistent) and the sail-area comparison
-(differing sail-plan basis, not a numeric contradiction) — neither is
-electrical, and the electrical slice draws on a single register entry.
-This model therefore contains no `claims[]` instance; the construct is
-exercised by the permanent schema fixtures
-(`tests/schemas/positive/equipment-conflicting-claims.yaml`, negative
-N12). When future captures (register §4.4) produce conflicting
-electrical claims, they must be modeled side by side with this
+side. **The WP-0093 transcription produced no electrical conflict**:
+every owner-held value that overlaps an existing `sourced-secondary`
+claim corroborates it (charger 35 A standard rating, 12 V/230 V system
+claims, AGM standard battery set — see register §3.4 for the
+register-level assessment), so no existing value was removed or
+converted, and the register §3.4 conflicts (fuel tank, sail areas) are
+outside this electrical slice. This model therefore still contains no
+`claims[]` instance; the construct is exercised by the permanent schema
+fixtures (`tests/schemas/positive/equipment-conflicting-claims.yaml`,
+negative N12). When future captures produce conflicting electrical
+claims — e.g. resolving the inverter-identity discrepancy noted in
+issue #260 (circuit diagram sheet 3 names a Mastervolt Combi Master
+12/3000 option; the archived vendor manual is a Victron MultiPlus
+Compact 120 V edition) — they must be modeled side by side with this
 construct, never silently resolved (register §6).
 
 ## 7. Validation

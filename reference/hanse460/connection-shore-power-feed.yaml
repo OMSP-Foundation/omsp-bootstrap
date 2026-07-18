@@ -1,6 +1,7 @@
 # Hanse 460 electrical-slice reference model (WP-0082 / #203; golden path
-# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1). Sourced values resolve to
-# reference/HANSE_460_SOURCE_REGISTER.md v0.2.0; unknowns are explicit.
+# OMSP-PLANNING-GOLDEN-PATH-0001 §5.1; owner-held value transcription
+# WP-0093 / #258). Sourced values resolve to
+# reference/HANSE_460_SOURCE_REGISTER.md v0.3.0; unknowns are explicit.
 # Advisory reference data only — not an operational instruction; no
 # certification, compliance or seaworthiness claim.
 schema_version: "0.2.0"
@@ -13,8 +14,23 @@ belongs_to: configuration:vessel-design:hanse:460:reference-0.1.0
 name: Shore-power feed line (inlet to charger)
 attributes:
   conductor-specification:
-    status: unknown
-    note: >-
-      Conductor cross-section, length, routing and branch protection are
-      not stated by any captured source; owner-held wiring diagrams
-      pending capture (source register section 4.4).
+    value: >-
+      shore-1 feed L/N/PE in brown/blue/green-yellow, 6.0 mm2 (harness
+      wires H20B-7220-849-010 and -849-020); charger AC leads
+      brown/blue/green-yellow 2.5 mm2 (H20B-7220-810-020); path runs
+      from the inlet through the breaker box (2F1 FI/LS 32 A, "technic
+      room aft prt") and AC panel to the charger
+    provenance:
+      source_id: source:manufacturer:owner-held:h20b-7215-100-010-03:2026-07-16
+      authority_class: sourced-manufacturer
+      confidence: high
+      retrieval_date: "2026-07-16"
+      applicability: >-
+        Hanse 460 series circuit diagram
+        document:hanseyachts:h20b-7215-100-010:03 (rev. 03); series
+        drawing, design family only, no hull applicability. Extraction:
+        sheet 2 (shore-1 wires "br 6,0 / bl 6,0 / gnye 6,0", breaker
+        box), sheets 3 and 10 (charger AC wires H20B-7220-810-020
+        "br 2,5 / bl 2,5 / gnye 2,5"). Conductor lengths and physical
+        routing are on the wiring-harness drawings and are not
+        transcribed here.
